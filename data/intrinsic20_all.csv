@@ -1,0 +1,500 @@
+symbol,name,sector,cmp,intrinsicValue,dcfPerShare,weightedDcfPerShare,relativeValue,upside,marginOfSafety,mosZone,verdict,wacc,costOfEquity,beta,dcfBear,dcfBull
+TATAINVEST,Tata Investment Corporation Limited,Financial Services,621.7,6797032.71,11168017.96,13593352.39,713.04,1093197.8,100.0,Strong Buy,Undervalued,10.0,10.0,0.5,1756471.65,30280901.98
+CREDITACC,CreditAccess Grameen Limited,Financial Services,1160.9,783886.26,1250366.13,1566917.18,855.34,67424.0,99.9,Strong Buy,Undervalued,6.8,10.0,0.5,243586.1,3523350.36
+ICICIPRULI,ICICI Prudential Life Insurance Company Limited,Financial Services,583.75,126333.28,164612.67,252178.71,487.86,21541.7,99.5,Strong Buy,Undervalued,9.8,10.0,0.5,0.0,679489.5
+POONAWALLA,Poonawalla Fincorp Limited,Financial Services,408.35,56260.06,93956.58,112225.45,294.67,13677.4,99.3,Strong Buy,Undervalued,6.7,10.0,0.5,24518.83,236469.79
+CHOLAHLDNG,Cholamandalam Financial Holdings Limited,Financial Services,1553.9,116314.68,359079.29,231661.55,967.82,7385.3,98.7,Strong Buy,Undervalued,4.6,10.0,0.5,69473.67,139013.94
+IREDA,Indian Renewable Energy Development Agency Limited,Financial Services,114.85,4765.81,6813.86,9464.17,67.45,4049.6,97.6,Strong Buy,Undervalued,5.6,10.0,0.5,2183.46,22045.49
+HUDCO,Housing and Urban Development Corporation Limited,Financial Services,172.7,6613.62,9330.17,13150.8,76.44,3729.5,97.4,Strong Buy,Undervalued,5.5,11.1,0.68,3428.59,30514.27
+PFC,Power Finance Corporation Limited,Financial Services,405.6,14604.63,20500.43,28865.42,343.84,3500.7,97.2,Strong Buy,Undervalued,5.5,10.6,0.6,7242.49,67218.31
+LLOYDSME,Lloyds Metals and Energy Limited,Basic Materials,1140.8,37884.25,70104.42,74777.15,991.35,3220.8,97.0,Strong Buy,Undervalued,9.3,10.0,0.5,21357.56,137542.21
+MUTHOOTFIN,Muthoot Finance Limited,Financial Services,3333.2,87118.62,156561.32,171756.42,2480.82,2513.7,96.2,Strong Buy,Undervalued,7.1,10.2,0.54,56208.76,317694.3
+RECLTD,REC Limited,Financial Services,331.5,8072.34,9106.82,15863.07,281.61,2335.1,95.9,Strong Buy,Undervalued,5.3,10.0,0.5,2982.23,42256.39
+CGCL,Capri Global Capital Limited,Financial Services,170.09,3553.3,6323.96,6981.81,124.78,1989.1,95.2,Strong Buy,Undervalued,6.8,10.0,0.5,2357.6,12921.71
+DBREALTY,Valor Estate Limited,Real Estate,98.92,1977.94,3644.23,3856.53,99.35,1899.5,95.0,Strong Buy,Undervalued,9.5,10.0,0.5,1149.12,6988.55
+RELINFRA,Reliance Infrastructure Limited,Utilities,85.5,1689.47,3352.41,3311.43,67.51,1876.0,94.9,Strong Buy,Undervalued,11.2,11.2,0.7,2414.6,4126.31
+ABCAPITAL,Aditya Birla Capital Limited,Financial Services,310.75,4724.27,8495.64,9245.58,202.96,1420.3,93.4,Strong Buy,Undervalued,6.6,10.3,0.54,3534.17,16456.87
+IIFL,IIFL Finance Limited,Financial Services,477.45,6908.2,11999.67,13542.58,273.83,1346.9,93.1,Strong Buy,Undervalued,6.5,10.0,0.5,3826.11,26344.89
+PRESTIGE,Prestige Estates Projects Limited,Real Estate,1257.0,14128.69,25358.97,27244.89,1012.5,1024.0,91.1,Strong Buy,Undervalued,9.2,10.0,0.5,8166.52,50095.1
+ABFRL,Aditya Birla Fashion and Retail Limited,Consumer Cyclical,59.28,605.75,128.05,139.75,1071.74,921.8,90.2,Strong Buy,Undervalued,8.9,10.0,0.5,227.62,75.26
+HOMEFIRST,Home First Finance Company India Limited,Financial Services,987.7,8058.28,14530.79,15374.09,742.48,715.9,87.7,Strong Buy,Undervalued,7.0,10.0,0.5,6591.89,25842.9
+GRASIM,Grasim Industries Limited,Basic Materials,2568.6,20687.27,35914.4,39112.11,2262.43,705.4,87.6,Strong Buy,Undervalued,6.6,10.0,0.5,14776.68,69842.95
+PTCIL,PTC Industries Limited,Industrials,16999.0,134801.29,241033.13,255409.5,14193.08,693.0,87.4,Strong Buy,Undervalued,10.0,10.0,0.5,77040.93,462530.81
+FIRSTCRY,BRAINBEES SOLUTIONS LTD,Consumer Cyclical,223.65,1713.01,1617.74,1581.01,1845.01,665.9,86.9,Strong Buy,Undervalued,12.2,13.0,1.0,482.14,2606.4
+AAVAS,Aavas Financiers Limited,Financial Services,1169.8,8312.88,14180.28,15809.55,816.21,610.6,85.9,Strong Buy,Undervalued,6.2,10.0,0.5,6173.76,28703.88
+BAJAJFINSV,Bajaj Finserv Ltd.,Financial Services,1738.0,12173.72,22427.89,22973.62,1373.82,600.4,85.7,Strong Buy,Undervalued,7.7,10.0,0.5,11359.94,35678.78
+GODREJIND,Godrej Industries Limited,Industrials,837.95,5847.15,9708.06,10921.69,772.61,597.8,85.7,Strong Buy,Undervalued,6.1,10.0,0.5,4256.3,20014.34
+SBILIFE,SBI Life Insurance Company Limited,Financial Services,1904.4,12679.36,15167.12,23880.69,1478.04,565.8,85.0,Strong Buy,Undervalued,10.0,10.0,0.5,0.0,65188.52
+TMPV,Tata Motors Passenger Vehicles Limited,Consumer Cyclical,314.1,2052.51,0.0,0.0,2052.51,553.5,84.7,Strong Buy,Undervalued,8.7,10.5,0.59,0.0,0.0
+WAAREEENER,WAAREE ENERGIES LIMITED,Technology,2726.6,16709.6,29891.93,31027.85,2391.35,512.8,83.7,Strong Buy,Undervalued,12.7,13.0,1.0,11078.98,53248.58
+CHOLAFIN,Cholamandalam Investment and Finance Company Limited,Financial Services,1514.0,8903.69,16085.65,16762.01,1045.38,488.1,83.0,Strong Buy,Undervalued,7.0,10.0,0.5,7881.22,26995.52
+PNBHOUSING,PNB Housing Finance Limited,Financial Services,763.9,4207.55,7932.99,7955.38,459.71,450.8,81.8,Strong Buy,Undervalued,8.1,10.0,0.5,4626.94,11328.59
+BAJAJHFL,BAJAJ HOUSING FINANCE LTD,Financial Services,82.15,420.21,766.28,783.17,57.25,411.5,80.5,Strong Buy,Undervalued,7.6,13.0,1.0,388.49,1211.65
+SBICARD,SBI Cards and Payment Services Limited,Financial Services,704.9,3498.02,6321.49,6452.27,543.76,396.2,79.8,Strong Buy,Undervalued,7.8,10.0,0.5,3261.76,9904.34
+ALOKINDS,Alok Industries Limited,Consumer Cyclical,13.03,64.09,24.33,101.91,26.28,391.9,79.7,Strong Buy,Undervalued,5.0,10.0,0.5,0.0,358.98
+M&MFIN,Mahindra & Mahindra Financial Services Limited,Financial Services,330.2,1626.55,2974.94,3057.32,195.77,392.6,79.7,Strong Buy,Undervalued,7.1,10.0,0.5,1539.84,4739.54
+RBLBANK,RBL Bank Limited,Financial Services,294.75,1433.95,2621.41,2626.19,241.72,386.5,79.4,Strong Buy,Undervalued,11.0,10.9,0.64,1433.24,3828.72
+HBLENGINE,HBL ENGINEERING LTD,Industrials,658.5,2968.8,5179.64,5379.13,558.46,350.8,77.8,Strong Buy,Undervalued,10.0,10.0,0.5,2086.58,9070.66
+NETWEB,Netweb Technologies India Limited,Technology,3176.0,14134.68,23878.27,25412.65,2856.71,345.0,77.5,Strong Buy,Undervalued,17.3,17.4,1.73,7545.54,46348.52
+APTUS,Aptus Value Housing Finance India Limited,Financial Services,222.01,968.79,1743.75,1764.79,172.79,336.4,77.1,Strong Buy,Undervalued,8.2,10.0,0.5,946.21,2625.46
+MCX,Multi Commodity Exchange of India Limited,Financial Services,2498.8,10632.35,18305.84,18810.53,2454.18,325.5,76.5,Strong Buy,Undervalued,10.2,10.2,0.54,7550.2,31080.23
+HCLTECH,HCL Technologies Limited,Technology,1325.4,5543.98,7063.78,6968.69,4119.27,318.3,76.1,Strong Buy,Undervalued,10.0,10.0,0.5,5899.21,7847.98
+SHRIRAMFIN,Shriram Finance Limited,Financial Services,1003.6,4091.09,7439.46,7421.7,760.47,307.6,75.5,Strong Buy,Undervalued,9.2,10.1,0.51,4407.09,10400.77
+SBFC,SBFC Finance Limited,Financial Services,90.95,365.95,646.22,660.52,71.38,302.4,75.1,Strong Buy,Undervalued,7.6,10.0,0.5,341.77,1007.86
+LTF,L&T Finance Limited,Financial Services,258.0,989.35,1697.89,1799.77,178.93,283.5,73.9,Strong Buy,Undervalued,6.8,10.2,0.53,705.25,3098.06
+CENTRALBK,Central Bank of India,Financial Services,35.5,129.72,231.26,228.97,30.47,265.4,72.6,Strong Buy,Undervalued,10.6,10.0,0.5,164.36,289.0
+SUNDARMFIN,Sundaram Finance Limited,Financial Services,5138.5,18133.38,31974.81,32465.12,3801.65,252.9,71.7,Strong Buy,Undervalued,7.7,10.0,0.5,17078.26,48832.61
+SCI,The Shipping Corporation of India Limited,Industrials,238.9,829.62,1438.02,1442.58,216.67,247.3,71.2,Strong Buy,Undervalued,8.9,10.0,0.5,842.54,2051.72
+FIVESTAR,Five-Star Business Finance Limited,Financial Services,353.2,1202.95,2084.89,2127.73,278.18,240.6,70.6,Strong Buy,Undervalued,7.2,10.0,0.5,1223.6,3117.54
+NIVABUPA,Niva Bupa Health Insurance Company Limited,Financial Services,72.3,245.18,401.17,411.01,79.35,239.1,70.5,Strong Buy,Undervalued,13.0,13.0,1.0,163.72,677.99
+CHENNPETRO,Chennai Petroleum Corporation Limited,Energy,918.2,3064.09,5144.78,5213.97,914.21,233.7,70.0,Strong Buy,Undervalued,9.9,10.0,0.5,2056.26,8510.05
+ENGINERSIN,Engineers India Limited,Industrials,189.01,623.05,1055.1,1068.52,177.58,229.6,69.7,Strong Buy,Undervalued,11.2,11.2,0.7,527.64,1636.22
+ETERNAL,Eternal Limited,Consumer Cyclical,215.68,694.01,874.75,1262.12,125.9,221.8,68.9,Strong Buy,Undervalued,9.9,10.0,0.5,0.0,3298.98
+BAJAJHLDNG,Bajaj Holdings & Investment Limited,Financial Services,9506.0,29798.53,50156.81,51032.33,8564.73,213.5,68.1,Strong Buy,Undervalued,10.0,10.0,0.5,22755.69,81060.03
+JIOFIN,Jio Financial Services Limited,Financial Services,235.25,684.7,1156.89,1171.06,198.35,191.1,65.6,Strong Buy,Undervalued,9.6,10.0,0.5,578.18,1792.26
+SJVN,SJVN Limited,Utilities,69.89,196.9,338.65,339.36,54.43,181.7,64.5,Strong Buy,Undervalued,6.8,10.0,0.5,126.52,553.6
+CANFINHOME,Can Fin Homes Limited,Financial Services,819.65,2269.06,3728.09,4144.19,393.93,176.8,63.9,Strong Buy,Undervalued,6.3,10.0,0.5,733.4,8387.16
+MRPL,Mangalore Refinery and Petrochemicals Limited,Energy,178.14,478.87,771.89,775.02,182.71,168.8,62.8,Strong Buy,Undervalued,9.1,10.0,0.5,363.88,1192.4
+HINDCOPPER,Hindustan Copper Limited,Basic Materials,496.3,1233.59,2004.21,2056.81,410.37,148.6,59.8,Strong Buy,Undervalued,16.5,16.5,1.59,821.49,3397.33
+BBTC,The Bombay Burmah Trading Corporation Limited,Consumer Defensive,1527.3,3687.7,5946.49,5934.32,1441.08,141.5,58.6,Strong Buy,Undervalued,9.0,10.0,0.5,3539.8,8304.51
+360ONE,360 One Wam Limited,Financial Services,1027.4,2393.8,3922.46,3948.37,839.24,133.0,57.1,Strong Buy,Undervalued,8.7,10.0,0.5,2133.27,5815.27
+ASHOKLEY,Ashok Leyland Limited,Industrials,170.65,376.72,604.92,612.29,141.16,120.8,54.7,Strong Buy,Undervalued,8.4,10.0,0.5,299.73,939.58
+MFSL,Max Financial Services Limited,Financial Services,1628.1,3338.39,5116.14,5280.6,1396.17,105.0,51.2,Strong Buy,Undervalued,10.5,10.5,0.58,0.0,10890.14
+MAHABANK,Bank of Maharashtra,Financial Services,64.09,131.03,211.87,210.22,51.83,104.4,51.1,Strong Buy,Undervalued,10.9,10.6,0.6,126.25,290.88
+ANGELONE,Angel One Limited,Financial Services,215.58,437.03,686.31,681.8,192.27,102.7,50.7,Strong Buy,Undervalued,8.9,10.0,0.5,518.65,835.93
+CHAMBLFERT,Chambal Fertilisers and Chemicals Limited,Basic Materials,415.55,840.71,1311.96,1312.93,368.49,102.3,50.6,Strong Buy,Undervalued,10.0,10.0,0.5,730.79,1897.01
+TBOTEK,TBO TEK LIMITED,Consumer Cyclical,1162.4,2350.91,3590.72,3732.02,969.8,102.2,50.6,Strong Buy,Undervalued,12.5,13.0,1.0,1385.73,6360.92
+JSWENERGY,JSW Energy Limited,Utilities,512.95,1020.9,1589.46,1666.3,375.51,99.0,49.8,Strong Buy,Undervalued,7.3,10.0,0.5,504.68,2981.58
+HAPPSTMNDS,Happiest Minds Technologies Limited,Technology,393.25,765.52,1190.74,1197.56,333.48,94.7,48.6,Strong Buy,Undervalued,10.0,10.0,0.5,643.71,1765.05
+J&KBANK,Jammu and Kashmir Bank Limited,Financial Services,120.81,234.96,368.33,364.26,105.66,94.5,48.6,Strong Buy,Undervalued,10.2,10.0,0.5,292.45,427.92
+BAJFINANCE,Bajaj Finance Limited,Financial Services,855.05,1646.4,2630.5,2621.71,671.1,92.6,48.1,Strong Buy,Undervalued,8.3,10.0,0.5,1682.15,3543.69
+M&M,Mahindra & Mahindra Limited,Consumer Cyclical,2931.1,5604.75,8701.54,8803.57,2405.93,91.2,47.7,Strong Buy,Undervalued,8.7,10.0,0.5,4299.56,13511.63
+PVRINOX,PVR INOX Limited,Communication Services,973.9,1856.81,2631.22,2607.03,1106.59,90.7,47.5,Strong Buy,Undervalued,9.1,10.0,0.5,1557.23,3608.46
+INDIACEM,The India Cements Limited,Basic Materials,354.3,671.57,1077.0,842.24,500.89,89.5,47.2,Strong Buy,Undervalued,10.1,10.0,0.5,347.25,867.7
+COHANCE,COHANCE LIFESCIENCES LTD,Healthcare,296.1,557.45,872.63,899.36,215.54,88.3,46.9,Strong Buy,Undervalued,9.8,10.0,0.5,346.25,1505.94
+IOB,Indian Overseas Bank,Financial Services,32.61,60.69,95.94,94.87,26.5,86.1,46.3,Strong Buy,Undervalued,10.5,10.0,0.5,60.32,127.28
+KIRLOSENG,Kirloskar Oil Engines Limited,Industrials,1451.3,2639.68,4076.27,4091.27,1188.09,81.9,45.0,Strong Buy,Undervalued,9.5,10.5,0.58,2143.16,6069.39
+UNIONBANK,Union Bank of India,Financial Services,173.88,316.18,488.88,483.06,149.3,81.8,45.0,Strong Buy,Undervalued,12.4,13.0,1.0,346.33,608.15
+APOLLOTYRE,Apollo Tyres Limited,Consumer Cyclical,400.3,718.43,1083.44,1077.85,359.02,79.5,44.3,Strong Buy,Undervalued,9.6,10.0,0.5,632.82,1511.68
+REDINGTON,Redington Limited,Technology,234.55,420.09,598.81,621.18,219.01,79.1,44.2,Strong Buy,Undervalued,11.2,11.5,0.76,86.55,1200.56
+CHOICEIN,Choice International Limited,Financial Services,624.6,1107.72,1690.22,1699.11,516.34,77.3,43.6,Strong Buy,Undervalued,10.0,10.0,0.5,901.0,2514.99
+DATAPATTNS,Data Patterns (India) Limited,Industrials,3215.0,5704.5,8415.82,8431.03,2977.97,77.4,43.6,Strong Buy,Undervalued,10.0,10.0,0.5,4618.2,12274.29
+JKTYRE,JK Tyre & Industries Limited,Consumer Cyclical,411.75,730.11,1102.77,1105.03,355.19,77.3,43.6,Strong Buy,Undervalued,9.2,10.0,0.5,531.52,1683.08
+KALYANKJIL,Kalyan Jewellers India Limited,Consumer Cyclical,379.0,670.08,965.69,1003.66,336.49,76.8,43.4,Strong Buy,Undervalued,9.4,10.0,0.5,290.51,1792.76
+UCOBANK,UCO Bank,Financial Services,25.32,44.62,68.58,67.73,21.52,76.2,43.3,Strong Buy,Undervalued,10.9,10.5,0.59,54.57,79.19
+SAGILITY,Sagility Limited,Healthcare,37.83,66.58,97.4,97.0,36.15,76.0,43.2,Strong Buy,Undervalued,12.7,13.0,1.0,55.49,137.73
+KEC,KEC International Limited,Industrials,549.05,960.75,1484.51,1477.48,444.01,75.0,42.9,Strong Buy,Undervalued,9.8,10.0,0.5,718.74,2222.16
+HDFCLIFE,HDFC Life Insurance Company Limited,Financial Services,625.75,1088.67,1196.07,1690.36,486.98,74.0,42.5,Strong Buy,Undervalued,9.9,10.0,0.5,0.0,4369.32
+INOXWIND,Inox Wind Limited,Industrials,79.59,137.72,206.5,207.47,67.97,73.0,42.2,Strong Buy,Undervalued,9.7,10.0,0.5,111.67,305.2
+RPOWER,Reliance Power Limited,Utilities,22.25,37.44,61.06,60.09,14.78,68.3,40.6,Strong Buy,Undervalued,9.5,11.2,0.71,37.08,81.17
+HINDPETRO,Hindustan Petroleum Corporation Limited,Energy,368.75,612.86,924.0,935.28,290.44,66.2,39.8,Strong Buy,Undervalued,8.5,12.3,0.89,87.22,1805.89
+BSE,BSE Limited,Financial Services,2797.0,4547.54,6618.12,6629.13,2465.95,62.6,38.5,Strong Buy,Undervalued,10.0,10.0,0.5,3734.78,9545.51
+SUZLON,Suzlon Energy Limited,Industrials,41.41,66.66,97.3,98.35,34.97,61.0,37.9,Strong Buy,Undervalued,10.0,10.0,0.5,48.63,150.18
+CESC,CESC Limited,Utilities,159.73,252.41,371.62,376.49,128.32,58.0,36.7,Strong Buy,Undervalued,8.0,10.0,0.5,163.47,599.24
+TITAN,Titan Company Limited,Consumer Cyclical,4073.2,6343.85,9033.1,9180.3,3507.41,55.7,35.8,Strong Buy,Undervalued,9.5,10.0,0.5,3945.15,14709.84
+EIDPARRY,E.I.D.- Parry (India) Limited,Basic Materials,789.55,1222.09,1616.22,1643.42,800.75,54.8,35.4,Strong Buy,Undervalued,9.9,10.0,0.5,518.3,2822.95
+NUVAMA,Nuvama Wealth Management Limited,Financial Services,1158.6,1782.16,2549.15,2534.82,1029.49,53.8,35.0,Strong Buy,Undervalued,9.0,10.0,0.5,1896.24,3144.72
+CUB,City Union Bank Limited,Financial Services,231.5,351.19,501.28,498.97,203.42,51.7,34.1,Strong Buy,Undervalued,10.1,10.0,0.5,341.94,651.36
+CEATLTD,CEAT Limited,Consumer Cyclical,3470.5,5248.48,7352.5,7468.57,3028.38,51.2,33.9,Strong Buy,Undervalued,9.4,10.0,0.5,2888.01,12281.26
+INDIANB,Indian Bank,Financial Services,870.3,1313.3,1891.25,1874.5,752.1,50.9,33.7,Strong Buy,Undervalued,10.4,10.0,0.5,1319.16,2396.34
+IOC,Indian Oil Corporation Limited,Energy,156.54,235.83,335.48,337.59,134.08,50.7,33.6,Strong Buy,Undervalued,8.7,11.5,0.76,83.94,595.44
+IDEA,Vodafone Idea Limited,Communication Services,9.27,13.91,15.24,14.95,12.88,50.1,33.4,Strong Buy,Undervalued,8.5,10.0,0.5,5.99,23.34
+LTFOODS,LT Foods Limited,Consumer Defensive,385.25,569.99,808.99,815.94,324.04,48.0,32.4,Strong Buy,Undervalued,9.3,10.0,0.5,382.84,1262.95
+GICRE,General Insurance Corporation of India,Financial Services,359.85,531.42,747.5,744.37,318.48,47.7,32.3,Strong Buy,Undervalued,10.0,10.0,0.5,510.1,972.38
+GVT&D,GE Vernova T&D India Ltd,Industrials,3604.3,5296.23,7424.43,7494.78,3097.68,46.9,31.9,Strong Buy,Undervalued,10.0,10.0,0.5,3655.54,11474.73
+SYRMA,Syrma SGS Technology Limited,Technology,724.55,1058.2,1445.51,1471.74,644.67,46.0,31.5,Strong Buy,Undervalued,10.0,10.0,0.5,639.49,2356.45
+ZEEL,Zee Entertainment Enterprises Limited,Communication Services,78.06,113.04,153.53,153.3,72.78,44.8,30.9,Strong Buy,Undervalued,9.9,10.0,0.5,89.7,216.44
+PGEL,PG Electroplast Limited,Technology,502.2,724.81,996.74,1026.39,423.22,44.3,30.7,Strong Buy,Undervalued,9.8,10.0,0.5,369.95,1742.12
+GRSE,Garden Reach Shipbuilders & Engineers Limited,Industrials,2309.2,3325.56,4596.45,4704.14,1946.97,44.0,30.6,Strong Buy,Undervalued,10.0,10.0,0.5,2032.2,7591.47
+IRFC,Indian Railway Finance Corporation Limited,Financial Services,97.2,139.92,30.73,233.52,46.31,44.0,30.5,Strong Buy,Undervalued,5.2,10.0,0.5,0.0,872.61
+FSL,Firstsource Solutions Limited,Technology,225.21,323.67,450.53,449.71,197.63,43.7,30.4,Strong Buy,Undervalued,9.3,10.0,0.5,249.49,648.31
+LICI,Life Insurance Corporation of India,Financial Services,772.7,1105.52,1479.26,1488.43,722.6,43.1,30.1,Strong Buy,Undervalued,10.0,10.0,0.5,610.27,2384.91
+GMRAIRPORT,GMR Airports Limited,Industrials,89.26,126.73,180.08,181.99,71.47,42.0,29.6,Buy,Undervalued,8.9,10.0,0.5,75.92,291.88
+NH,Narayana Hrudayalaya Limited,Healthcare,1668.8,2363.86,4095.14,3391.53,1336.19,41.7,29.4,Buy,Undervalued,9.7,10.0,0.5,1817.52,3558.32
+SBIN,State Bank of India,Financial Services,1047.0,1471.23,2121.09,2097.23,845.23,40.5,28.8,Buy,Undervalued,10.5,10.0,0.5,1295.7,2851.03
+TRIVENI,Triveni Engineering & Industries Limited,Consumer Defensive,348.7,486.62,677.77,676.41,296.82,39.6,28.3,Buy,Undervalued,9.8,10.0,0.5,351.43,998.69
+BAJAJ-AUTO,Bajaj Auto Limited,Consumer Cyclical,8875.0,12229.95,17006.44,16912.78,7547.13,37.8,27.4,Buy,Undervalued,10.3,10.8,0.64,10311.27,23326.96
+LUPIN,Lupin Limited,Healthcare,2314.9,3169.31,4294.65,4283.94,2054.69,36.9,27.0,Buy,Undervalued,9.7,10.0,0.5,2578.64,5967.82
+BLS,BLS International Services Limited,Industrials,246.95,337.81,452.27,458.22,217.4,36.8,26.9,Buy,Undervalued,9.8,10.0,0.5,233.27,695.06
+NMDC,NMDC Limited,Basic Materials,78.59,107.02,148.9,147.84,66.19,36.2,26.6,Buy,Undervalued,10.4,10.8,0.63,98.84,194.73
+POLICYBZR,PB Fintech Limited,Financial Services,1446.0,1969.48,2500.8,2516.74,1422.22,36.2,26.6,Buy,Undervalued,10.0,10.0,0.5,1129.57,3935.79
+HINDZINC,Hindustan Zinc Limited,Basic Materials,551.95,749.91,1025.32,1022.13,477.7,35.9,26.4,Buy,Undervalued,9.8,10.0,0.5,621.88,1415.99
+INDIGO,InterGlobe Aviation Limited,Industrials,4158.2,5632.0,6881.55,6824.23,4439.78,35.4,26.2,Buy,Undervalued,8.9,10.6,0.61,4386.05,9147.78
+UTIAMC,UTI Asset Management Company Limited,Financial Services,952.65,1278.05,1713.55,1703.69,852.41,34.2,25.5,Buy,Undervalued,10.0,10.0,0.5,1096.08,2291.57
+KPIL,Kalpataru Projects International Limited,Industrials,1102.0,1476.74,2044.25,2053.59,899.88,34.0,25.4,Buy,Undervalued,9.6,10.0,0.5,800.8,3325.07
+MRF,MRF Limited,Consumer Cyclical,134920.0,178260.35,238036.26,236836.79,119683.91,32.1,24.3,Buy,Undervalued,9.8,10.0,0.5,144640.69,326633.95
+POWERINDIA,Hitachi Energy India Limited,Industrials,24165.0,31692.89,41993.52,41641.11,21744.67,31.2,23.8,Buy,Undervalued,10.0,10.0,0.5,24247.84,58329.55
+ECLERX,eClerx Services Limited,Technology,1576.6,2035.99,2679.01,2674.7,1397.29,29.1,22.6,Buy,Undervalued,9.9,10.0,0.5,1601.5,3739.29
+CCL,CCL Products (India) Limited,Consumer Defensive,1022.6,1316.83,1744.6,1767.93,865.73,28.8,22.3,Buy,Undervalued,9.5,10.0,0.5,787.71,2794.82
+COFORGE,Coforge Limited,Technology,1089.7,1397.91,1793.31,1795.96,999.87,28.3,22.0,Buy,Undervalued,10.0,10.0,0.5,955.22,2641.98
+POLYCAB,Polycab India Limited,Industrials,7193.5,9140.57,12073.56,12303.97,5977.17,27.1,21.3,Buy,Undervalued,10.0,10.0,0.5,5372.71,19696.04
+NHPC,NHPC Limited,Utilities,74.98,95.1,0.0,0.0,95.1,26.8,21.2,Buy,Undervalued,8.2,10.0,0.5,0.0,0.0
+HFCL,HFCL Limited,Technology,71.97,90.54,105.67,105.09,75.99,25.8,20.5,Buy,Undervalued,9.3,10.0,0.5,56.45,152.59
+BHEL,Bharat Heavy Electricals Limited,Industrials,258.5,324.16,399.18,392.77,255.55,25.4,20.3,Buy,Undervalued,9.7,10.3,0.54,146.79,625.93
+FINCABLES,Finolex Cables Limited,Industrials,856.0,1068.13,1367.8,1389.38,746.88,24.8,19.9,Buy,Undervalued,10.0,10.0,0.5,678.57,2143.35
+PNB,Punjab National Bank,Financial Services,111.7,139.22,182.18,180.28,98.17,24.6,19.8,Buy,Undervalued,10.6,10.0,0.5,150.98,205.77
+NUVOCO,Nuvoco Vistas Corporation Limited,Basic Materials,292.1,362.1,499.08,501.49,222.7,24.0,19.3,Buy,Undervalued,8.7,10.0,0.5,196.65,811.14
+APLLTD,Alembic Pharmaceuticals Limited,Healthcare,677.95,837.81,1116.72,1109.84,565.78,23.6,19.1,Buy,Undervalued,9.4,10.0,0.5,664.69,1541.24
+KOTAKBANK,Kotak Mahindra Bank Limited,Financial Services,366.85,453.13,598.61,595.55,310.72,23.5,19.0,Buy,Undervalued,10.2,10.0,0.5,361.57,823.41
+NIACL,The New India Assurance Company Limited,Financial Services,134.61,165.13,205.78,204.87,125.39,22.7,18.5,Buy,Undervalued,12.5,12.5,0.91,120.01,287.89
+JBMA,JBM Auto Limited,Consumer Cyclical,494.3,604.7,621.57,621.14,588.26,22.3,18.3,Buy,Undervalued,9.1,10.0,0.5,276.23,965.18
+HEG,HEG Limited,Industrials,496.05,606.19,787.37,787.59,424.79,22.2,18.2,Buy,Undervalued,11.8,12.3,0.89,427.56,1148.07
+NCC,NCC Limited,Industrials,144.28,176.12,234.7,229.19,123.06,22.1,18.1,Buy,Undervalued,10.3,10.0,0.5,152.65,294.72
+BPCL,Bharat Petroleum Corporation Limited,Energy,319.3,387.03,514.36,508.37,265.7,21.2,17.5,Buy,Undervalued,10.2,12.2,0.87,163.35,841.42
+TVSMOTOR,TVS Motor Company Limited,Consumer Cyclical,3324.5,4008.52,4912.59,4966.14,3050.89,20.6,17.1,Buy,Undervalued,9.2,10.0,0.5,2125.5,7913.88
+AFCONS,AFCONS INFRASTRUCTURE LTD,Industrials,278.85,335.01,426.0,417.88,252.15,20.1,16.8,Buy,Undervalued,12.1,13.0,1.0,329.42,490.09
+NAVINFLUOR,Navin Fluorine International Limited,Basic Materials,6172.0,7393.68,9371.47,9400.14,5387.23,19.8,16.5,Buy,Undervalued,9.8,10.0,0.5,4919.98,13937.63
+LT,Larsen & Toubro Limited,Industrials,3439.0,4089.13,5285.38,5289.07,2889.2,18.9,15.9,Buy,Undervalued,8.6,10.0,0.5,2753.69,7831.83
+TARIL,TRANS & RECTI. LTD,Industrials,276.85,325.96,412.02,413.97,237.94,17.7,15.1,Buy,Undervalued,9.9,10.0,0.5,213.55,618.28
+BANKINDIA,Bank of India Limited,Financial Services,150.2,174.39,231.05,227.42,121.36,16.1,13.9,Hold,Undervalued,11.5,11.8,0.8,151.9,295.69
+METROPOLIS,Metropolis Healthcare Limited,Healthcare,1808.6,2096.86,2512.45,2500.33,1693.39,15.9,13.7,Hold,Undervalued,9.9,10.0,0.5,1468.09,3508.34
+GLENMARK,Glenmark Pharmaceuticals Limited,Healthcare,2170.7,2487.89,3200.58,3177.37,1798.4,14.6,12.7,Hold,Undervalued,10.0,10.0,0.5,2074.82,4233.49
+LEMONTREE,Lemon Tree Hotels Limited,Consumer Cyclical,101.11,115.79,143.46,142.14,89.45,14.5,12.7,Hold,Undervalued,9.5,10.0,0.5,89.6,192.02
+VENTIVE,VENTIVE HOSPITALITY LTD,Consumer Cyclical,649.05,741.12,937.03,927.99,554.24,14.2,12.4,Hold,Undervalued,12.2,13.0,1.0,561.48,1276.42
+ABLBL,ADITYA BIRLA LIFES BRAN L,Consumer Cyclical,97.42,110.31,111.74,109.38,111.25,13.2,11.7,Hold,Undervalued,11.6,13.0,1.0,47.38,166.65
+SWANCORP,Swan Corp Limited,Industrials,346.9,392.77,0.0,0.0,392.77,13.2,11.7,Hold,Undervalued,9.1,10.0,0.5,0.0,0.0
+GESHIP,The Great Eastern Shipping Company Limited,Industrials,1459.9,1647.95,2002.31,1988.05,1307.86,12.9,11.4,Hold,Undervalued,11.2,11.2,0.7,1484.16,2463.41
+NYKAA,FSN E-Commerce Ventures Limited,Consumer Cyclical,238.15,267.26,297.27,297.03,237.49,12.2,10.9,Hold,Undervalued,9.9,10.0,0.5,126.5,467.07
+WELCORP,Welspun Corp Limited,Basic Materials,800.2,894.8,1094.97,1105.46,684.14,11.8,10.6,Hold,Undervalued,10.1,10.0,0.5,483.35,1748.54
+BHARTIARTL,Bharti Airtel Limited,Communication Services,1803.4,2014.65,2435.01,2419.49,1609.82,11.7,10.5,Hold,Undervalued,9.5,10.0,0.5,1459.75,3348.2
+SONACOMS,Sona BLW Precision Forgings Limited,Consumer Cyclical,486.05,537.26,655.59,657.11,417.41,10.5,9.5,Hold,Undervalued,10.0,10.0,0.5,354.07,963.2
+AADHARHFC,AADHAR HOUSING FINANCE L,Financial Services,459.75,507.43,668.72,662.56,352.31,10.4,9.4,Hold,Undervalued,9.2,13.0,1.0,314.95,997.85
+NATCOPHARM,NATCO Pharma Limited,Healthcare,955.85,1048.47,1326.31,1340.0,756.95,9.7,8.8,Hold,Fairly Valued,9.9,10.0,0.5,744.89,1962.48
+HDFCBANK,HDFC Bank Limited,Financial Services,817.0,893.31,1112.58,1105.36,681.26,9.3,8.5,Hold,Fairly Valued,10.4,10.0,0.5,569.38,1626.91
+WOCKPHARMA,Wockhardt Limited,Healthcare,1211.3,1319.8,1527.97,1515.19,1124.4,9.0,8.2,Hold,Fairly Valued,10.7,11.1,0.68,885.76,2119.06
+HEROMOTOCO,Hero MotoCorp Limited,Consumer Cyclical,5206.0,5660.9,6824.2,6807.82,4513.97,8.7,8.0,Hold,Fairly Valued,10.5,10.6,0.59,3963.43,9619.47
+BSOFT,Birlasoft Limited,Technology,360.15,387.69,441.5,436.58,338.8,7.6,7.1,Hold,Fairly Valued,10.0,10.0,0.5,327.0,536.33
+JYOTICNC,Jyoti CNC Automation Limited,Industrials,715.95,770.41,1088.06,1085.55,455.27,7.6,7.1,Hold,Fairly Valued,9.7,10.0,0.5,632.03,1534.07
+LODHA,Lodha Developers Limited,Real Estate,866.35,927.87,1140.6,1132.15,723.59,7.1,6.6,Hold,Fairly Valued,9.5,10.0,0.5,726.82,1520.57
+AMBER,Amber Enterprises India Limited,Consumer Cyclical,6446.0,6868.74,7107.23,8184.53,5552.96,6.6,6.2,Hold,Fairly Valued,9.4,10.0,0.5,4367.81,14155.86
+ENRIN,Siemens Energy India Limited,Utilities,2796.9,2978.32,3496.2,3455.68,2500.96,6.5,6.1,Hold,Fairly Valued,13.0,13.0,1.0,2158.96,4671.34
+MPHASIS,Mphasis Limited,Technology,2114.8,2246.17,2693.61,2674.87,1817.47,6.2,5.8,Hold,Fairly Valued,9.7,10.0,0.5,1686.47,3625.78
+GLAND,Gland Pharma Limited,Healthcare,1626.6,1725.8,2028.77,2021.18,1430.42,6.1,5.7,Hold,Fairly Valued,10.0,10.0,0.5,1278.01,2749.18
+ANANTRAJ,Anant Raj Limited,Real Estate,450.0,476.08,578.25,574.61,377.55,5.8,5.5,Hold,Fairly Valued,9.8,10.0,0.5,361.47,780.46
+TATACOMM,Tata Communications Limited,Communication Services,1398.1,1465.55,1720.26,1715.12,1215.98,4.8,4.6,Hold,Fairly Valued,8.5,10.0,0.5,873.62,2546.32
+DLF,DLF Limited,Real Estate,542.75,567.04,685.99,680.93,453.16,4.5,4.3,Hold,Fairly Valued,10.0,10.0,0.5,386.72,965.03
+TECHNOE,Techno Electric & Engineering Company Limited,Industrials,1086.6,1135.64,1567.33,1322.83,948.45,4.5,4.3,Hold,Fairly Valued,11.0,11.0,0.67,869.18,1287.47
+NEWGEN,Newgen Software Technologies Limited,Technology,441.9,461.5,536.29,530.88,392.12,4.4,4.2,Hold,Fairly Valued,10.0,10.0,0.5,403.09,647.83
+CRAFTSMAN,Craftsman Automation Limited,Consumer Cyclical,6674.0,6955.45,8275.08,8430.16,5480.74,4.2,4.0,Hold,Fairly Valued,9.1,10.0,0.5,2953.61,14216.86
+PERSISTENT,Persistent Systems Limited,Technology,4638.8,4825.87,5702.11,5679.27,3972.47,4.0,3.9,Hold,Fairly Valued,10.0,10.0,0.5,3385.38,7927.48
+BATAINDIA,Bata India Limited,Consumer Cyclical,699.4,727.4,741.77,731.35,723.46,4.0,3.8,Hold,Fairly Valued,9.6,10.0,0.5,502.08,939.79
+DCMSHRIRAM,DCM Shriram Limited,Industrials,1018.2,1057.38,1212.56,1212.22,902.55,3.8,3.7,Hold,Fairly Valued,9.4,10.0,0.5,579.61,1844.16
+ZENTEC,Zen Technologies Limited,Industrials,1364.7,1413.39,1691.0,1676.47,1150.32,3.6,3.4,Hold,Fairly Valued,10.0,10.0,0.5,1170.16,2153.72
+BLUEDART,Blue Dart Express Limited,Industrials,5219.5,5392.97,5934.04,5866.16,4919.78,3.3,3.2,Hold,Fairly Valued,9.7,10.0,0.5,3680.35,7916.23
+CHALET,Chalet Hotels Limited,Consumer Cyclical,733.4,756.56,916.36,902.97,610.15,3.2,3.1,Hold,Fairly Valued,9.3,10.0,0.5,534.89,1244.26
+SUNTV,Sun TV Network Limited,Communication Services,562.8,580.82,648.84,643.17,518.47,3.2,3.1,Hold,Fairly Valued,10.0,10.0,0.5,519.36,755.64
+EMAMILTD,Emami Limited,Consumer Defensive,416.05,428.64,478.42,473.44,383.85,3.0,2.9,Hold,Fairly Valued,10.0,10.0,0.5,338.55,598.37
+GODFRYPHLP,Godfrey Phillips India Limited,Consumer Defensive,2016.6,2070.37,2434.28,2413.88,1726.86,2.7,2.6,Hold,Fairly Valued,10.0,10.0,0.5,1593.25,3193.69
+IKS,INVENTURUS KNOWLEDGE SO L,Healthcare,1327.3,1362.18,1602.8,1584.89,1139.48,2.6,2.6,Hold,Fairly Valued,12.9,13.0,1.0,1043.1,2090.85
+TRITURBINE,Triveni Turbine Limited,Industrials,459.45,471.79,550.9,548.34,395.23,2.7,2.6,Hold,Fairly Valued,10.0,10.0,0.5,341.32,750.24
+AARTIIND,Aarti Industries Limited,Basic Materials,420.75,431.42,517.34,511.46,351.39,2.5,2.5,Hold,Fairly Valued,8.9,10.0,0.5,187.63,823.54
+HONASA,Honasa Consumer Limited,Consumer Defensive,268.95,275.64,288.17,285.58,265.71,2.5,2.4,Hold,Fairly Valued,10.1,10.2,0.53,162.04,403.95
+TECHM,Tech Mahindra Limited,Technology,1332.8,1352.58,1532.74,1517.35,1187.81,1.5,1.5,Hold,Fairly Valued,10.0,10.0,0.5,991.17,2012.73
+ITC,ITC Limited,Consumer Defensive,301.45,305.11,308.27,305.0,305.22,1.2,1.2,Hold,Fairly Valued,10.0,10.0,0.5,224.3,379.18
+ZENSARTECH,Zensar Technologies Limited,Technology,552.85,558.76,634.42,628.78,488.75,1.1,1.1,Hold,Fairly Valued,10.0,10.0,0.5,431.76,814.51
+OLECTRA,Olectra Greentech Limited,Industrials,880.45,887.96,1020.03,1023.68,752.25,0.9,0.8,Hold,Fairly Valued,10.0,10.0,0.5,495.39,1559.28
+BEL,Bharat Electronics Limited,Industrials,439.4,442.45,513.95,510.53,374.37,0.7,0.7,Hold,Fairly Valued,10.0,10.0,0.5,325.63,688.57
+NAVA,Nava Limited,Industrials,551.7,555.35,614.66,605.45,505.25,0.7,0.7,Hold,Fairly Valued,9.4,10.0,0.5,428.63,763.85
+PATANJALI,Patanjali Foods Limited,Consumer Defensive,481.6,484.26,567.74,567.41,401.12,0.6,0.5,Hold,Fairly Valued,9.7,10.0,0.5,209.17,924.99
+IRCTC,Indian Railway Catering & Tourism Corporation Limited,Consumer Cyclical,527.6,523.17,597.7,593.13,453.22,-0.8,-0.8,Sell,Fairly Valued,10.0,10.0,0.5,401.77,775.34
+INDGN,INDEGENE LIMITED,Healthcare,429.25,423.38,485.48,484.29,362.48,-1.4,-1.4,Sell,Fairly Valued,13.0,13.0,1.0,281.66,684.55
+CYIENT,Cyient Limited,Industrials,870.1,856.96,920.32,906.05,807.88,-1.5,-1.5,Sell,Fairly Valued,10.1,10.0,0.5,662.1,1121.48
+ESCORTS,Escorts Kubota Limited,Industrials,3120.6,3073.36,2855.64,2835.28,3311.43,-1.5,-1.5,Sell,Fairly Valued,10.0,10.0,0.5,1925.87,3703.97
+KIMS,Krishna Institute of Medical Sciences Limited,Healthcare,634.9,625.65,745.2,738.25,513.05,-1.5,-1.5,Sell,Fairly Valued,9.3,10.0,0.5,364.82,1097.77
+INOXINDIA,INOX India Limited,Industrials,1136.5,1118.57,1280.57,1275.73,961.41,-1.6,-1.6,Sell,Fairly Valued,10.5,10.6,0.6,746.66,1795.13
+MOTHERSON,Samvardhana Motherson International Limited,Consumer Cyclical,113.82,111.65,124.49,123.37,99.92,-1.9,-1.9,Sell,Fairly Valued,11.4,12.3,0.88,53.57,190.92
+LAURUSLABS,Laurus Labs Limited,Healthcare,1003.4,981.69,1105.74,1099.64,863.74,-2.2,-2.2,Sell,Fairly Valued,9.9,10.0,0.5,648.65,1538.44
+AEGISVOPAK,AEGIS VOPAK TERMINALS LTD,Energy,192.81,188.37,195.77,192.64,184.1,-2.3,-2.4,Sell,Fairly Valued,12.4,13.0,1.0,130.29,248.72
+KFINTECH,KFin Technologies Limited,Technology,892.55,868.02,971.78,965.34,770.7,-2.7,-2.8,Sell,Fairly Valued,10.0,10.0,0.5,620.13,1297.66
+SONATSOFTW,Sonata Software Limited,Technology,235.75,228.59,262.43,261.61,195.56,-3.0,-3.1,Sell,Fairly Valued,9.6,10.0,0.5,80.92,440.67
+EMCURE,EMCURE PHARMACEUTICALS L,Healthcare,1438.0,1391.57,1579.56,1562.92,1220.22,-3.2,-3.3,Sell,Fairly Valued,12.6,13.0,1.0,956.37,2136.19
+RRKABEL,R R Kabel Limited,Industrials,1343.1,1300.05,1299.71,1453.56,1146.53,-3.2,-3.3,Sell,Fairly Valued,15.0,15.1,1.34,830.34,2384.49
+UPL,UPL Limited,Basic Materials,609.4,589.71,619.93,617.9,561.52,-3.2,-3.3,Sell,Fairly Valued,9.3,10.0,0.5,190.81,1040.95
+LATENTVIEW,Latent View Analytics Limited,Industrials,280.25,271.0,306.14,304.82,237.19,-3.3,-3.4,Sell,Fairly Valued,10.0,10.0,0.5,193.35,413.64
+SAPPHIRE,Sapphire Foods India Limited,Consumer Cyclical,162.54,157.22,148.38,146.63,167.82,-3.3,-3.4,Sell,Fairly Valued,9.2,10.0,0.5,71.3,218.45
+VMM,VISHAL MEGA MART LIMITED,Consumer Cyclical,102.79,99.22,100.13,98.85,99.59,-3.5,-3.6,Sell,Fairly Valued,12.7,13.0,1.0,61.43,133.71
+AUBANK,AU Small Finance Bank Limited,Financial Services,884.35,851.31,958.87,954.14,748.47,-3.7,-3.9,Sell,Fairly Valued,10.2,10.0,0.5,558.22,1340.62
+NAM-INDIA,Nippon Life India Asset Management Limited,Financial Services,823.65,791.89,882.37,875.7,708.08,-3.9,-4.0,Sell,Fairly Valued,10.0,10.0,0.5,558.95,1179.1
+PFIZER,Pfizer Limited,Healthcare,4623.0,4438.64,4903.05,4869.65,4007.63,-4.0,-4.2,Sell,Fairly Valued,10.0,10.0,0.5,3356.61,6315.9
+FORCEMOT,Force Motors Limited,Consumer Cyclical,20245.0,19411.17,21492.01,21311.16,17511.19,-4.1,-4.3,Sell,Fairly Valued,10.0,10.0,0.5,13441.74,28818.89
+MANAPPURAM,Manappuram Finance Limited,Financial Services,256.1,244.31,320.3,315.92,172.7,-4.6,-4.8,Sell,Fairly Valued,8.2,10.5,0.58,139.12,483.95
+CAMPUS,Campus Activewear Limited,Consumer Cyclical,237.1,226.0,231.73,229.55,222.44,-4.7,-4.9,Sell,Fairly Valued,9.7,10.0,0.5,140.85,313.88
+MANYAVAR,Vedant Fashions Limited,Consumer Cyclical,342.4,326.14,334.68,330.79,321.49,-4.7,-5.0,Sell,Fairly Valued,9.9,10.0,0.5,274.73,379.08
+RHIM,RHI Magnesita India Limited,Industrials,375.5,357.25,383.68,379.39,335.1,-4.9,-5.1,Sell,Fairly Valued,9.9,10.0,0.5,225.75,524.47
+AUROPHARMA,Aurobindo Pharma Limited,Healthcare,1296.5,1232.26,1374.59,1364.17,1100.35,-5.0,-5.2,Sell,Fairly Valued,9.5,10.0,0.5,869.36,1838.16
+ABSLAMC,Aditya Birla Sun Life AMC Limited,Financial Services,932.8,886.03,983.96,974.35,797.7,-5.0,-5.3,Sell,Fairly Valued,10.0,10.0,0.5,679.86,1249.61
+WIPRO,Wipro Limited,Technology,197.58,187.55,205.64,204.1,170.99,-5.1,-5.3,Sell,Fairly Valued,9.5,10.0,0.5,143.13,261.98
+LTIM,LTIMindtree Ltd,Technology,4504.0,4258.34,4620.1,4581.01,3935.67,-5.5,-5.8,Sell,Fairly Valued,10.0,10.0,0.5,3050.43,6033.41
+KARURVYSYA,The Karur Vysya Bank Limited,Financial Services,282.1,266.27,290.88,289.11,243.43,-5.6,-5.9,Sell,Fairly Valued,10.1,10.0,0.5,200.64,374.03
+ADANIPORTS,Adani Ports and Special Economic Zone Limited,Industrials,1363.2,1284.91,1487.45,1481.38,1088.45,-5.7,-6.1,Sell,Fairly Valued,9.0,10.0,0.5,868.6,2082.01
+TCS,Tata Consultancy Services Limited,Technology,2410.5,2271.63,2495.05,2468.32,2074.94,-5.8,-6.1,Sell,Fairly Valued,9.9,10.0,0.5,1792.86,3090.31
+CRISIL,CRISIL Limited,Financial Services,4164.1,3922.48,4289.69,4253.61,3591.36,-5.8,-6.2,Sell,Fairly Valued,10.0,10.0,0.5,2821.6,5613.47
+SCHAEFFLER,Schaeffler India Limited,Consumer Cyclical,3830.6,3605.86,3954.19,3947.28,3264.45,-5.9,-6.2,Sell,Fairly Valued,10.0,10.0,0.5,2236.55,5644.21
+LTTS,L&T Technology Services Limited,Technology,3430.1,3211.62,3410.84,3378.59,3044.66,-6.4,-6.8,Sell,Fairly Valued,9.9,10.0,0.5,2206.52,4486.17
+CASTROLIND,Castrol India Limited,Energy,186.22,173.81,185.77,183.78,163.84,-6.7,-7.1,Sell,Fairly Valued,10.0,10.0,0.5,131.99,231.6
+KEI,KEI Industries Limited,Industrials,4158.0,3878.12,4172.75,4157.39,3598.84,-6.7,-7.2,Sell,Fairly Valued,10.0,10.0,0.5,2249.96,6034.11
+HDFCAMC,HDFC Asset Management Company Limited,Financial Services,2381.0,2212.64,2411.77,2388.05,2037.22,-7.1,-7.6,Sell,Fairly Valued,10.0,10.0,0.5,1645.35,3083.31
+MARICO,Marico Limited,Consumer Defensive,752.4,698.91,761.68,759.25,638.58,-7.1,-7.7,Sell,Fairly Valued,10.0,10.0,0.5,430.54,1083.12
+IEX,Indian Energy Exchange Limited,Financial Services,120.25,111.42,119.72,118.65,104.18,-7.3,-7.9,Sell,Fairly Valued,10.0,10.0,0.5,89.37,145.78
+SIGNATURE,Signatureglobal (India) Limited,Real Estate,803.7,743.44,0.0,0.0,743.44,-7.5,-8.1,Sell,Fairly Valued,8.8,10.0,0.5,0.0,0.0
+OFSS,Oracle Financial Services Software Limited,Technology,6526.0,6018.84,6531.91,6475.99,5561.68,-7.8,-8.4,Sell,Fairly Valued,10.0,10.0,0.5,4596.6,8243.55
+THELEELA,Leela Palaces Hotels & Resorts Limited,Consumer Cyclical,432.2,396.32,434.53,429.18,363.46,-8.3,-9.1,Sell,Fairly Valued,12.8,13.0,1.0,286.08,561.59
+ANANDRATHI,Anand Rathi Wealth Limited,Financial Services,3039.3,2780.72,2980.64,2954.91,2606.52,-8.5,-9.3,Sell,Fairly Valued,10.0,10.0,0.5,1948.45,3909.93
+GRANULES,Granules India Limited,Healthcare,562.2,513.24,551.89,553.29,473.18,-8.7,-9.5,Sell,Fairly Valued,9.3,10.0,0.5,273.62,835.77
+TIINDIA,Tube Investments of India Limited,Industrials,2458.2,2234.22,2274.82,2282.42,2186.02,-9.1,-10.0,Sell,Fairly Valued,9.6,10.0,0.5,965.81,3614.22
+ACC,ACC Limited,Basic Materials,1376.4,1249.1,1378.52,1369.68,1128.51,-9.2,-10.2,Sell,Fairly Valued,10.0,10.0,0.5,671.23,2050.44
+AWL,AWL Agri Business Limited,Consumer Defensive,172.89,156.41,142.41,157.58,155.24,-9.5,-10.5,Sell,Fairly Valued,10.1,10.0,0.5,0.0,345.52
+EICHERMOT,Eicher Motors Limited,Consumer Cyclical,6741.0,6099.47,6377.92,6334.63,5864.31,-9.5,-10.5,Sell,Fairly Valued,10.0,10.0,0.5,3953.51,8629.17
+COALINDIA,Coal India Limited,Energy,467.0,421.89,454.63,449.27,394.52,-9.7,-10.7,Sell,Fairly Valued,9.7,10.0,0.5,354.16,533.64
+MARUTI,Maruti Suzuki India Limited,Consumer Cyclical,12591.0,11377.34,12002.47,12145.53,10609.15,-9.6,-10.7,Sell,Fairly Valued,10.0,10.0,0.5,4987.38,19589.8
+SAILIFE,SAI LIFE SCIENCES LIMITED,Healthcare,953.05,861.25,876.18,866.86,855.63,-9.6,-10.7,Sell,Fairly Valued,13.0,13.0,1.0,550.12,1164.95
+COCHINSHIP,Cochin Shipyard Limited,Industrials,1385.5,1248.82,1387.37,1378.86,1118.79,-9.9,-10.9,Sell,Fairly Valued,9.8,10.0,0.5,858.92,1881.77
+RADICO,Radico Khaitan Limited,Consumer Defensive,2800.1,2525.86,2630.96,2610.68,2441.03,-9.8,-10.9,Sell,Fairly Valued,10.0,10.0,0.5,1556.09,3624.72
+MINDACORP,Minda Corporation Limited,Consumer Cyclical,480.85,433.28,444.24,449.95,416.61,-9.9,-11.0,Sell,Fairly Valued,9.3,10.0,0.5,148.51,762.81
+RAILTEL,RailTel Corporation of India Limited,Communication Services,278.0,250.15,265.58,265.3,235.0,-10.0,-11.1,Sell,Fairly Valued,10.0,10.0,0.5,139.62,390.44
+ONGC,Oil and Natural Gas Corporation Limited,Energy,264.1,237.5,255.1,256.12,218.88,-10.1,-11.2,Sell,Overvalued,8.3,10.0,0.5,51.39,462.87
+TRENT,Trent Limited,Consumer Cyclical,3487.8,3130.85,3036.78,3003.14,3258.56,-10.2,-11.4,Sell,Overvalued,9.9,10.0,0.5,1882.36,4056.64
+PAYTM,One97 Communications Limited,Technology,976.2,875.75,851.96,847.58,903.93,-10.3,-11.5,Sell,Overvalued,10.0,10.0,0.5,521.75,1164.66
+MSUMI,Motherson Sumi Wiring India Limited,Consumer Cyclical,39.08,34.96,37.92,38.24,31.68,-10.5,-11.8,Sell,Overvalued,10.0,10.0,0.5,15.23,61.89
+MAZDOCK,Mazagon Dock Shipbuilders Limited,Industrials,2328.0,2078.5,1926.91,1907.78,2249.22,-10.7,-12.0,Sell,Overvalued,10.0,10.0,0.5,1366.35,2410.93
+OLAELEC,OLA ELECTRIC MOBILITY LTD,Consumer Cyclical,23.07,20.59,0.0,0.0,20.59,-10.7,-12.0,Sell,Overvalued,12.0,13.0,1.0,0.0,0.0
+ZYDUSLIFE,Zydus Lifesciences Limited,Healthcare,905.9,808.39,873.68,881.79,734.99,-10.8,-12.1,Sell,Overvalued,9.4,10.0,0.5,424.82,1354.98
+PETRONET,Petronet LNG Limited,Energy,286.3,254.91,256.78,252.3,257.52,-11.0,-12.3,Sell,Overvalued,9.9,10.0,0.5,183.15,312.49
+VIJAYA,Vijaya Diagnostic Centre Limited,Healthcare,930.8,826.57,846.04,838.39,814.75,-11.2,-12.6,Sell,Overvalued,9.8,10.0,0.5,547.35,1114.14
+SCHNEIDER,Schneider Electric Infrastructure Limited,Industrials,885.7,784.18,785.49,779.22,789.15,-11.5,-12.9,Sell,Overvalued,9.9,10.0,0.5,459.14,1086.74
+CAPLIPOINT,Caplin Point Laboratories Limited,Healthcare,1662.2,1466.58,1513.02,1498.49,1434.66,-11.8,-13.3,Sell,Overvalued,10.0,10.0,0.5,1088.89,1879.01
+ELGIEQUIP,Elgi Equipments Limited,Industrials,469.5,413.92,427.12,425.16,402.68,-11.8,-13.4,Sell,Overvalued,9.8,10.0,0.5,242.17,604.23
+GILLETTE,Gillette India Limited,Consumer Defensive,7979.5,7015.96,6900.37,6832.49,7199.43,-12.1,-13.7,Sell,Overvalued,10.0,10.0,0.5,4670.56,8858.67
+NATIONALUM,National Aluminium Company Limited,Basic Materials,387.35,339.68,347.94,343.73,335.63,-12.3,-14.0,Sell,Overvalued,12.2,12.2,0.88,283.79,395.26
+SUNPHARMA,Sun Pharmaceutical Industries Limited,Healthcare,1801.6,1576.14,1588.2,1573.07,1579.21,-12.5,-14.3,Sell,Overvalued,9.9,10.0,0.5,1099.21,2016.67
+KAYNES,Kaynes Technology India Limited,Technology,3475.6,3039.0,3258.73,3218.53,2859.47,-12.6,-14.4,Sell,Overvalued,9.9,10.0,0.5,1802.5,4554.16
+AFFLE,Affle 3i Limited,Communication Services,1338.1,1168.11,1154.38,1145.27,1190.95,-12.7,-14.6,Sell,Overvalued,10.0,10.0,0.5,740.34,1531.99
+SOLARINDS,Solar Industries India Limited,Basic Materials,14251.0,12432.14,10908.08,12529.3,12334.98,-12.8,-14.6,Sell,Overvalued,10.0,10.0,0.5,13264.16,15036.87
+BHARATFORG,Bharat Forge Limited,Consumer Cyclical,1675.1,1460.61,1508.74,1507.13,1414.09,-12.8,-14.7,Sell,Overvalued,9.6,10.0,0.5,770.63,2240.43
+ALKEM,Alkem Laboratories Limited,Healthcare,5355.5,4661.71,4648.21,4603.76,4719.66,-13.0,-14.9,Sell,Overvalued,9.8,10.0,0.5,3111.46,6007.15
+ATUL,Atul Ltd,Basic Materials,6464.0,5614.42,5834.7,5784.19,5444.66,-13.1,-15.1,Sell,Overvalued,10.0,10.0,0.5,3720.54,7746.81
+NBCC,NBCC (India) Limited,Industrials,83.2,71.75,60.44,64.5,79.0,-13.8,-16.0,Sell,Overvalued,10.0,10.0,0.5,48.14,88.99
+JINDALSAW,Jindal Saw Limited,Basic Materials,191.33,164.73,183.41,179.55,149.91,-13.9,-16.1,Sell,Overvalued,9.0,10.0,0.5,85.39,266.0
+GSPL,Gujarat State Petronet Limited,Utilities,271.6,232.99,196.1,192.65,273.32,-14.2,-16.6,Sell,Overvalued,10.0,10.0,0.5,144.16,234.24
+ZFCVINDIA,ZF Commercial Vehicle Control Systems India Limited,Consumer Cyclical,13604.0,11655.83,11319.85,11201.21,12110.44,-14.3,-16.7,Sell,Overvalued,10.0,10.0,0.5,7695.36,14469.77
+KPITTECH,KPIT Technologies Limited,Technology,660.15,564.99,556.72,551.45,578.53,-14.4,-16.8,Sell,Overvalued,9.9,10.0,0.5,355.64,736.7
+RELIANCE,Reliance Industries Limited,Energy,1380.7,1182.44,1164.31,1138.33,1226.55,-14.4,-16.8,Sell,Overvalued,9.1,10.0,0.5,661.98,1562.73
+ATHERENERG,Ather Energy Limited,Consumer Cyclical,705.0,602.9,0.0,0.0,602.9,-14.5,-16.9,Sell,Overvalued,13.0,13.0,1.0,0.0,0.0
+ASTRAZEN,AstraZeneca Pharma India Limited,Healthcare,8401.0,7159.96,7731.26,7825.35,6494.57,-14.8,-17.3,Sell,Overvalued,10.0,10.0,0.5,3432.74,12406.13
+PHOENIXLTD,The Phoenix Mills Limited,Real Estate,1565.5,1333.93,1334.81,1311.88,1355.97,-14.8,-17.4,Sell,Overvalued,9.7,10.0,0.5,937.35,1640.55
+KSB,KSB Limited,Industrials,751.0,637.39,612.94,605.31,669.47,-15.1,-17.8,Sell,Overvalued,10.0,10.0,0.5,410.66,784.71
+COROMANDEL,Coromandel International Limited,Basic Materials,2002.4,1692.37,1586.78,1731.04,1653.69,-15.5,-18.3,Sell,Overvalued,10.0,10.0,0.5,1032.72,2717.89
+GRAPHITE,Graphite India Limited,Industrials,621.55,525.59,511.93,509.77,541.41,-15.4,-18.3,Sell,Overvalued,12.4,12.6,0.94,210.58,804.63
+RCF,Rashtriya Chemicals and Fertilizers Limited,Basic Materials,121.4,102.45,0.0,0.0,102.45,-15.6,-18.5,Sell,Overvalued,8.9,10.0,0.5,0.0,0.0
+JYOTHYLAB,Jyothy Labs Limited,Consumer Defensive,219.65,185.12,187.09,184.94,185.31,-15.7,-18.7,Sell,Overvalued,10.0,10.0,0.5,126.58,239.01
+MAHSEAMLES,Maharashtra Seamless Limited,Basic Materials,549.8,462.68,452.6,448.25,477.1,-15.8,-18.8,Sell,Overvalued,10.0,10.0,0.5,421.49,466.33
+BRIGADE,Brigade Enterprises Limited,Real Estate,653.7,549.79,549.72,544.39,555.19,-15.9,-18.9,Sell,Overvalued,9.2,10.0,0.5,316.75,761.38
+MOTILALOFS,Motilal Oswal Financial Services Limited,Financial Services,680.25,571.89,583.91,577.79,565.99,-15.9,-18.9,Sell,Overvalued,8.9,10.0,0.5,390.82,752.53
+PREMIERENE,PREMIER ENERGIES LIMITED,Technology,781.85,657.81,640.57,632.08,683.53,-15.9,-18.9,Sell,Overvalued,12.7,13.0,1.0,452.14,795.04
+GODREJPROP,Godrej Properties Limited,Real Estate,1577.4,1325.59,0.0,0.0,1325.59,-16.0,-19.0,Sell,Overvalued,8.4,10.0,0.5,0.0,0.0
+ASAHIINDIA,Asahi India Glass Limited,Consumer Cyclical,830.0,696.91,678.93,664.72,729.11,-16.0,-19.1,Sell,Overvalued,9.3,10.0,0.5,389.79,911.23
+DRREDDY,Dr. Reddy's Laboratories Limited,Healthcare,1292.3,1084.8,1107.58,1095.96,1073.63,-16.1,-19.1,Sell,Overvalued,9.6,10.0,0.5,755.64,1413.03
+TORNTPHARM,Torrent Pharmaceuticals Limited,Healthcare,4390.0,3684.88,3665.5,3629.28,3740.48,-16.1,-19.1,Sell,Overvalued,9.9,10.0,0.5,2406.09,4780.03
+INDUSINDBK,IndusInd Bank Limited,Financial Services,814.4,682.72,0.0,0.0,682.72,-16.2,-19.3,Sell,Overvalued,10.5,10.0,0.5,0.0,0.0
+ULTRACEMCO,UltraTech Cement Limited,Basic Materials,10616.0,8892.67,8977.14,9015.55,8769.79,-16.2,-19.4,Sell,Overvalued,9.6,10.0,0.5,4147.7,13960.22
+AJANTPHARM,Ajanta Pharma Limited,Healthcare,3030.6,2532.26,2478.11,2458.92,2605.6,-16.4,-19.7,Sell,Overvalued,10.0,10.0,0.5,1564.67,3314.8
+EIHOTEL,EIH Limited,Consumer Cyclical,317.8,265.06,249.25,246.53,283.58,-16.6,-19.9,Sell,Overvalued,10.0,10.0,0.5,181.5,306.14
+LINDEINDIA,Linde India Limited,Basic Materials,6944.5,5789.97,5813.41,5722.86,5857.07,-16.6,-19.9,Sell,Overvalued,10.0,10.0,0.5,4081.54,7183.07
+INDHOTEL,The Indian Hotels Company Limited,Consumer Cyclical,609.85,508.0,476.05,470.69,545.31,-16.7,-20.0,Sell,Overvalued,9.8,10.0,0.5,332.26,598.38
+SUNDRMFAST,Sundram Fasteners Limited,Consumer Cyclical,822.25,684.13,679.15,671.43,696.83,-16.8,-20.2,Sell,Overvalued,9.7,10.0,0.5,418.31,909.11
+INTELLECT,Intellect Design Arena Limited,Technology,660.75,548.16,556.23,555.87,540.46,-17.0,-20.5,Sell,Overvalued,9.9,10.0,0.5,295.16,815.86
+RAINBOW,Rainbow Children's Medicare Limited,Healthcare,1132.7,940.07,896.69,886.87,993.27,-17.0,-20.5,Sell,Overvalued,9.8,10.0,0.5,604.88,1149.2
+CERA,Cera Sanitaryware Limited,Industrials,4524.3,3749.49,3854.78,3824.26,3674.73,-17.1,-20.7,Sell,Overvalued,10.0,10.0,0.5,2445.77,5141.69
+AKUMS,AKUMS DRUGS AND PHARMA L,Healthcare,470.3,389.03,360.31,357.28,420.79,-17.3,-20.9,Sell,Overvalued,13.0,13.0,1.0,224.03,484.48
+FACT,The Fertilisers and Chemicals Travancore Limited,Basic Materials,851.5,703.92,0.0,0.0,703.92,-17.3,-21.0,Sell,Overvalued,9.7,10.0,0.5,0.0,0.0
+CONCORDBIO,Concord Biotech Limited,Healthcare,1182.2,976.62,967.5,957.78,995.46,-17.4,-21.1,Sell,Overvalued,10.0,10.0,0.5,671.6,1224.51
+ENDURANCE,Endurance Technologies Limited,Consumer Cyclical,2403.4,1978.28,1714.85,1941.21,2015.36,-17.7,-21.5,Sell,Overvalued,10.2,10.4,0.57,1534.12,2801.01
+APOLLOHOSP,Apollo Hospitals Enterprise Limited,Healthcare,7550.0,6208.77,5902.26,5862.39,6555.14,-17.8,-21.6,Sell,Overvalued,9.6,10.0,0.5,3170.39,8474.63
+SIEMENS,Siemens Limited,Industrials,3207.6,2631.26,2404.37,2378.74,2883.79,-18.0,-21.9,Sell,Overvalued,10.0,10.0,0.5,1396.09,3310.12
+IPCALAB,Ipca Laboratories Limited,Healthcare,1561.3,1276.33,1131.66,1117.77,1434.88,-18.3,-22.3,Sell,Overvalued,9.8,10.0,0.5,761.42,1446.33
+BANDHANBNK,Bandhan Bank Limited,Financial Services,175.5,142.95,141.18,139.21,146.7,-18.5,-22.8,Sell,Overvalued,10.3,10.0,0.5,121.65,152.81
+PGHH,Procter & Gamble Hygiene and Health Care Limited,Consumer Defensive,10522.0,8538.67,7340.07,7247.96,9829.39,-18.8,-23.2,Sell,Overvalued,10.0,10.0,0.5,5710.16,8601.53
+JUBLFOOD,Jubilant FoodWorks Limited,Consumer Cyclical,458.15,371.51,312.24,308.65,434.37,-18.9,-23.3,Sell,Overvalued,9.8,10.0,0.5,158.08,452.05
+CGPOWER,CG Power and Industrial Solutions Limited,Industrials,709.9,575.51,553.74,552.04,598.99,-18.9,-23.4,Sell,Overvalued,10.0,10.0,0.5,287.66,813.04
+HEXT,Hexaware Technologies Limited,Technology,411.35,333.33,328.09,323.63,343.03,-19.0,-23.4,Sell,Overvalued,12.9,13.0,1.0,211.09,427.27
+JSWINFRA,JSW Infrastructure Limited,Industrials,253.4,205.36,201.05,197.66,213.05,-19.0,-23.4,Sell,Overvalued,10.6,11.3,0.71,142.04,246.52
+NLCINDIA,NLC India Limited,Utilities,259.5,209.67,0.0,0.0,209.67,-19.2,-23.8,Sell,Overvalued,7.5,10.0,0.5,0.0,0.0
+DEVYANI,Devyani International Limited,Consumer Cyclical,111.94,90.2,72.47,71.65,108.75,-19.4,-24.1,Sell,Overvalued,9.2,10.0,0.5,28.82,112.83
+PRAJIND,Praj Industries Limited,Industrials,302.4,243.16,223.54,218.07,268.25,-19.6,-24.4,Sell,Overvalued,9.9,10.0,0.5,117.64,307.55
+JMFINANCIL,JM Financial Limited,Financial Services,118.44,95.14,0.0,0.0,95.14,-19.7,-24.5,Sell,Overvalued,9.3,10.0,0.5,0.0,0.0
+TATAPOWER,Tata Power Company Limited,Utilities,394.95,317.0,0.0,0.0,317.0,-19.7,-24.6,Sell,Overvalued,8.1,10.0,0.5,0.0,0.0
+AGARWALEYE,DR AGARWALS HEALTH CARE L,Healthcare,428.1,343.06,319.19,315.58,370.55,-19.9,-24.8,Sell,Overvalued,12.7,13.0,1.0,191.93,432.0
+LICHSGFIN,LIC Housing Finance Limited,Financial Services,496.6,397.76,0.0,377.05,418.48,-19.9,-24.8,Sell,Overvalued,6.0,10.0,0.5,0.0,1508.21
+SHYAMMETL,Shyam Metalics and Energy Limited,Basic Materials,769.9,616.83,596.72,586.0,647.65,-19.9,-24.8,Sell,Overvalued,9.8,10.0,0.5,220.47,930.09
+BASF,BASF India Limited,Basic Materials,3463.4,2768.88,2565.74,2507.72,3030.03,-20.1,-25.1,Sell,Overvalued,10.0,10.0,0.5,839.43,4059.97
+ABREL,Aditya Birla Real Estate Limited,Real Estate,1134.0,905.88,0.0,0.0,905.88,-20.1,-25.2,Sell,Overvalued,8.1,10.0,0.5,0.0,0.0
+APARINDS,APAR Industries Limited,Industrials,8989.0,7173.76,6892.95,6890.43,7457.09,-20.2,-25.3,Sell,Overvalued,10.0,10.0,0.5,2670.58,11105.26
+INDIAMART,IndiaMART InterMESH Limited,Communication Services,2101.9,1676.83,1517.43,1506.65,1847.01,-20.2,-25.3,Sell,Overvalued,10.0,10.0,0.5,1168.15,1823.59
+OBEROIRLTY,Oberoi Realty Limited,Real Estate,1452.1,1158.44,1087.88,1075.57,1241.31,-20.2,-25.3,Sell,Overvalued,9.8,10.0,0.5,815.83,1310.7
+CROMPTON,Crompton Greaves Consumer Electricals Limited,Consumer Cyclical,246.25,195.91,181.23,179.03,212.78,-20.4,-25.7,Sell,Overvalued,10.0,10.0,0.5,99.49,254.17
+ERIS,Eris Lifesciences Limited,Healthcare,1321.1,1048.52,1015.65,1004.14,1092.89,-20.6,-26.0,Sell,Overvalued,9.7,10.0,0.5,643.06,1342.22
+JPPOWER,Jaiprakash Power Ventures Limited,Utilities,13.9,11.03,7.52,7.39,14.66,-20.6,-26.0,Sell,Overvalued,9.6,10.0,0.5,3.66,10.87
+YESBANK,Yes Bank Limited,Financial Services,18.8,14.89,15.67,15.38,14.4,-20.8,-26.3,Sell,Overvalued,10.6,10.0,0.5,5.49,24.68
+DOMS,DOMS Industries Limited,Industrials,2082.5,1644.85,1525.6,1513.98,1775.71,-21.0,-26.6,Sell,Overvalued,10.0,10.0,0.5,888.64,2116.08
+ATGL,Adani Total Gas Limited,Utilities,565.9,445.67,505.92,415.71,475.64,-21.2,-27.0,Sell,Overvalued,10.2,10.4,0.57,322.21,328.79
+GRAVITA,Gravita India Limited,Industrials,1420.0,1117.94,1008.4,994.04,1241.84,-21.3,-27.0,Sell,Overvalued,9.8,10.0,0.5,653.04,1306.31
+BALRAMCHIN,Balrampur Chini Mills Limited,Consumer Defensive,486.0,381.08,292.66,347.16,414.99,-21.6,-27.5,Sell,Overvalued,10.0,10.1,0.52,279.83,523.48
+MANKIND,Mankind Pharma Limited,Healthcare,2138.9,1673.24,1542.53,1525.61,1820.88,-21.8,-27.8,Sell,Overvalued,9.5,10.0,0.5,990.04,2027.32
+TATACONSUM,Tata Consumer Products Limited,Consumer Defensive,1083.6,845.85,761.94,754.52,937.18,-21.9,-28.1,Sell,Overvalued,10.0,10.0,0.5,443.69,1050.5
+STARHEALTH,Star Health and Allied Insurance Company Limited,Financial Services,463.6,360.05,317.33,314.89,405.21,-22.3,-28.8,Sell,Overvalued,10.0,10.0,0.5,120.73,504.18
+CONCOR,Container Corporation of India Limited,Industrials,453.4,351.83,303.55,300.11,403.55,-22.4,-28.9,Sell,Overvalued,9.9,10.0,0.5,217.09,376.23
+USHAMART,Usha Martin Limited,Basic Materials,407.55,316.22,287.01,283.54,348.9,-22.4,-28.9,Sell,Overvalued,9.9,10.0,0.5,186.61,373.53
+CENTURYPLY,Century Plyboards (India) Limited,Basic Materials,659.45,511.38,472.88,472.52,550.24,-22.5,-29.0,Sell,Overvalued,9.4,10.0,0.5,192.46,751.88
+JSL,Jindal Stainless Limited,Basic Materials,707.45,547.44,485.03,479.84,615.05,-22.6,-29.2,Sell,Overvalued,9.6,10.0,0.5,222.34,726.98
+ADANIENSOL,Adani Energy Solutions Limited,Utilities,992.3,767.39,743.69,725.84,808.94,-22.7,-29.3,Sell,Overvalued,9.0,10.5,0.58,388.55,1027.43
+ABBOTINDIA,Abbott India Limited,Healthcare,26960.0,20736.27,18491.32,18272.2,23200.34,-23.1,-30.0,Sell,Overvalued,10.0,10.0,0.5,13500.43,22605.74
+JUBLPHARMA,Jubilant Pharmova Limited,Healthcare,844.2,649.32,618.98,605.33,693.31,-23.1,-30.0,Sell,Overvalued,9.2,10.0,0.5,218.19,965.15
+GLAXO,GlaxoSmithKline Pharmaceuticals Limited,Healthcare,2424.3,1860.52,1634.63,1616.21,2104.82,-23.3,-30.3,Sell,Overvalued,10.0,10.0,0.5,1199.88,1995.69
+CAMS,Computer Age Management Services Limited,Technology,644.5,493.93,431.7,426.77,561.08,-23.4,-30.5,Sell,Overvalued,10.0,10.0,0.5,332.0,511.68
+IGL,Indraprastha Gas Limited,Utilities,156.51,119.78,107.69,105.51,134.04,-23.5,-30.7,Sell,Overvalued,10.0,10.0,0.5,65.36,141.3
+LALPATHLAB,Dr. Lal PathLabs Limited,Healthcare,1355.1,1037.07,929.3,919.3,1154.85,-23.5,-30.7,Sell,Overvalued,10.0,10.0,0.5,656.65,1161.94
+TEJASNET,Tejas Networks Limited,Technology,424.45,324.59,0.0,0.0,324.59,-23.5,-30.8,Sell,Overvalued,7.8,10.0,0.5,0.0,0.0
+ITCHOTELS,ITC HOTELS LIMITED,Consumer Cyclical,153.12,116.96,101.16,99.83,134.09,-23.6,-30.9,Sell,Overvalued,13.0,13.0,1.0,78.52,118.47
+SWIGGY,SWIGGY LIMITED,Consumer Cyclical,282.15,215.06,0.0,0.0,215.06,-23.8,-31.2,Sell,Overvalued,12.7,13.0,1.0,0.0,0.0
+BANKBARODA,Bank of Baroda Limited,Financial Services,281.05,214.04,215.67,210.71,217.37,-23.8,-31.3,Sell,Overvalued,10.6,10.0,0.5,111.42,300.07
+UNOMINDA,Uno Minda Limited,Consumer Cyclical,1013.2,771.57,691.87,691.76,851.37,-23.8,-31.3,Sell,Overvalued,9.7,10.0,0.5,293.18,1090.11
+HSCL,Himadri Speciality Chemical Limited,Basic Materials,438.85,333.94,303.8,299.9,367.98,-23.9,-31.4,Sell,Overvalued,9.8,10.0,0.5,212.77,379.24
+JBCHEPHARM,J. B. Chemicals & Pharmaceuticals Limited,Healthcare,2121.8,1608.04,1446.26,1429.85,1786.23,-24.2,-31.9,Sell,Overvalued,10.0,10.0,0.5,1004.25,1822.63
+ICICIGI,ICICI Lombard General Insurance Company Limited,Financial Services,1837.1,1389.65,1272.14,1260.59,1518.71,-24.4,-32.2,Sell,Overvalued,10.0,10.0,0.5,727.78,1770.3
+JKCEMENT,J.K. Cement Limited,Basic Materials,5002.0,3764.93,4319.4,3521.19,4008.67,-24.7,-32.9,Sell,Overvalued,9.3,10.0,0.5,2212.16,3233.81
+POWERGRID,Power Grid Corporation of India Limited,Utilities,300.95,226.53,207.06,205.66,247.4,-24.7,-32.9,Sell,Overvalued,8.3,10.0,0.5,100.48,308.02
+GODREJAGRO,Godrej Agrovet Limited,Consumer Defensive,568.95,427.0,375.81,376.76,477.25,-24.9,-33.2,Sell,Overvalued,9.1,10.0,0.5,63.17,692.25
+NAUKRI,Info Edge (India) Limited,Communication Services,952.4,714.3,592.07,584.7,843.89,-25.0,-33.3,Sell,Overvalued,10.0,10.0,0.5,423.2,731.45
+RKFORGE,Ramkrishna Forgings Limited,Industrials,559.25,419.24,357.95,345.76,492.72,-25.0,-33.4,Sell,Overvalued,8.7,10.0,0.5,180.16,486.99
+HINDUNILVR,Hindustan Unilever Limited,Consumer Defensive,2160.0,1618.44,1195.37,1179.09,2057.79,-25.1,-33.5,Sell,Overvalued,10.0,10.0,0.5,869.58,1456.05
+HONAUT,Honeywell Automation India Limited,Industrials,30050.0,22437.14,18767.02,18549.12,26325.17,-25.3,-33.9,Sell,Overvalued,10.0,10.0,0.5,13036.85,23625.61
+HINDALCO,Hindalco Industries Limited,Basic Materials,910.05,679.08,640.25,645.1,713.05,-25.4,-34.0,Sell,Overvalued,9.8,12.0,0.84,62.96,1236.92
+VGUARD,V-Guard Industries Limited,Industrials,320.0,238.57,200.94,198.7,278.45,-25.4,-34.1,Sell,Overvalued,10.0,10.0,0.5,92.28,300.64
+CIPLA,Cipla Limited,Healthcare,1314.7,977.39,890.6,882.35,1072.44,-25.7,-34.5,Sell,Overvalued,10.0,10.0,0.5,607.97,1140.23
+ELECON,Elecon Engineering Company Limited,Industrials,380.65,282.9,254.76,251.95,313.85,-25.7,-34.6,Sell,Overvalued,9.8,10.0,0.5,175.76,322.53
+BERGEPAINT,Berger Paints India Limited,Basic Materials,407.8,302.8,240.62,236.62,368.97,-25.7,-34.7,Sell,Overvalued,10.0,10.0,0.5,166.12,299.11
+CANBK,Canara Bank,Financial Services,134.68,99.94,0.0,0.0,99.94,-25.8,-34.8,Sell,Overvalued,10.7,10.0,0.5,0.0,0.0
+DABUR,Dabur India Limited,Consumer Defensive,453.5,336.42,276.94,273.38,399.46,-25.8,-34.8,Sell,Overvalued,10.0,10.0,0.5,195.32,344.32
+FORTIS,Fortis Healthcare Limited,Healthcare,839.75,622.85,541.84,536.33,709.36,-25.8,-34.8,Sell,Overvalued,10.1,10.4,0.57,320.68,740.96
+PIDILITIND,Pidilite Industries Limited,Basic Materials,1340.0,992.87,840.29,830.05,1155.69,-25.9,-35.0,Sell,Overvalued,10.0,10.0,0.5,583.89,1055.74
+MGL,Mahanagar Gas Limited,Utilities,1035.0,765.32,669.47,655.84,874.8,-26.1,-35.2,Sell,Overvalued,9.9,10.0,0.5,383.63,900.77
+THERMAX,Thermax Limited,Industrials,3221.0,2380.49,2056.91,2002.49,2758.48,-26.1,-35.3,Sell,Overvalued,9.7,10.0,0.5,1103.43,2792.72
+CARBORUNIV,Carborundum Universal Limited,Industrials,755.6,556.74,472.66,465.29,648.18,-26.3,-35.7,Sell,Overvalued,9.9,10.0,0.5,293.46,622.37
+BAYERCROP,Bayer CropScience Limited,Basic Materials,4506.1,3317.69,3043.76,3003.62,3631.76,-26.4,-35.8,Sell,Overvalued,10.0,10.0,0.5,1974.38,3952.59
+GODREJCP,Godrej Consumer Products Limited,Consumer Defensive,1027.9,757.01,627.32,619.31,894.71,-26.4,-35.8,Sell,Overvalued,9.8,10.0,0.5,417.0,805.61
+BALKRISIND,Balkrishna Industries Limited,Consumer Cyclical,2225.7,1637.03,1368.45,1352.03,1922.03,-26.4,-36.0,Sell,Overvalued,9.5,10.0,0.5,861.92,1809.29
+IRCON,Ircon International Limited,Industrials,130.22,95.78,85.57,83.79,107.77,-26.4,-36.0,Sell,Overvalued,8.2,10.0,0.5,61.41,102.6
+JSWSTEEL,JSW Steel Limited,Basic Materials,1119.3,822.41,753.22,749.92,894.91,-26.5,-36.1,Sell,Overvalued,9.3,10.6,0.6,227.11,1266.13
+NESTLEIND,Nestlé India Limited,Consumer Defensive,1202.2,876.61,754.45,747.15,1006.06,-27.1,-37.1,Sell,Overvalued,10.0,10.0,0.5,465.69,1014.01
+CDSL,Central Depository Services (India) Limited,Financial Services,1176.5,857.66,713.45,705.17,1010.16,-27.1,-37.2,Sell,Overvalued,10.0,10.0,0.5,532.77,860.99
+HAL,Hindustan Aeronautics Limited,Industrials,3914.4,2850.47,2495.16,2461.51,3239.43,-27.2,-37.3,Sell,Overvalued,10.0,10.0,0.5,1860.92,2994.82
+TATAELXSI,Tata Elxsi Limited,Technology,4255.0,3091.3,2496.85,2464.14,3718.46,-27.3,-37.6,Sell,Overvalued,10.0,10.0,0.5,1895.31,2967.54
+TITAGARH,Titagarh Rail Systems Limited,Industrials,639.4,462.81,383.75,375.82,549.8,-27.6,-38.2,Sell,Overvalued,9.7,10.0,0.5,269.06,466.73
+KAJARIACER,Kajaria Ceramics Limited,Industrials,910.15,658.18,538.84,530.75,785.61,-27.7,-38.3,Sell,Overvalued,9.9,10.0,0.5,369.37,675.95
+TTML,Tata Teleservices (Maharashtra) Limited,Communication Services,38.24,27.63,0.0,0.0,27.63,-27.7,-38.4,Sell,Overvalued,7.2,10.0,0.5,0.0,0.0
+HAVELLS,Havells India Limited,Industrials,1310.2,945.96,798.43,791.97,1099.95,-27.8,-38.5,Sell,Overvalued,10.0,10.0,0.5,393.46,1177.55
+KIRLOSBROS,Kirloskar Brothers Limited,Industrials,1520.2,1094.7,892.69,877.61,1311.79,-28.0,-38.9,Sell,Overvalued,9.9,10.0,0.5,610.9,1114.16
+ASIANPAINT,Asian Paints Limited,Basic Materials,2196.8,1579.51,1233.22,1215.48,1943.55,-28.1,-39.1,Sell,Overvalued,9.9,10.0,0.5,866.21,1529.27
+DMART,Avenue Supermarts Limited,Consumer Defensive,3834.3,2755.86,2189.46,2164.68,3347.04,-28.1,-39.1,Sell,Overvalued,10.0,10.0,0.5,933.3,3346.52
+NEULANDLAB,Neuland Laboratories Limited,Healthcare,12152.0,8731.58,7660.8,7519.53,9943.62,-28.1,-39.2,Sell,Overvalued,9.9,10.0,0.5,4929.99,9826.55
+ASTERDM,Aster DM Healthcare Limited,Healthcare,666.95,476.7,396.5,392.1,561.3,-28.5,-39.9,Sell,Overvalued,9.6,10.0,0.5,242.05,533.35
+BRITANNIA,Britannia Industries Limited,Consumer Defensive,5808.5,4150.98,3344.0,3297.89,5004.06,-28.5,-39.9,Sell,Overvalued,10.1,10.2,0.53,2240.24,4263.31
+DIVISLAB,Divi's Laboratories Limited,Healthcare,6071.0,4338.8,3521.69,3478.8,5198.79,-28.5,-39.9,Sell,Overvalued,10.0,10.0,0.5,2505.75,4366.07
+UBL,United Breweries Limited,Consumer Defensive,1642.7,1168.68,912.92,896.27,1441.09,-28.9,-40.6,Sell,Overvalued,9.9,10.0,0.5,547.21,1212.05
+POLYMED,Poly Medicure Limited,Healthcare,1260.2,893.84,748.32,742.7,1044.97,-29.1,-41.0,Sell,Overvalued,9.9,10.0,0.5,488.1,986.06
+AEGISLOG,AEGIS LOGISTICS LIMITED,Energy,601.9,424.22,301.73,297.06,551.37,-29.5,-41.9,Sell,Overvalued,9.7,10.2,0.54,192.31,392.46
+BIKAJI,Bikaji Foods International Limited,Consumer Defensive,603.45,423.56,345.02,340.84,506.28,-29.8,-42.5,Sell,Overvalued,9.9,10.0,0.5,201.7,471.61
+MEDANTA,Global Health Limited,Healthcare,1072.1,749.11,538.82,611.68,886.54,-30.1,-43.1,Sell,Overvalued,9.8,10.0,0.5,616.09,753.0
+TATATECH,Tata Technologies Limited,Technology,540.35,376.81,297.28,292.94,460.69,-30.3,-43.4,Sell,Overvalued,10.1,10.2,0.53,197.98,379.24
+DALBHARAT,Dalmia Bharat Limited,Basic Materials,1839.9,1279.85,1106.55,1081.27,1478.42,-30.4,-43.8,Sell,Overvalued,9.0,10.0,0.5,616.87,1495.11
+AXISBANK,Axis Bank Limited,Financial Services,1197.3,825.61,726.97,709.27,941.94,-31.0,-45.0,Sell,Overvalued,10.5,10.0,0.5,374.93,1008.22
+WHIRLPOOL,Whirlpool of India Limited,Consumer Cyclical,837.65,576.5,433.38,447.95,705.05,-31.2,-45.3,Sell,Overvalued,10.0,10.0,0.5,275.96,649.09
+ARE&M,Amara Raja Energy & Mobility Limited,Industrials,773.7,532.06,475.22,400.65,663.47,-31.2,-45.4,Sell,Overvalued,10.2,10.2,0.54,229.95,422.2
+COLPAL,Colgate-Palmolive (India) Limited,Consumer Defensive,1957.2,1344.9,1050.66,1037.36,1652.44,-31.3,-45.5,Sell,Overvalued,10.0,10.0,0.5,808.04,1240.07
+FEDERALBNK,The Federal Bank Limited,Financial Services,263.05,180.8,116.1,137.88,223.72,-31.3,-45.5,Sell,Overvalued,10.4,10.0,0.5,160.44,158.86
+BOSCHLTD,Bosch Limited,Consumer Cyclical,30185.0,20698.86,16151.54,15949.62,25448.1,-31.4,-45.8,Sell,Overvalued,10.0,10.0,0.5,9558.4,21937.01
+UNITDSPR,UNITED SPIRITS LIMITED,Consumer Defensive,1314.4,901.78,720.54,711.09,1092.47,-31.4,-45.8,Sell,Overvalued,10.0,10.0,0.5,484.52,918.78
+AIAENG,AIA Engineering Limited,Industrials,3665.3,2502.88,1871.59,1851.88,3153.87,-31.7,-46.4,Sell,Overvalued,9.8,10.0,0.5,1512.86,2151.47
+PAGEIND,Page Industries Limited,Consumer Cyclical,30285.0,20675.65,15298.74,15086.27,26265.04,-31.7,-46.5,Sell,Overvalued,10.0,10.0,0.5,10678.08,19069.52
+SARDAEN,Sarda Energy & Minerals Limited,Basic Materials,530.35,360.36,304.43,300.26,420.45,-32.1,-47.2,Sell,Overvalued,9.5,10.0,0.5,218.32,373.86
+VOLTAS,Voltas Limited,Consumer Cyclical,1414.2,960.41,754.38,734.96,1185.87,-32.1,-47.2,Sell,Overvalued,9.8,10.0,0.5,396.91,1034.16
+APLAPOLLO,APL Apollo Tubes Limited,Basic Materials,1933.2,1308.11,877.76,952.95,1663.26,-32.3,-47.8,Sell,Overvalued,10.0,10.0,0.5,725.67,1330.61
+EXIDEIND,Exide Industries Limited,Consumer Cyclical,296.6,198.38,178.19,141.21,255.55,-33.1,-49.5,Sell,Overvalued,9.8,10.0,0.5,85.32,123.16
+SRF,SRF Limited,Industrials,2499.7,1672.48,1276.85,1259.6,2085.36,-33.1,-49.5,Sell,Overvalued,9.7,10.0,0.5,801.65,1683.04
+ICICIBANK,ICICI Bank Limited,Financial Services,1254.8,837.73,618.27,605.95,1069.5,-33.2,-49.8,Sell,Overvalued,10.2,10.0,0.5,456.55,730.72
+INDUSTOWER,Indus Towers Limited,Communication Services,423.95,280.56,197.29,194.79,366.32,-33.8,-51.1,Sell,Overvalued,9.5,10.0,0.5,114.28,270.31
+JSWCEMENT,JSW CEMENT LIMITED,Basic Materials,115.81,76.52,78.42,59.84,93.2,-33.9,-51.3,Sell,Overvalued,11.6,13.0,1.0,38.0,44.52
+ADANIENT,Adani Enterprises Limited,Energy,1961.1,1290.05,999.71,957.03,1623.07,-34.2,-52.0,Sell,Overvalued,8.0,10.0,0.5,171.52,1657.17
+ABB,ABB India Limited,Industrials,6392.5,4190.51,2996.78,2953.27,5427.74,-34.4,-52.5,Sell,Overvalued,10.0,10.0,0.5,2085.56,3733.96
+FINPIPE,Finolex Industries Limited,Industrials,184.42,120.75,80.6,79.34,162.17,-34.5,-52.7,Sell,Overvalued,10.0,10.0,0.5,64.25,91.91
+IFCI,IFCI Limited,Financial Services,57.21,37.38,21.73,21.83,52.93,-34.7,-53.0,Sell,Overvalued,10.2,10.0,0.5,24.85,19.0
+ASTRAL,Astral Limited,Industrials,1611.8,1051.88,760.0,749.88,1353.88,-34.7,-53.2,Sell,Overvalued,10.0,10.0,0.5,463.83,1015.7
+BHARTIHEXA,BHARTI HEXACOM LIMITED,Communication Services,1472.5,960.9,668.39,657.35,1264.46,-34.7,-53.2,Sell,Overvalued,12.5,13.0,1.0,498.75,793.86
+RITES,RITES Limited,Industrials,196.84,128.09,77.07,87.37,168.8,-34.9,-53.7,Sell,Overvalued,10.0,10.0,0.5,98.2,97.13
+HYUNDAI,HYUNDAI MOTOR INDIA LTD,Consumer Cyclical,2018.0,1312.33,984.34,967.74,1656.92,-35.0,-53.8,Sell,Overvalued,13.0,13.0,1.0,577.3,1324.97
+MAXHEALTH,Max Healthcare Institute Limited,Healthcare,990.0,638.4,455.43,449.17,827.63,-35.5,-55.1,Sell,Overvalued,9.8,10.0,0.5,301.33,584.51
+DEEPAKNTR,Deepak Nitrite Limited,Basic Materials,1448.4,930.68,697.76,675.66,1185.7,-35.7,-55.6,Sell,Overvalued,9.6,10.0,0.5,338.66,968.47
+RVNL,Rail Vikas Nigam Limited,Industrials,271.25,174.16,125.68,119.12,229.2,-35.8,-55.7,Sell,Overvalued,11.8,12.2,0.86,13.73,211.4
+ALKYLAMINE,Alkyl Amines Chemicals Limited,Basic Materials,1278.4,819.72,561.6,552.27,1087.17,-35.9,-56.0,Sell,Overvalued,10.0,10.0,0.5,416.46,669.44
+BLUESTARCO,Blue Star Limited,Industrials,1833.2,1173.26,782.99,765.08,1581.44,-36.0,-56.2,Sell,Overvalued,9.8,10.0,0.5,316.95,1177.39
+AKZOINDIA,JSW Dulux Limited,Basic Materials,2866.0,1827.02,1184.91,1164.31,2489.74,-36.3,-56.9,Sell,Overvalued,10.0,10.0,0.5,971.12,1316.31
+CUMMINSIND,Cummins India Limited,Industrials,4649.7,2956.8,1942.07,1915.02,3998.58,-36.4,-57.3,Sell,Overvalued,10.0,10.0,0.5,1530.8,2245.14
+AMBUJACEM,Ambuja Cements Limited,Basic Materials,425.35,268.89,195.71,190.78,347.01,-36.8,-58.2,Sell,Overvalued,10.0,10.0,0.5,86.27,285.44
+KPRMILL,K.P.R. Mill Limited,Consumer Cyclical,839.2,526.44,337.98,332.74,720.14,-37.3,-59.4,Sell,Overvalued,10.0,10.0,0.5,253.72,401.26
+BIOCON,Biocon Limited,Healthcare,383.55,238.13,205.32,199.95,276.31,-37.9,-61.1,Sell,Overvalued,8.7,10.0,0.5,107.32,281.86
+ACE,Action Construction Equipment Limited,Industrials,840.55,517.59,324.49,318.65,716.52,-38.4,-62.4,Sell,Overvalued,10.0,10.0,0.5,215.31,410.32
+SYNGENE,Syngene International Limited,Healthcare,420.85,256.51,174.62,171.36,341.66,-39.0,-64.1,Sell,Overvalued,9.9,10.0,0.5,137.93,198.25
+IDFCFIRSTB,IDFC First Bank Limited,Financial Services,62.57,37.66,24.95,25.75,49.58,-39.8,-66.1,Sell,Overvalued,10.5,10.0,0.5,0.0,53.11
+GODIGIT,GO DIGIT GENERAL INS LTD,Financial Services,334.65,200.98,124.76,121.44,280.52,-39.9,-66.5,Sell,Overvalued,13.0,13.0,1.0,53.61,182.64
+SHREECEM,Shree Cement Limited,Basic Materials,22965.0,13790.78,9391.25,9200.7,18380.86,-39.9,-66.5,Sell,Overvalued,9.9,10.0,0.5,6413.62,11606.7
+SUPREMEIND,The Supreme Industries Limited,Industrials,3886.5,2331.08,1310.38,1471.14,3191.02,-40.0,-66.7,Sell,Overvalued,10.0,10.0,0.5,1395.74,1868.07
+CLEAN,Clean Science and Technology Limited,Basic Materials,700.15,415.51,260.93,258.01,573.01,-40.7,-68.5,Sell,Overvalued,10.0,10.0,0.5,224.47,285.73
+SAIL,Steel Authority of India Limited,Basic Materials,149.89,88.95,59.1,71.45,106.45,-40.7,-68.5,Sell,Overvalued,10.3,12.6,0.94,0.0,167.59
+TORNTPOWER,Torrent Power Limited,Utilities,1461.3,867.1,513.04,504.0,1230.2,-40.7,-68.5,Sell,Overvalued,9.7,10.0,0.5,230.96,758.94
+MAHSCOOTER,Maharashtra Scooters Ltd.,Financial Services,12629.0,7480.64,4541.79,4492.28,10468.99,-40.8,-68.8,Sell,Overvalued,10.0,10.0,0.5,3879.05,5006.48
+SUMICHEM,Sumitomo Chemical India Limited,Basic Materials,381.25,224.25,133.71,131.9,316.61,-41.2,-70.0,Sell,Overvalued,10.0,10.0,0.5,113.38,146.78
+RAMCOCEM,The Ramco Cements Limited,Basic Materials,977.0,573.32,403.0,388.42,758.21,-41.3,-70.4,Sell,Overvalued,9.2,10.0,0.5,149.08,598.59
+GUJGASLTD,Gujarat Gas Limited,Utilities,374.3,217.24,121.36,117.8,316.67,-42.0,-72.3,Sell,Overvalued,10.0,10.0,0.5,75.34,153.14
+TIMKEN,Timken India Limited,Industrials,3445.4,1996.68,1134.14,1292.36,2701.01,-42.0,-72.6,Sell,Overvalued,10.0,10.0,0.5,1249.97,1651.18
+ITI,ITI Limited,Technology,242.3,140.14,0.0,0.0,140.14,-42.2,-72.9,Sell,Overvalued,10.1,10.0,0.5,0.0,0.0
+IDBI,IDBI Bank Limited,Financial Services,92.18,53.26,30.45,29.64,76.88,-42.2,-73.1,Sell,Overvalued,10.3,10.0,0.5,20.15,37.5
+NTPCGREEN,NTPC GREEN ENERGY LIMITED,Utilities,98.15,56.71,36.95,36.08,77.35,-42.2,-73.1,Sell,Overvalued,11.1,13.0,1.0,5.02,65.41
+DIXON,Dixon Technologies (India) Limited,Technology,10338.0,5844.69,3452.2,3485.86,8203.52,-43.5,-76.9,Sell,Overvalued,10.0,10.0,0.5,327.47,6711.57
+IRB,IRB Infrastructure Developers Limited,Industrials,41.56,23.42,15.32,15.03,31.81,-43.6,-77.5,Sell,Overvalued,8.2,10.0,0.5,9.88,19.59
+JWL,Jupiter Wagons Limited,Industrials,262.15,147.47,66.68,64.92,230.02,-43.7,-77.8,Sell,Overvalued,9.8,10.0,0.5,47.85,78.48
+MMTC,MMTC Limited,Industrials,53.29,29.78,13.55,13.56,46.0,-44.1,-78.9,Sell,Overvalued,10.1,10.1,0.51,12.76,14.38
+FLUOROCHEM,Gujarat Fluorochemicals Limited,Basic Materials,3070.6,1703.86,923.05,906.58,2501.13,-44.5,-80.2,Sell,Overvalued,9.8,10.0,0.5,635.44,1144.78
+DEEPAKFERT,Deepak Fertilisers And Petrochemicals Corporation Limited,Basic Materials,943.55,519.14,333.03,321.4,716.88,-45.0,-81.8,Sell,Overvalued,9.1,10.0,0.5,0.0,619.53
+NTPC,NTPC Limited,Utilities,384.45,210.54,70.92,85.59,335.48,-45.2,-82.6,Sell,Overvalued,7.5,10.0,0.5,0.0,200.54
+VTL,Vardhman Textiles Limited,Consumer Cyclical,536.75,292.37,163.79,156.07,428.66,-45.5,-83.6,Sell,Overvalued,9.5,10.0,0.5,46.95,249.75
+GPIL,Godawari Power & Ispat Limited,Basic Materials,251.55,134.28,68.27,66.93,201.62,-46.6,-87.3,Sell,Overvalued,11.1,11.1,0.68,53.8,77.37
+TATASTEEL,Tata Steel Limited,Basic Materials,183.51,97.75,85.09,83.2,112.29,-46.7,-87.7,Sell,Overvalued,10.2,12.1,0.85,5.99,156.64
+IGIL,International Gemmological Institute (India) Limited,Basic Materials,308.85,160.91,56.51,57.24,264.58,-47.9,-91.9,Sell,Overvalued,12.9,13.0,1.0,66.37,49.58
+JUBLINGREA,Jubilant Ingrevia Limited,Basic Materials,557.6,290.5,103.46,128.51,452.5,-47.9,-91.9,Sell,Overvalued,9.6,10.0,0.5,124.98,182.13
+BLUEJET,Blue Jet Healthcare Limited,Healthcare,358.4,183.95,81.41,82.53,285.38,-48.7,-94.8,Sell,Overvalued,10.0,10.0,0.5,96.88,70.44
+MAPMYINDIA,C. E. Info Systems Limited,Technology,934.2,478.27,202.78,201.15,755.39,-48.8,-95.3,Sell,Overvalued,10.0,10.0,0.5,192.51,206.53
+SAREGAMA,Saregama India Limited,Communication Services,342.6,173.54,47.55,49.05,298.03,-49.3,-97.4,Sell,Overvalued,10.6,10.6,0.61,59.96,41.16
+PIIND,PI Industries Limited,Basic Materials,2896.3,1461.28,574.67,571.11,2351.45,-49.5,-98.2,Sell,Overvalued,10.0,10.0,0.5,571.57,563.53
+PPLPHARMA,Piramal Pharma Limited,Healthcare,139.81,70.14,42.45,40.96,99.31,-49.8,-99.3,Sell,Overvalued,9.3,10.0,0.5,10.23,68.73
+GAIL,GAIL (India) Limited,Utilities,147.78,74.13,23.9,30.93,117.33,-49.8,-99.4,Sell,Overvalued,8.8,10.0,0.5,2.23,73.67
+JINDALSTEL,Jindal Steel Limited,Basic Materials,1143.3,569.88,232.4,239.19,900.57,-50.2,-100.6,Sell,Overvalued,10.1,10.8,0.64,0.0,491.97
+TRIDENT,Trident Limited,Consumer Cyclical,22.94,11.38,5.47,5.27,17.48,-50.4,-101.6,Sell,Overvalued,9.5,10.0,0.5,1.49,8.66
+DELHIVERY,Delhivery Limited,Industrials,403.25,196.42,89.87,98.83,294.02,-51.3,-105.3,Sell,Overvalued,9.8,10.0,0.5,43.21,172.35
+GMDCLTD,Gujarat Mineral Development Corporation Limited,Energy,528.75,254.56,96.04,93.3,415.81,-51.9,-107.7,Sell,Overvalued,9.9,10.0,0.5,72.5,108.61
+ADANIPOWER,Adani Power Limited,Utilities,146.57,70.2,22.24,21.67,118.74,-52.1,-108.8,Sell,Overvalued,9.2,10.0,0.5,13.84,28.37
+BEML,BEML Limited,Industrials,1525.4,728.58,65.95,165.91,1291.25,-52.2,-109.4,Sell,Overvalued,9.8,10.0,0.5,0.0,531.76
+INFY,Infosys Limited,Technology,1248.3,595.61,358.24,352.0,839.21,-52.3,-109.6,Sell,Overvalued,10.0,10.0,0.5,270.05,421.46
+OIL,Oil India Limited,Energy,470.55,218.08,59.01,56.74,379.42,-53.7,-115.8,Sell,Overvalued,8.0,10.0,0.5,0.0,108.96
+WELSPUNLIV,Welspun Living Limited,Consumer Cyclical,112.1,51.8,12.69,15.14,88.45,-53.8,-116.4,Sell,Overvalued,9.1,10.0,0.5,2.69,32.48
+VBL,Varun Beverages Limited,Consumer Defensive,401.3,184.64,93.36,91.34,277.95,-54.0,-117.3,Sell,Overvalued,9.9,10.0,0.5,29.77,148.89
+SOBHA,Sobha Limited,Real Estate,1294.4,584.58,168.14,158.33,1010.82,-54.8,-121.4,Sell,Overvalued,10.1,10.0,0.5,77.02,220.02
+TATACHEM,Tata Chemicals Limited,Basic Materials,670.8,298.39,56.95,76.55,520.23,-55.5,-124.8,Sell,Overvalued,8.4,10.0,0.5,0.0,192.31
+NSLNISP,NMDC Steel Limited,Basic Materials,36.6,16.01,0.0,0.0,16.01,-56.3,-128.6,Sell,Overvalued,9.7,10.0,0.5,0.0,0.0
+VEDL,Vedanta Limited,Basic Materials,689.55,299.16,0.0,1.93,596.39,-56.6,-130.5,Sell,Overvalued,10.0,11.4,0.73,7.73,0.0
+PCBL,PCBL Chemical Limited,Basic Materials,253.2,109.06,21.35,29.07,189.06,-56.9,-132.2,Sell,Overvalued,8.8,10.0,0.5,0.0,73.6
+ADANIGREEN,Adani Green Energy Limited,Utilities,861.35,367.11,29.01,54.35,679.86,-57.4,-134.6,Sell,Overvalued,8.6,11.4,0.73,0.0,159.38
+AIIL,Authum Investment & Infrastructure Limited,Financial Services,474.8,200.2,0.0,0.39,400.01,-57.8,-137.2,Sell,Overvalued,9.5,10.0,0.5,1.54,0.0
+ONESOURCE,ONESOURCE SPECL PHARMA L,Healthcare,1491.2,625.99,3.83,12.32,1239.66,-58.0,-138.2,Sell,Overvalued,12.7,13.0,1.0,37.39,4.22
+SAMMAANCAP,Sammaan Capital Limited,Financial Services,140.12,58.06,0.0,0.0,58.06,-58.6,-141.3,Sell,Overvalued,8.4,10.7,0.61,0.0,0.0
+BDL,Bharat Dynamics Limited,Industrials,1312.0,543.22,150.3,145.81,940.62,-58.6,-141.5,Sell,Overvalued,10.0,10.0,0.5,125.38,157.28
+ACMESOLAR,ACME SOLAR HOLDINGS LTD,Utilities,255.61,255.57,317.4,314.1,197.04,-0.0,-0.0,Hold,Fairly Valued,9.0,13.0,1.0,78.35,543.24

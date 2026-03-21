@@ -1,0 +1,2079 @@
+{
+  "date": "2026-03-14",
+  "generated_at": "2026-03-14 20:27 IST",
+  "market_dashboard": {
+    "indices": [
+      {
+        "name": "Nifty 50",
+        "close": 23151.1,
+        "change_pct": -2.06,
+        "prev_close": 23639.15
+      },
+      {
+        "name": "Sensex",
+        "close": 74563.92,
+        "change_pct": -1.93,
+        "prev_close": 76034.42
+      },
+      {
+        "name": "Bank Nifty",
+        "close": 53757.85,
+        "change_pct": -2.44,
+        "prev_close": 55100.95
+      }
+    ],
+    "sectors": [
+      {
+        "name": "FMCG",
+        "close": 47924.15,
+        "change_pct": -0.55,
+        "prev_close": 48189.15
+      },
+      {
+        "name": "Realty",
+        "close": 709.8,
+        "change_pct": -1.35,
+        "prev_close": 719.5
+      },
+      {
+        "name": "IT",
+        "close": 29071.25,
+        "change_pct": -1.72,
+        "prev_close": 29579.45
+      },
+      {
+        "name": "Pharma",
+        "close": 22832.2,
+        "change_pct": -1.9,
+        "prev_close": 23275.2
+      },
+      {
+        "name": "Energy",
+        "close": 36071.85,
+        "change_pct": -2.07,
+        "prev_close": 36834.35
+      },
+      {
+        "name": "PSE",
+        "close": 10071.1,
+        "change_pct": -2.14,
+        "prev_close": 10291.3
+      },
+      {
+        "name": "Infra",
+        "close": 8768.4,
+        "change_pct": -2.52,
+        "prev_close": 8995.4
+      },
+      {
+        "name": "Auto",
+        "close": 24195.1,
+        "change_pct": -3.6,
+        "prev_close": 25098.0
+      },
+      {
+        "name": "Metal",
+        "close": 11292.5,
+        "change_pct": -4.82,
+        "prev_close": 11863.9
+      }
+    ],
+    "global_indices": [
+      {
+        "name": "S&P 500",
+        "close": 6632.19,
+        "change_pct": -0.61,
+        "prev_close": 6672.62
+      },
+      {
+        "name": "Nasdaq",
+        "close": 22105.36,
+        "change_pct": -0.93,
+        "prev_close": 22311.98
+      },
+      {
+        "name": "Dow Jones",
+        "close": 46558.47,
+        "change_pct": -0.26,
+        "prev_close": 46677.85
+      },
+      {
+        "name": "FTSE 100",
+        "close": 10261.15,
+        "change_pct": -0.43,
+        "prev_close": 10305.2
+      },
+      {
+        "name": "Nikkei 225",
+        "close": 53819.61,
+        "change_pct": -1.16,
+        "prev_close": 54452.96
+      },
+      {
+        "name": "Hang Seng",
+        "close": 25465.6,
+        "change_pct": -0.98,
+        "prev_close": 25716.76
+      }
+    ],
+    "macro": {
+      "USD/INR": {
+        "close": 92.45,
+        "change_pct": 0.07,
+        "prev_close": 92.39
+      },
+      "Crude WTI": {
+        "close": 98.71,
+        "change_pct": 3.11,
+        "prev_close": 95.73
+      },
+      "Gold": {
+        "close": 5061.7,
+        "change_pct": -1.06,
+        "prev_close": 5115.8
+      },
+      "US 10Y Yield": {
+        "close": 4.28,
+        "change_pct": 0.28,
+        "prev_close": 4.27
+      }
+    }
+  },
+  "global_news": [],
+  "watchlist": [
+    {
+      "symbol": "BRITANNIA",
+      "symbol_ns": "BRITANNIA.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 5808.5,
+      "prev_close": 5787.0,
+      "change_pct": 0.37,
+      "fundamentals": {
+        "pe": 57.8,
+        "forward_pe": 47.96,
+        "pb": 37.47,
+        "earnings_growth": 16.9,
+        "revenue_growth": 8.2,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 58.4,
+        "profit_margin": 12.8,
+        "market_cap_cr": "1.4L Cr",
+        "dividend_yield": 129.0,
+        "sector": "Consumer Defensive",
+        "industry": "Packaged Foods"
+      },
+      "technicals": {
+        "rsi": 34.1,
+        "adx": 17.6,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 52,
+        "support": 5723.0,
+        "resistance": 5983.0,
+        "target_7d": 5873.02,
+        "target_30d": 6167.32,
+        "target_90d": 6042.78,
+        "upside_7d_pct": 0.7,
+        "upside_30d_pct": 5.7,
+        "upside_90d_pct": 3.6,
+        "volatility_ann": 19.1,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+5.7%)",
+        "RSI oversold (34)",
+        "Earnings growth 17%"
+      ],
+      "risk_note": "Low volatility \u2014 can size up to 6% max; add in 2 tranches."
+    },
+    {
+      "symbol": "ABB",
+      "symbol_ns": "ABB.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 6392.5,
+      "prev_close": 6409.0,
+      "change_pct": -0.26,
+      "fundamentals": {
+        "pe": 81.3,
+        "forward_pe": 59.73,
+        "pb": 17.28,
+        "earnings_growth": -18.0,
+        "revenue_growth": 5.7,
+        "roe": 22.4,
+        "roce": 9.1,
+        "debt_equity": 1.1,
+        "profit_margin": 12.6,
+        "market_cap_cr": "1.4L Cr",
+        "dividend_yield": 62.0,
+        "sector": "Industrials",
+        "industry": "Specialty Industrial Machinery"
+      },
+      "technicals": {
+        "rsi": 64.0,
+        "adx": 39.1,
+        "macd_trend": "BULLISH",
+        "ema_trend": "BULLISH",
+        "direction": "BULLISH",
+        "confidence": 86,
+        "support": 5830.5,
+        "resistance": 6409.0,
+        "target_7d": 6543.81,
+        "target_30d": 6607.35,
+        "target_90d": 6020.07,
+        "upside_7d_pct": 2.5,
+        "upside_30d_pct": 3.5,
+        "upside_90d_pct": -5.7,
+        "volatility_ann": 29.9,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+3.5%)",
+        "MACD bullish",
+        "Expensive P/E (81.3)",
+        "Strong ROE (22.4%)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "SAFARI",
+      "symbol_ns": "SAFARI.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 1594.0999755859375,
+      "prev_close": 1640.0,
+      "change_pct": -2.8,
+      "fundamentals": {
+        "pe": 46.52,
+        "forward_pe": 34.46,
+        "pb": 7.47,
+        "earnings_growth": 5.3,
+        "revenue_growth": 15.7,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 10.8,
+        "profit_margin": 8.4,
+        "market_cap_cr": "7.8K Cr",
+        "dividend_yield": 25.0,
+        "sector": "Consumer Cyclical",
+        "industry": "Footwear & Accessories"
+      },
+      "technicals": {
+        "rsi": 17.3,
+        "adx": 8.0,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 56,
+        "support": 1596.0,
+        "resistance": 1680.3,
+        "target_7d": 1657.7,
+        "target_30d": 1733.51,
+        "target_90d": 1788.59,
+        "upside_7d_pct": 3.9,
+        "upside_30d_pct": 8.6,
+        "upside_90d_pct": 12.1,
+        "volatility_ann": 46.6,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+8.6%)",
+        "RSI oversold (17)"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "TITAGARH",
+      "symbol_ns": "TITAGARH.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 639.4000244140625,
+      "prev_close": 655.8499755859375,
+      "change_pct": -2.51,
+      "fundamentals": {
+        "pe": 47.4,
+        "forward_pe": 22.33,
+        "pb": 3.4,
+        "earnings_growth": -23.2,
+        "revenue_growth": -7.8,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 25.1,
+        "profit_margin": 5.5,
+        "market_cap_cr": "8.6K Cr",
+        "dividend_yield": 16.0,
+        "sector": "Industrials",
+        "industry": "Railroads"
+      },
+      "technicals": {
+        "rsi": 24.7,
+        "adx": 42.9,
+        "macd_trend": "FADING_BEAR",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 66,
+        "support": 641.95,
+        "resistance": 680.3,
+        "target_7d": 683.03,
+        "target_30d": 691.48,
+        "target_90d": 649.32,
+        "upside_7d_pct": 6.1,
+        "upside_30d_pct": 7.5,
+        "upside_90d_pct": 0.9,
+        "volatility_ann": 30.6,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+7.5%)",
+        "RSI oversold (25)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "SBIN",
+      "symbol_ns": "SBIN.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 1047.0,
+      "prev_close": 1085.199951171875,
+      "change_pct": -3.52,
+      "fundamentals": {
+        "pe": 11.4,
+        "forward_pe": 11.27,
+        "pb": 1.63,
+        "earnings_growth": 9.3,
+        "revenue_growth": 14.5,
+        "roe": null,
+        "roce": null,
+        "debt_equity": null,
+        "profit_margin": 22.5,
+        "market_cap_cr": "9.7L Cr",
+        "dividend_yield": 152.0,
+        "sector": "Financial Services",
+        "industry": "Banks - Regional"
+      },
+      "technicals": {
+        "rsi": 15.3,
+        "adx": 29.6,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "BULLISH",
+        "confidence": 65,
+        "support": 965.05,
+        "resistance": 1077.15,
+        "target_7d": 1089.35,
+        "target_30d": 1093.46,
+        "target_90d": 1130.15,
+        "upside_7d_pct": 2.9,
+        "upside_30d_pct": 3.3,
+        "upside_90d_pct": 6.8,
+        "volatility_ann": 35.7,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+3.3%)",
+        "RSI oversold (15)",
+        "Attractive P/E (11.4)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "BSE",
+      "symbol_ns": "BSE.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 2797.0,
+      "prev_close": 2850.60009765625,
+      "change_pct": -1.88,
+      "fundamentals": {
+        "pe": 52.91,
+        "forward_pe": 39.74,
+        "pb": 18.04,
+        "earnings_growth": 170.9,
+        "revenue_growth": 48.6,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 0.0,
+        "profit_margin": 50.7,
+        "market_cap_cr": "1.1L Cr",
+        "dividend_yield": 21.0,
+        "sector": "Financial Services",
+        "industry": "Financial Data & Stock Exchanges"
+      },
+      "technicals": {
+        "rsi": 56.1,
+        "adx": 10.8,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 50,
+        "support": 2725.3,
+        "resistance": 3177.1,
+        "target_7d": 2755.07,
+        "target_30d": 2729.32,
+        "target_90d": 2922.8,
+        "upside_7d_pct": -2.0,
+        "upside_30d_pct": -2.9,
+        "upside_90d_pct": 3.9,
+        "volatility_ann": 47.2,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "Earnings growth 171%"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "APOLLOHOSP",
+      "symbol_ns": "APOLLOHOSP.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 7550.0,
+      "prev_close": 7574.5,
+      "change_pct": -0.32,
+      "fundamentals": {
+        "pe": 60.24,
+        "forward_pe": 45.31,
+        "pb": 11.94,
+        "earnings_growth": 35.0,
+        "revenue_growth": 17.2,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 83.6,
+        "profit_margin": 7.4,
+        "market_cap_cr": "1.1L Cr",
+        "dividend_yield": 26.0,
+        "sector": "Healthcare",
+        "industry": "Medical Care Facilities"
+      },
+      "technicals": {
+        "rsi": 47.0,
+        "adx": 23.8,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 78,
+        "support": 6784.49,
+        "resistance": 7647.5,
+        "target_7d": 7545.48,
+        "target_30d": 7419.38,
+        "target_90d": 7274.34,
+        "upside_7d_pct": -0.3,
+        "upside_30d_pct": -1.9,
+        "upside_90d_pct": -3.8,
+        "volatility_ann": 17.4,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [
+        "Expensive P/E (60.2)",
+        "Earnings growth 35%"
+      ],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "TMCV",
+      "symbol_ns": "TMCV.NS",
+      "is_etf": true,
+      "is_deep_dive": true,
+      "cmp": 425.6499938964844,
+      "prev_close": 443.54998779296875,
+      "change_pct": -4.04,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 35.4,
+        "adx": 26.5,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 65,
+        "support": 386.9,
+        "resistance": 489.75,
+        "target_7d": 418.11,
+        "target_30d": 417.55,
+        "target_90d": 435.6,
+        "upside_7d_pct": -1.8,
+        "upside_30d_pct": -1.9,
+        "upside_90d_pct": 2.3,
+        "volatility_ann": 40.6,
+        "algo_version": "v3"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "TITAN",
+      "symbol_ns": "TITAN.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 4073.199951171875,
+      "prev_close": 4129.60009765625,
+      "change_pct": -1.37,
+      "fundamentals": {
+        "pe": 75.75,
+        "forward_pe": 58.17,
+        "pb": 28.21,
+        "earnings_growth": 60.8,
+        "revenue_growth": 43.3,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 223.0,
+        "profit_margin": 6.3,
+        "market_cap_cr": "3.6L Cr",
+        "dividend_yield": 27.0,
+        "sector": "Consumer Cyclical",
+        "industry": "Luxury Goods"
+      },
+      "technicals": {
+        "rsi": 37.9,
+        "adx": 21.1,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 66,
+        "support": 3907.9,
+        "resistance": 4248.6,
+        "target_7d": 4079.69,
+        "target_30d": 4190.09,
+        "target_90d": 4323.53,
+        "upside_7d_pct": -0.1,
+        "upside_30d_pct": 2.6,
+        "upside_90d_pct": 5.9,
+        "volatility_ann": 21.7,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [
+        "Expensive P/E (75.8)",
+        "Earnings growth 61%",
+        "High leverage (D/E 223)"
+      ],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "TRENT",
+      "symbol_ns": "TRENT.NS",
+      "is_etf": false,
+      "is_deep_dive": true,
+      "cmp": 3487.800048828125,
+      "prev_close": 3533.60009765625,
+      "change_pct": -1.3,
+      "fundamentals": {
+        "pe": 75.76,
+        "forward_pe": 57.47,
+        "pb": 20.32,
+        "earnings_growth": 3.1,
+        "revenue_growth": 14.8,
+        "roe": null,
+        "roce": null,
+        "debt_equity": 37.8,
+        "profit_margin": 8.5,
+        "market_cap_cr": "1.2L Cr",
+        "dividend_yield": 14.0,
+        "sector": "Consumer Cyclical",
+        "industry": "Apparel Retail"
+      },
+      "technicals": {
+        "rsi": 13.0,
+        "adx": 35.5,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BEARISH",
+        "confidence": 73,
+        "support": 3501.1,
+        "resistance": 3864.0,
+        "target_7d": 3545.33,
+        "target_30d": 3360.81,
+        "target_90d": 3049.49,
+        "upside_7d_pct": 1.3,
+        "upside_30d_pct": -4.0,
+        "upside_90d_pct": -12.9,
+        "volatility_ann": 29.7,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [
+        "RSI oversold (13)",
+        "Expensive P/E (75.8)"
+      ],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "CHOLAFIN",
+      "symbol_ns": "CHOLAFIN.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 1514.0,
+      "prev_close": 1526.0999755859375,
+      "change_pct": -0.79,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 32.7,
+        "adx": 35.6,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 71,
+        "support": 1522.6,
+        "resistance": 1731.8,
+        "target_7d": 1547.7,
+        "target_30d": 1637.86,
+        "target_90d": 1681.05,
+        "upside_7d_pct": 1.6,
+        "upside_30d_pct": 7.6,
+        "upside_90d_pct": 10.4,
+        "volatility_ann": 34.5,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+7.6%)",
+        "RSI oversold (33)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "CDSL",
+      "symbol_ns": "CDSL.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 1176.5,
+      "prev_close": 1210.800048828125,
+      "change_pct": -2.83,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 27.3,
+        "adx": 38.3,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 76,
+        "support": 1178.7,
+        "resistance": 1239.6,
+        "target_7d": 1187.82,
+        "target_30d": 1218.69,
+        "target_90d": 1160.55,
+        "upside_7d_pct": 0.8,
+        "upside_30d_pct": 3.4,
+        "upside_90d_pct": -1.5,
+        "volatility_ann": 43.2,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+3.4%)",
+        "RSI oversold (27)"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "EICHERMOT",
+      "symbol_ns": "EICHERMOT.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 6741.0,
+      "prev_close": 6975.5,
+      "change_pct": -3.36,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 27.9,
+        "adx": 24.3,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "BULLISH",
+        "confidence": 47,
+        "support": 6728.5,
+        "resistance": 8038.5,
+        "target_7d": 6790.2,
+        "target_30d": 7429.16,
+        "target_90d": 8463.12,
+        "upside_7d_pct": 0.9,
+        "upside_30d_pct": 10.4,
+        "upside_90d_pct": 25.8,
+        "volatility_ann": 40.0,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+10.4%)",
+        "RSI oversold (28)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "HDFCAMC",
+      "symbol_ns": "HDFCAMC.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 2381.0,
+      "prev_close": 2429.0,
+      "change_pct": -1.98,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 25.3,
+        "adx": 22.2,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 43,
+        "support": 2386.9,
+        "resistance": 2534.7,
+        "target_7d": 2489.31,
+        "target_30d": 2520.45,
+        "target_90d": 2680.52,
+        "upside_7d_pct": 4.3,
+        "upside_30d_pct": 5.6,
+        "upside_90d_pct": 12.3,
+        "volatility_ann": 31.8,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+5.6%)",
+        "RSI oversold (25)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "HAL",
+      "symbol_ns": "HAL.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 3914.39990234375,
+      "prev_close": 4013.5,
+      "change_pct": -2.47,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 35.7,
+        "adx": 30.5,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 83,
+        "support": 3876.8,
+        "resistance": 4008.9,
+        "target_7d": 3953.51,
+        "target_30d": 4153.89,
+        "target_90d": 3966.68,
+        "upside_7d_pct": 0.6,
+        "upside_30d_pct": 5.7,
+        "upside_90d_pct": 1.0,
+        "volatility_ann": 37.5,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+5.7%)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "HEROMOTOCO",
+      "symbol_ns": "HEROMOTOCO.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 5206.0,
+      "prev_close": 5394.5,
+      "change_pct": -3.49,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 41.4,
+        "adx": 11.8,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 56,
+        "support": 5197.0,
+        "resistance": 5592.0,
+        "target_7d": 5565.51,
+        "target_30d": 5921.38,
+        "target_90d": 6641.1,
+        "upside_7d_pct": 7.1,
+        "upside_30d_pct": 13.9,
+        "upside_90d_pct": 27.8,
+        "volatility_ann": 32.3,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+13.9%)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "KEI",
+      "symbol_ns": "KEI.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 4158.0,
+      "prev_close": 4330.0,
+      "change_pct": -3.97,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 31.0,
+        "adx": 37.9,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "BULLISH",
+        "confidence": 63,
+        "support": 3800.7,
+        "resistance": 4379.42,
+        "target_7d": 4291.57,
+        "target_30d": 4506.32,
+        "target_90d": 4737.67,
+        "upside_7d_pct": 2.3,
+        "upside_30d_pct": 7.4,
+        "upside_90d_pct": 13.0,
+        "volatility_ann": 42.1,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+7.4%)",
+        "RSI oversold (31)"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "M&M",
+      "symbol_ns": "M&M.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 2931.10009765625,
+      "prev_close": 3031.199951171875,
+      "change_pct": -3.3,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 27.2,
+        "adx": 26.8,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 74,
+        "support": 2939.6,
+        "resistance": 3348.0,
+        "target_7d": 3156.67,
+        "target_30d": 3233.33,
+        "target_90d": 3394.87,
+        "upside_7d_pct": 7.4,
+        "upside_30d_pct": 10.0,
+        "upside_90d_pct": 15.5,
+        "volatility_ann": 32.8,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+10.0%)",
+        "RSI oversold (27)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "MAFANG",
+      "symbol_ns": "MAFANG.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 162.30999755859375,
+      "prev_close": null,
+      "change_pct": null,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 39.4,
+        "adx": 31.0,
+        "macd_trend": "FADING_BEAR",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 84,
+        "support": 150.87,
+        "resistance": 154.78,
+        "target_7d": 154.18,
+        "target_30d": 167.87,
+        "target_90d": 184.08,
+        "upside_7d_pct": 1.4,
+        "upside_30d_pct": 10.4,
+        "upside_90d_pct": 21.0,
+        "volatility_ann": 22.4,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+10.4%)"
+      ],
+      "risk_note": "Low volatility \u2014 can size up to 6% max; add in 2 tranches."
+    },
+    {
+      "symbol": "POLICYBZR",
+      "symbol_ns": "POLICYBZR.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 1446.0,
+      "prev_close": 1462.699951171875,
+      "change_pct": -1.14,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 35.7,
+        "adx": 20.0,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 70,
+        "support": 1428.4,
+        "resistance": 1467.9,
+        "target_7d": 1483.14,
+        "target_30d": 1524.45,
+        "target_90d": 1389.39,
+        "upside_7d_pct": 2.4,
+        "upside_30d_pct": 5.2,
+        "upside_90d_pct": -4.1,
+        "volatility_ann": 43.6,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Positive 30D upside (+5.2%)"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "NETWEB",
+      "symbol_ns": "NETWEB.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 3176.0,
+      "prev_close": 3226.199951171875,
+      "change_pct": -1.56,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 32.4,
+        "adx": 24.3,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "BULLISH",
+        "confidence": 53,
+        "support": 3024.1,
+        "resistance": 3324.1,
+        "target_7d": 3211.18,
+        "target_30d": 3470.68,
+        "target_90d": 3996.62,
+        "upside_7d_pct": 1.4,
+        "upside_30d_pct": 9.6,
+        "upside_90d_pct": 26.2,
+        "volatility_ann": 51.4,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+9.6%)",
+        "RSI oversold (32)"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "RATEGAIN",
+      "symbol_ns": "RATEGAIN.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 493.0,
+      "prev_close": 509.8500061035156,
+      "change_pct": -3.3,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 34.7,
+        "adx": 40.9,
+        "macd_trend": "BULLISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 70,
+        "support": 469.85,
+        "resistance": 510.9,
+        "target_7d": 490.6,
+        "target_30d": 579.49,
+        "target_90d": 629.94,
+        "upside_7d_pct": -0.3,
+        "upside_30d_pct": 17.7,
+        "upside_90d_pct": 28.0,
+        "volatility_ann": 51.6,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE",
+      "signal_reasons": [
+        "Strong 30D upside (+17.7%)",
+        "RSI oversold (35)",
+        "MACD bullish"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "CUMMINSIND",
+      "symbol_ns": "CUMMINSIND.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 4649.7001953125,
+      "prev_close": 4753.60009765625,
+      "change_pct": -2.19,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 47.2,
+        "adx": 27.9,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "BULLISH",
+        "confidence": 70,
+        "support": 4630.7,
+        "resistance": 4962.8,
+        "target_7d": 4767.64,
+        "target_30d": 4953.16,
+        "target_90d": 5500.35,
+        "upside_7d_pct": 2.3,
+        "upside_30d_pct": 6.2,
+        "upside_90d_pct": 18.0,
+        "volatility_ann": 33.5,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "Positive 30D upside (+6.2%)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "GRSE",
+      "symbol_ns": "GRSE.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 2309.199951171875,
+      "prev_close": 2423.800048828125,
+      "change_pct": -4.73,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 40.2,
+        "adx": 18.1,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 47,
+        "support": 2216.05,
+        "resistance": 2469.5,
+        "target_7d": 2342.89,
+        "target_30d": 2418.36,
+        "target_90d": 2405.64,
+        "upside_7d_pct": 0.5,
+        "upside_30d_pct": 3.8,
+        "upside_90d_pct": 3.2,
+        "volatility_ann": 40.8,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "Positive 30D upside (+3.8%)"
+      ],
+      "risk_note": "High volatility \u2014 limit to 3-4% position; build in 2-3 tranches over dips."
+    },
+    {
+      "symbol": "HCLTECH",
+      "symbol_ns": "HCLTECH.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 1325.4000244140625,
+      "prev_close": 1358.0999755859375,
+      "change_pct": -2.41,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 27.8,
+        "adx": 49.2,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 76,
+        "support": 1325.1,
+        "resistance": 1361.5,
+        "target_7d": 1329.0,
+        "target_30d": 1357.84,
+        "target_90d": 1457.15,
+        "upside_7d_pct": 0.3,
+        "upside_30d_pct": 2.5,
+        "upside_90d_pct": 10.0,
+        "volatility_ann": 30.0,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (28)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "ICICIBANK",
+      "symbol_ns": "ICICIBANK.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 1254.800048828125,
+      "prev_close": 1266.5,
+      "change_pct": -0.92,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 22.9,
+        "adx": 33.0,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 63,
+        "support": 1256.4,
+        "resistance": 1404.9,
+        "target_7d": 1270.25,
+        "target_30d": 1259.59,
+        "target_90d": 1263.55,
+        "upside_7d_pct": 1.1,
+        "upside_30d_pct": 0.3,
+        "upside_90d_pct": 0.6,
+        "volatility_ann": 22.2,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (23)"
+      ],
+      "risk_note": "Low volatility \u2014 can size up to 6% max; add in 2 tranches."
+    },
+    {
+      "symbol": "INDHOTEL",
+      "symbol_ns": "INDHOTEL.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 609.8499755859375,
+      "prev_close": 624.9500122070312,
+      "change_pct": -2.42,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 21.5,
+        "adx": 40.1,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 81,
+        "support": 609.7,
+        "resistance": 629.4,
+        "target_7d": 620.14,
+        "target_30d": 623.28,
+        "target_90d": 620.98,
+        "upside_7d_pct": 1.7,
+        "upside_30d_pct": 2.2,
+        "upside_90d_pct": 1.9,
+        "volatility_ann": 24.6,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (22)"
+      ],
+      "risk_note": "Low volatility \u2014 can size up to 6% max; add in 2 tranches."
+    },
+    {
+      "symbol": "NAUKRI",
+      "symbol_ns": "NAUKRI.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 952.4000244140625,
+      "prev_close": 955.4000244140625,
+      "change_pct": -0.31,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 23.6,
+        "adx": 59.5,
+        "macd_trend": "FADING_BEAR",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 68,
+        "support": 955.4,
+        "resistance": 1015.3,
+        "target_7d": 965.41,
+        "target_30d": 930.55,
+        "target_90d": 970.59,
+        "upside_7d_pct": 0.8,
+        "upside_30d_pct": -2.9,
+        "upside_90d_pct": 1.3,
+        "volatility_ann": 32.8,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (24)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "JIOFIN",
+      "symbol_ns": "JIOFIN.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 235.25,
+      "prev_close": 242.1999969482422,
+      "change_pct": -2.87,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 26.9,
+        "adx": 41.8,
+        "macd_trend": "FADING_BEAR",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 72,
+        "support": 232.25,
+        "resistance": 264.1,
+        "target_7d": 239.87,
+        "target_30d": 237.94,
+        "target_90d": 226.8,
+        "upside_7d_pct": 1.9,
+        "upside_30d_pct": 1.0,
+        "upside_90d_pct": -3.7,
+        "volatility_ann": 34.4,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (27)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "INDIGO",
+      "symbol_ns": "INDIGO.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 4158.2001953125,
+      "prev_close": 4251.7001953125,
+      "change_pct": -2.2,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 25.5,
+        "adx": 29.7,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 71,
+        "support": 4145.0,
+        "resistance": 4947.4,
+        "target_7d": 4168.81,
+        "target_30d": 4220.12,
+        "target_90d": 4338.41,
+        "upside_7d_pct": 0.6,
+        "upside_30d_pct": 1.8,
+        "upside_90d_pct": 4.7,
+        "volatility_ann": 37.7,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (26)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "ITC",
+      "symbol_ns": "ITC.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 301.45001220703125,
+      "prev_close": 304.1000061035156,
+      "change_pct": -0.87,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 12.8,
+        "adx": 26.8,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 74,
+        "support": 301.8,
+        "resistance": 315.54,
+        "target_7d": 308.18,
+        "target_30d": 304.02,
+        "target_90d": 229.52,
+        "upside_7d_pct": 2.1,
+        "upside_30d_pct": 0.7,
+        "upside_90d_pct": -23.9,
+        "volatility_ann": 23.7,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (13)"
+      ],
+      "risk_note": "Low volatility \u2014 can size up to 6% max; add in 2 tranches."
+    },
+    {
+      "symbol": "LT",
+      "symbol_ns": "LT.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 3439.0,
+      "prev_close": 3719.5,
+      "change_pct": -7.54,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 18.5,
+        "adx": 30.8,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 51,
+        "support": 3474.8,
+        "resistance": 3932.9,
+        "target_7d": 3533.29,
+        "target_30d": 3492.81,
+        "target_90d": 4015.3,
+        "upside_7d_pct": 1.7,
+        "upside_30d_pct": 0.5,
+        "upside_90d_pct": 15.6,
+        "volatility_ann": 38.9,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (18)"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "MON100",
+      "symbol_ns": "MON100.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 219.52000427246094,
+      "prev_close": 223.82000732421875,
+      "change_pct": -1.92,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 49.7,
+        "adx": 13.2,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BULLISH",
+        "confidence": 66,
+        "support": 225.79,
+        "resistance": 229.49,
+        "target_7d": 230.14,
+        "target_30d": 241.48,
+        "target_90d": 257.38,
+        "upside_7d_pct": 1.2,
+        "upside_30d_pct": 6.1,
+        "upside_90d_pct": 13.1,
+        "volatility_ann": 23.9,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "Positive 30D upside (+6.1%)"
+      ],
+      "risk_note": "Low volatility \u2014 can size up to 6% max; add in 2 tranches."
+    },
+    {
+      "symbol": "PERSISTENT",
+      "symbol_ns": "PERSISTENT.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 4638.7998046875,
+      "prev_close": 4714.39990234375,
+      "change_pct": -1.6,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 30.4,
+        "adx": 57.2,
+        "macd_trend": "BULLISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 74,
+        "support": 4641.7,
+        "resistance": 4781.5,
+        "target_7d": 4675.68,
+        "target_30d": 4648.91,
+        "target_90d": 5430.23,
+        "upside_7d_pct": 0.6,
+        "upside_30d_pct": -0.0,
+        "upside_90d_pct": 16.8,
+        "volatility_ann": 37.7,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "ACCUMULATE (STAGED)",
+      "signal_reasons": [
+        "RSI oversold (30)",
+        "MACD bullish"
+      ],
+      "risk_note": "Moderate volatility \u2014 build up to 5% in 2 tranches; add on dips toward support."
+    },
+    {
+      "symbol": "DELHIVERY",
+      "symbol_ns": "DELHIVERY.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 403.25,
+      "prev_close": 408.20001220703125,
+      "change_pct": -1.21,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 35.4,
+        "adx": 17.0,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BULLISH",
+        "direction": "BEARISH",
+        "confidence": 59,
+        "support": 378.5,
+        "resistance": 425.85,
+        "target_7d": 407.0,
+        "target_30d": 388.93,
+        "target_90d": 460.42,
+        "upside_7d_pct": 0.8,
+        "upside_30d_pct": -3.7,
+        "upside_90d_pct": 14.0,
+        "volatility_ann": 28.1,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "EBBETF0433",
+      "symbol_ns": "EBBETF0433.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 1272.3399658203125,
+      "prev_close": 1275.31005859375,
+      "change_pct": -0.23,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 57.8,
+        "adx": 68.6,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 62,
+        "support": 1274.51,
+        "resistance": 1289.97,
+        "target_7d": 1284.44,
+        "target_30d": 1286.66,
+        "target_90d": 1291.83,
+        "upside_7d_pct": 0.4,
+        "upside_30d_pct": 0.6,
+        "upside_90d_pct": 1.0,
+        "volatility_ann": 5.2,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "HDFCNEXT50",
+      "symbol_ns": "HDFCNEXT50.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 66.08999633789062,
+      "prev_close": null,
+      "change_pct": null,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 63.9,
+        "adx": 5.7,
+        "macd_trend": "BULLISH",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 57,
+        "support": 70.36,
+        "resistance": 72.04,
+        "target_7d": 71.72,
+        "target_30d": 71.34,
+        "target_90d": 72.01,
+        "upside_7d_pct": 0.2,
+        "upside_30d_pct": -0.3,
+        "upside_90d_pct": 0.6,
+        "volatility_ann": 16.1,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [
+        "MACD bullish"
+      ],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "HDFCMOMENT",
+      "symbol_ns": "HDFCMOMENT.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 28.799999237060547,
+      "prev_close": 29.489999771118164,
+      "change_pct": -2.34,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 68.1,
+        "adx": 4.2,
+        "macd_trend": "BULLISH",
+        "ema_trend": "BULLISH",
+        "direction": "SIDEWAYS",
+        "confidence": 47,
+        "support": 31.74,
+        "resistance": 32.25,
+        "target_7d": 32.26,
+        "target_30d": 32.52,
+        "target_90d": 32.4,
+        "upside_7d_pct": 0.4,
+        "upside_30d_pct": 1.2,
+        "upside_90d_pct": 0.9,
+        "volatility_ann": 16.2,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [
+        "MACD bullish"
+      ],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "LOWVOL",
+      "symbol_ns": "LOWVOL.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 194.22999572753906,
+      "prev_close": null,
+      "change_pct": null,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 55.2,
+        "adx": 6.7,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 70,
+        "support": 211.56,
+        "resistance": 212.65,
+        "target_7d": 215.29,
+        "target_30d": 215.4,
+        "target_90d": 217.83,
+        "upside_7d_pct": 1.5,
+        "upside_30d_pct": 1.6,
+        "upside_90d_pct": 2.7,
+        "volatility_ann": 11.0,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "MAZDOCK",
+      "symbol_ns": "MAZDOCK.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 2328.0,
+      "prev_close": 2443.300048828125,
+      "change_pct": -4.72,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 48.9,
+        "adx": 23.0,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 69,
+        "support": 2165.4,
+        "resistance": 2388.6,
+        "target_7d": 2380.82,
+        "target_30d": 2344.23,
+        "target_90d": 2273.64,
+        "upside_7d_pct": 1.7,
+        "upside_30d_pct": 0.1,
+        "upside_90d_pct": -2.9,
+        "volatility_ann": 44.3,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "MOM100",
+      "symbol_ns": "MOM100.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 59.060001373291016,
+      "prev_close": 60.70000076293945,
+      "change_pct": -2.7,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 53.0,
+        "adx": 9.8,
+        "macd_trend": "FADING_BEAR",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 54,
+        "support": 64.0,
+        "resistance": 66.17,
+        "target_7d": 64.9,
+        "target_30d": 65.55,
+        "target_90d": 65.28,
+        "upside_7d_pct": 0.8,
+        "upside_30d_pct": 1.8,
+        "upside_90d_pct": 1.4,
+        "volatility_ann": 18.1,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "NIFTYBEES",
+      "symbol_ns": "NIFTYBEES.NS",
+      "is_etf": true,
+      "is_deep_dive": false,
+      "cmp": 262.69000244140625,
+      "prev_close": 267.94000244140625,
+      "change_pct": -1.96,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 45.5,
+        "adx": 9.3,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 68,
+        "support": 283.91,
+        "resistance": 290.45,
+        "target_7d": 290.54,
+        "target_30d": 295.48,
+        "target_90d": 294.81,
+        "upside_7d_pct": 0.6,
+        "upside_30d_pct": 2.3,
+        "upside_90d_pct": 2.1,
+        "volatility_ann": 12.3,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "NTPC",
+      "symbol_ns": "NTPC.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 384.45001220703125,
+      "prev_close": 390.54998779296875,
+      "change_pct": -1.56,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 58.9,
+        "adx": 22.3,
+        "macd_trend": "FADING_BEAR",
+        "ema_trend": "BULLISH",
+        "direction": "BEARISH",
+        "confidence": 86,
+        "support": 376.25,
+        "resistance": 390.55,
+        "target_7d": 378.71,
+        "target_30d": 367.89,
+        "target_90d": 365.83,
+        "upside_7d_pct": -1.7,
+        "upside_30d_pct": -4.5,
+        "upside_90d_pct": -5.1,
+        "volatility_ann": 24.5,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "RELIANCE",
+      "symbol_ns": "RELIANCE.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 1380.699951171875,
+      "prev_close": 1392.199951171875,
+      "change_pct": -0.83,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 42.8,
+        "adx": 26.4,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "SIDEWAYS",
+        "confidence": 89,
+        "support": 1345.0,
+        "resistance": 1424.0,
+        "target_7d": 1393.69,
+        "target_30d": 1375.71,
+        "target_90d": 1476.56,
+        "upside_7d_pct": 0.5,
+        "upside_30d_pct": -0.8,
+        "upside_90d_pct": 6.5,
+        "volatility_ann": 23.5,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WATCH",
+      "signal_reasons": [],
+      "risk_note": "Monitor for better entry; no fresh allocation recommended yet."
+    },
+    {
+      "symbol": "GODFRYPHLP",
+      "symbol_ns": "GODFRYPHLP.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 2016.5999755859375,
+      "prev_close": 2091.60009765625,
+      "change_pct": -3.59,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 23.1,
+        "adx": 5.9,
+        "macd_trend": "BEARISH",
+        "ema_trend": "BEARISH",
+        "direction": "BEARISH",
+        "confidence": 43,
+        "support": 2014.6,
+        "resistance": 2115.4,
+        "target_7d": 1939.99,
+        "target_30d": 1799.99,
+        "target_90d": 1985.05,
+        "upside_7d_pct": -4.2,
+        "upside_30d_pct": -11.1,
+        "upside_90d_pct": -2.0,
+        "volatility_ann": 81.6,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WAIT",
+      "signal_reasons": [
+        "Negative 30D outlook (-11.1%)",
+        "RSI oversold (23)"
+      ],
+      "risk_note": "Avoid fresh entry; wait for trend reversal or support confirmation."
+    },
+    {
+      "symbol": "DIXON",
+      "symbol_ns": "DIXON.NS",
+      "is_etf": false,
+      "is_deep_dive": false,
+      "cmp": 10338.0,
+      "prev_close": 10803.0,
+      "change_pct": -4.3,
+      "fundamentals": {},
+      "technicals": {
+        "rsi": 42.7,
+        "adx": 23.1,
+        "macd_trend": "FADING_BULL",
+        "ema_trend": "BEARISH",
+        "direction": "BEARISH",
+        "confidence": 72,
+        "support": 9804.0,
+        "resistance": 13299.0,
+        "target_7d": 10146.02,
+        "target_30d": 9685.28,
+        "target_90d": 11727.13,
+        "upside_7d_pct": -3.0,
+        "upside_30d_pct": -7.4,
+        "upside_90d_pct": 12.1,
+        "volatility_ann": 53.3,
+        "algo_version": "v3-ML"
+      },
+      "news": [],
+      "signal": "WAIT",
+      "signal_reasons": [
+        "Negative 30D outlook (-7.4%)"
+      ],
+      "risk_note": "Avoid fresh entry; wait for trend reversal or support confirmation."
+    }
+  ],
+  "sector_outlook": [
+    {
+      "name": "Pharma",
+      "close": 22832.2,
+      "week_change_pct": -0.44,
+      "month_change_pct": 2.87,
+      "outlook": "POSITIVE"
+    },
+    {
+      "name": "Energy",
+      "close": 36071.9,
+      "week_change_pct": 1.16,
+      "month_change_pct": 1.01,
+      "outlook": "POSITIVE"
+    },
+    {
+      "name": "PSE",
+      "close": 10071.1,
+      "week_change_pct": -0.09,
+      "month_change_pct": -1.02,
+      "outlook": "NEUTRAL"
+    },
+    {
+      "name": "Metal",
+      "close": 11292.5,
+      "week_change_pct": -3.39,
+      "month_change_pct": -4.89,
+      "outlook": "WEAK"
+    },
+    {
+      "name": "FMCG",
+      "close": 47924.1,
+      "week_change_pct": -2.58,
+      "month_change_pct": -5.85,
+      "outlook": "WEAK"
+    },
+    {
+      "name": "Infra",
+      "close": 8768.4,
+      "week_change_pct": -3.6,
+      "month_change_pct": -8.11,
+      "outlook": "WEAK"
+    },
+    {
+      "name": "IT",
+      "close": 29071.2,
+      "week_change_pct": -3.62,
+      "month_change_pct": -11.05,
+      "outlook": "WEAK"
+    },
+    {
+      "name": "Realty",
+      "close": 709.8,
+      "week_change_pct": -3.14,
+      "month_change_pct": -13.82,
+      "outlook": "WEAK"
+    },
+    {
+      "name": "Auto",
+      "close": 24195.1,
+      "week_change_pct": -6.82,
+      "month_change_pct": -14.31,
+      "outlook": "WEAK"
+    }
+  ],
+  "screener_picks": {
+    "undervalued": [
+      {
+        "symbol": "GESHIP",
+        "composite_score": 81.4,
+        "fundamental_score": 81.3,
+        "technical_score": 82.0,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "MCX",
+        "composite_score": 77.4,
+        "fundamental_score": 79.2,
+        "technical_score": 70.3,
+        "sector": "Financial Services"
+      },
+      {
+        "symbol": "BSE",
+        "composite_score": 76.9,
+        "fundamental_score": 80.7,
+        "technical_score": 61.9,
+        "sector": "Financial Services"
+      },
+      {
+        "symbol": "NATCOPHARM",
+        "composite_score": 76.9,
+        "fundamental_score": 77.2,
+        "technical_score": 75.5,
+        "sector": "Healthcare"
+      },
+      {
+        "symbol": "DATAPATTNS",
+        "composite_score": 74.8,
+        "fundamental_score": 75.0,
+        "technical_score": 73.9,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "JPOLYINVST",
+        "composite_score": 74.6,
+        "fundamental_score": 74.2,
+        "technical_score": 76.3,
+        "sector": "Financial Services"
+      },
+      {
+        "symbol": "TREL",
+        "composite_score": 74.3,
+        "fundamental_score": 77.5,
+        "technical_score": 61.3,
+        "sector": "Real Estate"
+      },
+      {
+        "symbol": "ACUTAAS",
+        "composite_score": 72.1,
+        "fundamental_score": 76.4,
+        "technical_score": 55.1,
+        "sector": "Basic Materials"
+      }
+    ],
+    "momentum": [
+      {
+        "symbol": "GESHIP",
+        "technical_score": 82.0,
+        "composite_score": 81.4,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "TIMKEN",
+        "technical_score": 81.8,
+        "composite_score": 57.2,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "STLTECH",
+        "technical_score": 81.1,
+        "composite_score": 27.8,
+        "sector": "Technology"
+      },
+      {
+        "symbol": "ACMESOLAR",
+        "technical_score": 80.4,
+        "composite_score": 54.7,
+        "sector": "Utilities"
+      },
+      {
+        "symbol": "COALINDIA",
+        "technical_score": 80.0,
+        "composite_score": 67.1,
+        "sector": "Energy"
+      },
+      {
+        "symbol": "ABB",
+        "technical_score": 80.0,
+        "composite_score": 58.4,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "LINDEINDIA",
+        "technical_score": 79.5,
+        "composite_score": 64.8,
+        "sector": "Basic Materials"
+      },
+      {
+        "symbol": "PREMIERPOL",
+        "technical_score": 79.3,
+        "composite_score": 66.5,
+        "sector": "Basic Materials"
+      }
+    ],
+    "quality": [
+      {
+        "symbol": "TATAINVEST",
+        "fundamental_score": 81.8,
+        "composite_score": 75.3,
+        "sector": "Financial Services"
+      },
+      {
+        "symbol": "GARUDA",
+        "fundamental_score": 81.5,
+        "composite_score": 72.6,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "GESHIP",
+        "fundamental_score": 81.3,
+        "composite_score": 81.4,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "BSE",
+        "fundamental_score": 80.7,
+        "composite_score": 76.9,
+        "sector": "Financial Services"
+      },
+      {
+        "symbol": "MCX",
+        "fundamental_score": 79.2,
+        "composite_score": 77.4,
+        "sector": "Financial Services"
+      },
+      {
+        "symbol": "HBLENGINE",
+        "fundamental_score": 78.8,
+        "composite_score": 70.7,
+        "sector": "Industrials"
+      },
+      {
+        "symbol": "INDIAMART",
+        "fundamental_score": 78.0,
+        "composite_score": 70.7,
+        "sector": "Communication Services"
+      },
+      {
+        "symbol": "GANDHITUBE",
+        "fundamental_score": 77.9,
+        "composite_score": 71.7,
+        "sector": "Industrials"
+      }
+    ]
+  },
+  "takeaways": [
+    "Market declined (Nifty -2.06%). Look for opportunities in quality stocks with strong fundamentals \u2014 dips are for accumulating, not panicking.",
+    "Sector rotation: Pharma leads (+2.9% month), Auto lags (-14.3%). Consider tilting new allocation toward sectors with strong momentum.",
+    "30 watchlist stocks show accumulate signals: BRITANNIA, ABB, SAFARI, TITAGARH, SBIN. Build positions in 2-3 tranches; max 6% per name.",
+    "2 watchlist stocks on wait: GODFRYPHLP, DIXON. Avoid catching falling knives \u2014 wait for trend reversal confirmation.",
+    "Macro watch: Crude at $98.71, USD/INR at 92.45. Rising crude or weakening INR can pressure IT/pharma margins short-term but often creates accumulation opportunities in exporters.",
+    "Position sizing: Max 6% in any single name. Multi-year horizon \u2014 don't chase momentum; buy quality on weakness. Tax-efficient if held > 1 year."
+  ],
+  "learning_questions": [
+    "Would you like more ETF coverage vs individual stocks?",
+    "Any upcoming capital needs that affect your investment horizon?",
+    "Do you track FII/DII flows? Should we highlight this more?"
+  ]
+}

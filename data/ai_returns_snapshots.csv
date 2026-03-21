@@ -1,0 +1,21 @@
+snapshot_date,symbol,name,sector,entry_price,alpha_score,composite_score,pred_upside_30d,health_score,verdict,nifty_at_entry
+2026-03-11,FORCEMOT.NS,FORCE MOTORS LTD,Consumer Cyclical,22030.0,74.76,73.8,21.7,3.9,Strong Buy,23962.4
+2026-03-11,ENGINERSIN.NS,Engineers India Limited,Industrials,200.8,71.96,74.1,18.9,3.9,Strong Buy,23962.4
+2026-03-11,LLOYDSME.NS,Lloyds Metals And Energy Limited,Basic Materials,1194.7,69.59,69.7,12.5,3.6,Strong Buy,23962.4
+2026-03-11,MCX.NS,Multi Commodity Exchange of India Limited,Financial Services,2551.3,69.3,74.8,17.3,3.8,Strong Buy,23962.4
+2026-03-11,HDFCAMC.NS,HDFC Asset Management Company Limited,Financial Services,2470.3,68.86,72.7,4.6,3.8,Strong Buy,23962.4
+2026-03-11,DATAPATTNS.NS,Data Patterns (India) Limited,Industrials,3387.0,68.56,74.7,17.8,3.9,Strong Buy,23962.4
+2026-03-11,ANANDRATHI.NS,Anand Rathi Wealth Limited,Financial Services,3140.1,68.39,75.5,12.3,3.6,Strong Buy,23962.4
+2026-03-11,GESHIP.NS,The Great Eastern Shipping Company Limited,Industrials,1428.3,67.79,80.1,-0.9,3.9,Strong Buy,23962.4
+2026-03-11,NAM-INDIA.NS,Nippon Life India Asset Management Limited,Financial Services,862.05,67.55,73.2,10.0,3.7,Strong Buy,23962.4
+2026-03-11,TECHNOE.NS,Techno Electric & Engineering Company Limited,Industrials,1115.4,67.45,69.5,13.1,3.6,Strong Buy,23962.4
+2026-03-11,HBLENGINE.NS,HBL Engineering Limited,Industrials,677.8,67.08,69.8,19.8,3.5,Strong Buy,23962.4
+2026-03-11,RBLBANK.NS,RBL Bank Limited,Financial Services,299.95,66.92,66.9,8.4,3.6,Strong Buy,23962.4
+2026-03-11,SYRMA.NS,Syrma SGS Technology Limited,Technology,772.65,66.41,61.7,14.4,3.3,Strong Buy,23962.4
+2026-03-11,HEROMOTOCO.NS,Hero MotoCorp Limited,Consumer Cyclical,5572.0,65.79,64.9,12.5,3.4,Strong Buy,23962.4
+2026-03-11,TATAINVEST.NS,Tata Investment Corporation Limited,Financial Services,626.75,65.74,76.2,0.6,3.6,Strong Buy,23962.4
+2026-03-11,ABSLAMC.NS,Aditya Birla Sun Life AMC Limited,Financial Services,998.0,65.52,70.4,2.7,3.7,Strong Buy,23962.4
+2026-03-11,NATIONALUM.NS,National Aluminium Company Limited,Basic Materials,399.2,65.25,68.0,9.0,3.7,Strong Buy,23962.4
+2026-03-11,JIOFIN.NS,Jio Financial Services Limited,Financial Services,239.4,65.15,64.1,14.8,3.3,Strong Buy,23962.4
+2026-03-11,MRF.NS,MRF Limited,Consumer Cyclical,136715.0,65.13,62.7,19.3,3.3,Strong Buy,23962.4
+2026-03-11,CONCORDBIO.NS,Concord Biotech Limited,Healthcare,1183.9,65.06,65.6,12.8,3.6,Strong Buy,23962.4

@@ -1,0 +1,13 @@
+{
+  "name": "nse-proxy",
+  "version": "1.0.0",
+  "description": "NSE real-time data proxy using stock-market-india",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "cors": "^2.8.5"
+  }
+}
