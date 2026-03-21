@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, Legend, PieChart, Pie } from 'recharts';
 import { api } from '../api';
 import ScreenshotButton from './ScreenshotButton';
+import DefenseModeView from './DefenseModeView';
 
 const REC_CONFIG = {
   'STRONG BUY':  { bg: 'rgba(34,197,94,0.25)', color: '#22c55e', icon: '++' },
@@ -187,7 +188,10 @@ const silentRefresh = () => {
   const startScan = (skipCache = false) => {
     setScanning(true);
     setScanStatus({ running: true, status: 'starting', log_lines: [] });
-    api.scanPortfolio(portfolioName, skipCache).catch(() => setScanning(false));
+    api.scanPortfolio(portfolioName, skipCache).catch(err => {
+      setScanning(false);
+      setScanStatus({ running: false, status: `error: ${err.message || 'Failed to start scan'}`, log_lines: [err.message || 'Failed to start scan'] });
+    });
   };
 
   const handleSort = (col) => {
@@ -289,7 +293,8 @@ const silentRefresh = () => {
                         setImportResult({ error: result.error });
                       } else {
                         setImportResult({ success: true, count: result.count, symbols: result.symbols, column: result.column_used });
-                        loadData();
+                        setShowManage(false);
+                        startScan(false);
                       }
                     } catch (err) {
                       setImportResult({ error: err.message });
@@ -336,6 +341,33 @@ const silentRefresh = () => {
                 </div>
               )}
 
+              {/* Delete Portfolio — non-admin "my" portfolio only */}
+              {portfolioName === 'my' && (
+                <div style={{ flex: '1 1 300px' }}>
+                  <button
+                    onClick={() => {
+                      if (!window.confirm('Delete your entire portfolio? This will remove all uploaded stocks and scan results. This cannot be undone.')) return;
+                      setManageBusy(true);
+                      api.deletePortfolio()
+                        .then(() => { setData(null); setAlerts([]); setAlertsDismissed(false); setShowManage(false); })
+                        .catch(err => alert(err.message || 'Failed to delete portfolio'))
+                        .finally(() => setManageBusy(false));
+                    }}
+                    disabled={manageBusy}
+                    style={{
+                      padding: '8px 16px', borderRadius: 6, border: '1px solid var(--accent-red)',
+                      background: 'rgba(239,68,68,0.08)', color: 'var(--accent-red)',
+                      cursor: 'pointer', fontSize: 13, fontWeight: 600, width: '100%',
+                    }}
+                  >
+                    🗑 Delete Portfolio
+                  </button>
+                  <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 6 }}>
+                    Removes all uploaded stocks and scan data permanently.
+                  </div>
+                </div>
+              )}
+
               {/* Add Individual Stock */}
               <div style={{ flex: '1 1 300px' }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 8 }}>
@@ -351,7 +383,7 @@ const silentRefresh = () => {
                       if (e.key === 'Enter' && addSymbol.trim()) {
                         setManageBusy(true);
                         api.addPortfolioStock(portfolioName, addSymbol.trim())
-                          .then(() => { setAddSymbol(''); loadData(); })
+                          .then(() => { setAddSymbol(''); startScan(false); })
                           .catch(() => {})
                           .finally(() => setManageBusy(false));
                       }
@@ -367,7 +399,7 @@ const silentRefresh = () => {
                       if (!addSymbol.trim()) return;
                       setManageBusy(true);
                       api.addPortfolioStock(portfolioName, addSymbol.trim())
-                        .then(() => { setAddSymbol(''); loadData(); })
+                        .then(() => { setAddSymbol(''); startScan(false); })
                         .catch(() => {})
                         .finally(() => setManageBusy(false));
                     }}
@@ -443,8 +475,24 @@ const silentRefresh = () => {
 
       {!loading && !data && (
         <div className="empty-state">
-          <h3>No Portfolio Data</h3>
-          <p>Click "Scan Portfolio" to analyze your holdings with real-time risk assessment.</p>
+          <h3>{portfolioName === 'my' ? 'Your Portfolio is Empty' : 'No Portfolio Data'}</h3>
+          <p>
+            {portfolioName === 'my'
+              ? 'Upload a broker CSV/Excel file or add stocks manually using "Manage Holdings" above.'
+              : 'Click "Scan Portfolio" to analyze your holdings with real-time risk assessment.'}
+          </p>
+          {portfolioName === 'my' && (
+            <button
+              onClick={() => setShowManage(true)}
+              style={{
+                marginTop: 12, padding: '10px 24px', borderRadius: 8,
+                background: 'var(--accent-blue)', color: 'white',
+                border: 'none', fontWeight: 600, cursor: 'pointer', fontSize: 14,
+              }}
+            >
+              Upload / Add Stocks
+            </button>
+          )}
         </div>
       )}
 
@@ -487,6 +535,9 @@ const silentRefresh = () => {
             {[
               { key: 'stocks', label: 'Stock List' },
               { key: 'sector-mix', label: 'Sector Mix' },
+              { key: 'ai-analysis', label: '🤖 AI Analysis' },
+              { key: 'defense', label: '🛡 Defense Mode' },
+              { key: 'val-assess', label: '⚖ Valuation' },
               { key: 'rebalance', label: 'Rebalance' },
               { key: 'growth', label: 'Growth Trend' },
               { key: 'valuation', label: 'Valuation Trend' },
@@ -1210,6 +1261,21 @@ const silentRefresh = () => {
 
           {/* === SECTOR MIX TAB === */}
           {activeTab === 'sector-mix' && <SectorMixTab data={data} />}
+
+          {/* === AI ANALYSIS TAB === */}
+          {activeTab === 'ai-analysis' && (
+            <PortfolioAITab portfolioName={portfolioName} />
+          )}
+
+          {/* === DEFENSE MODE TAB === */}
+          {activeTab === 'defense' && (
+            <DefenseModeView initialSource={`portfolio:${portfolioName}`} onSelectStock={() => {}} />
+          )}
+
+          {/* === VALUATION ASSESSMENT TAB === */}
+          {activeTab === 'val-assess' && (
+            <PortfolioValuationTab portfolioName={portfolioName} />
+          )}
 
           {/* === REBALANCE TAB === */}
           {activeTab === 'rebalance' && (() => {
@@ -2130,6 +2196,613 @@ const SECTOR_COLORS = [
   '#06b6d4','#f97316','#84cc16','#ec4899','#14b8a6',
   '#a78bfa','#fb923c','#34d399','#60a5fa','#fbbf24',
 ];
+
+// ── Portfolio AI Analysis Tab ────────────────────────────────────────────────
+const VERDICT_COLOR_AI = {
+  'ACCUMULATE':          '#22c55e',
+  'ACCUMULATE (STAGED)': '#4ade80',
+  'WATCH':               '#eab308',
+  'WAIT':                '#f97316',
+  'Strong Buy':          '#22c55e',
+  'Buy':                 '#4ade80',
+  'Hold':                '#eab308',
+  'Sell':                '#f97316',
+  'Strong Sell':         '#ef4444',
+};
+const VERDICT_ICON_AI = {
+  'ACCUMULATE': '✅', 'ACCUMULATE (STAGED)': '✅',
+  'WATCH': '👁', 'WAIT': '⏳',
+  'Strong Buy': '✅', 'Buy': '✅', 'Hold': '👁', 'Sell': '⏳', 'Strong Sell': '🚫',
+};
+const DIR_CFG = {
+  'UP':      { color: '#22c55e', icon: '▲' },
+  'DOWN':    { color: '#ef4444', icon: '▼' },
+  'NEUTRAL': { color: '#eab308', icon: '◆' },
+};
+const WAR_COLOR = { 'high': '#ef4444', 'medium': '#eab308', 'LOW': '#4ade80', 'SAFE_HAVEN': '#22c55e' };
+
+function ScoreBar({ value, color = '#3b82f6', max = 100 }) {
+  const pct = Math.min(100, Math.max(0, ((value || 0) / max) * 100));
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+      <div style={{ width: 44, height: 5, background: 'rgba(255,255,255,0.08)', borderRadius: 3, overflow: 'hidden' }}>
+        <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 3 }} />
+      </div>
+      <span style={{ fontSize: 11, color, fontWeight: 600 }}>{value != null ? Math.round(value) : '—'}</span>
+    </div>
+  );
+}
+
+const ACTION_CFG = {
+  'SELL / EXIT':               { color: '#ef4444', bg: 'rgba(239,68,68,0.15)',  icon: '✕✕' },
+  'REDUCE':                    { color: '#f97316', bg: 'rgba(249,115,22,0.12)', icon: '▼' },
+  'REDUCE (WAR RISK)':         { color: '#f97316', bg: 'rgba(249,115,22,0.12)', icon: '⚠▼' },
+  'TRIM (OVERVALUED)':         { color: '#eab308', bg: 'rgba(234,179,8,0.12)',  icon: '✂' },
+  'TRIM (INTRINSIC OVERVALUED)':{ color: '#eab308', bg: 'rgba(234,179,8,0.12)', icon: '✂' },
+  'HOLD':                      { color: '#94a3b8', bg: 'rgba(148,163,184,0.1)', icon: '=' },
+  'WATCH (WEAK FUNDAMENTALS)': { color: '#64748b', bg: 'rgba(100,116,139,0.1)', icon: '◎' },
+  'ADD / ACCUMULATE':          { color: '#22c55e', bg: 'rgba(34,197,94,0.15)', icon: '▲▲' },
+  'ADD (BUY SIGNAL)':          { color: '#4ade80', bg: 'rgba(74,222,128,0.12)', icon: '▲' },
+  'ADD (INTRINSIC UNDERVALUED)':{ color: '#4ade80', bg: 'rgba(74,222,128,0.12)', icon: '▲' },
+};
+
+function PortfolioAITab({ portfolioName }) {
+  const [aiData, setAiData] = useState([]);
+  const [rebalData, setRebalData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [rebalLoading, setRebalLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [rebalError, setRebalError] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+  const [rebalLoaded, setRebalLoaded] = useState(false);
+  const [expandedRow, setExpandedRow] = useState(null);
+  const [sortCol, setSortCol] = useState('compositeScore');
+  const [sortAsc, setSortAsc] = useState(false);
+  const [filter, setFilter] = useState('ALL');
+  const [subTab, setSubTab] = useState('rebalance');
+
+  const data = aiData;
+
+  const loadRebalance = () => {
+    setRebalLoading(true);
+    setRebalError(null);
+    api.getPortfolioRebalance(portfolioName)
+      .then(d => { setRebalData(d); setRebalLoaded(true); })
+      .catch(e => setRebalError(e.message))
+      .finally(() => setRebalLoading(false));
+  };
+
+  const load = () => {
+    setLoading(true);
+    setError(null);
+    api.getPortfolioAIInsights(portfolioName)
+      .then(d => { setAiData(Array.isArray(d) ? d : []); setLoaded(true); })
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  };
+
+  const handleSort = (col) => {
+    if (sortCol === col) setSortAsc(!sortAsc);
+    else { setSortCol(col); setSortAsc(false); }
+  };
+
+  // Summary counts
+  const verdictCounts = {};
+  data.forEach(r => { if (r.verdict) verdictCounts[r.verdict] = (verdictCounts[r.verdict] || 0) + 1; });
+  const buyCount = (verdictCounts['ACCUMULATE'] || 0) + (verdictCounts['ACCUMULATE (STAGED)'] || 0) + (verdictCounts['Strong Buy'] || 0) + (verdictCounts['Buy'] || 0);
+  const watchCount = (verdictCounts['WATCH'] || 0) + (verdictCounts['Hold'] || 0);
+  const exitCount = (verdictCounts['WAIT'] || 0) + (verdictCounts['Sell'] || 0) + (verdictCounts['Strong Sell'] || 0);
+  const avgCS = data.length ? Math.round(data.reduce((s, r) => s + (r.compositeScore || 0), 0) / data.length) : 0;
+
+  const FILTER_OPTS = [
+    { key: 'ALL', label: 'All' },
+    { key: 'BUY', label: 'Accumulate/Buy' },
+    { key: 'WATCH', label: 'Watch/Hold' },
+    { key: 'EXIT', label: 'Wait/Sell' },
+  ];
+  const verdictGroup = (v = '') => {
+    if (['ACCUMULATE', 'ACCUMULATE (STAGED)', 'Strong Buy', 'Buy'].includes(v)) return 'BUY';
+    if (['WATCH', 'Hold'].includes(v)) return 'WATCH';
+    if (['WAIT', 'Sell', 'Strong Sell'].includes(v)) return 'EXIT';
+    return 'WATCH';
+  };
+
+  let rows = [...data];
+  if (filter !== 'ALL') rows = rows.filter(r => verdictGroup(r.verdict) === filter);
+  rows.sort((a, b) => {
+    let va = a[sortCol] ?? (sortAsc ? Infinity : -Infinity);
+    let vb = b[sortCol] ?? (sortAsc ? Infinity : -Infinity);
+    if (typeof va === 'string') return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+    return sortAsc ? va - vb : vb - va;
+  });
+
+  const th = (label, col) => (
+    <th onClick={() => handleSort(col)} style={{
+      cursor: 'pointer', padding: '9px 10px', textAlign: 'left', whiteSpace: 'nowrap',
+      color: sortCol === col ? '#60a5fa' : 'var(--text-secondary)',
+      fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)',
+    }}>
+      {label}{sortCol === col ? (sortAsc ? ' ▲' : ' ▼') : ''}
+    </th>
+  );
+
+  return (
+    <div className="card" style={{ padding: 20 }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16, flexWrap: 'wrap' }}>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>🤖 AI Portfolio Analysis</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+            Skills 1–13: Rebalance Advice · Fundamentals · Technicals · Valuation · Defense Mode
+          </div>
+        </div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          <button onClick={loadRebalance} disabled={rebalLoading} style={{ padding: '9px 18px', borderRadius: 8, border: 'none', background: '#22c55e', color: '#fff', fontWeight: 600, cursor: rebalLoading ? 'wait' : 'pointer', fontSize: 13 }}>
+            {rebalLoading ? '⟳ Loading...' : rebalLoaded ? '↻ Refresh Rebalance' : '⚖ Rebalance AI'}
+          </button>
+          <button onClick={load} disabled={loading} style={{ padding: '9px 18px', borderRadius: 8, border: 'none', background: 'var(--accent-blue)', color: '#fff', fontWeight: 600, cursor: loading ? 'wait' : 'pointer', fontSize: 13 }}>
+            {loading ? '⟳ Analyzing...' : loaded ? '↻ Re-analyze' : '🤖 Deep Analysis'}
+          </button>
+        </div>
+      </div>
+
+      {/* Sub-tabs */}
+      <div style={{ display: 'flex', gap: 0, borderBottom: '2px solid var(--border)', marginBottom: 20 }}>
+        {[{ key: 'rebalance', label: '⚖ Rebalance Advice' }, { key: 'deep', label: '🔬 Deep AI Analysis' }].map(t => (
+          <button key={t.key} onClick={() => setSubTab(t.key)} style={{
+            padding: '9px 20px', border: 'none', marginBottom: -2,
+            borderBottom: subTab === t.key ? '2px solid var(--accent-blue)' : '2px solid transparent',
+            background: 'transparent', color: subTab === t.key ? 'var(--accent-blue)' : 'var(--text-muted)',
+            fontWeight: subTab === t.key ? 700 : 500, fontSize: 13, cursor: 'pointer',
+          }}>{t.label}</button>
+        ))}
+      </div>
+
+      {/* ── REBALANCE TAB ── */}
+      {subTab === 'rebalance' && (
+        <>
+          {rebalError && <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', color: '#fca5a5', marginBottom: 14, fontSize: 13 }}>{rebalError}</div>}
+          {rebalLoading && <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-muted)', fontSize: 13 }}><div style={{ fontSize: 28 }}>⚖</div>Generating AI rebalance recommendations...</div>}
+
+          {!rebalLoading && rebalLoaded && rebalData && (
+            <>
+              {/* Summary row */}
+              <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+                {[
+                  { label: 'Sell / Reduce', val: rebalData.summary?.sell_reduce, color: '#ef4444' },
+                  { label: 'Add / Accumulate', val: rebalData.summary?.add_accumulate, color: '#22c55e' },
+                  { label: 'Hold', val: rebalData.summary?.hold, color: '#94a3b8' },
+                  { label: 'High Risk', val: rebalData.summary?.high_risk_count, color: '#f97316' },
+                  { label: 'War Exposed', val: rebalData.summary?.war_exposed_count, color: '#eab308' },
+                ].map(c => (
+                  <div key={c.label} style={{ background: 'var(--bg-secondary)', borderRadius: 10, padding: '10px 16px', border: '1px solid var(--border)', flex: '1 1 100px' }}>
+                    <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{c.label}</div>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: c.color }}>{c.val ?? 0}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Rebalance table */}
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                  <thead>
+                    <tr style={{ background: 'var(--bg-secondary)' }}>
+                      {['Priority', 'Stock', 'Sector', 'CMP', 'F.Score', 'Risk', 'Signal', 'AI Action', 'Rationale'].map(h => (
+                        <th key={h} style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 11, fontWeight: 700, textAlign: 'left', borderBottom: '1px solid var(--border)', whiteSpace: 'nowrap' }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(rebalData.stocks || []).map((r, i) => {
+                      const acfg = ACTION_CFG[r.action] || ACTION_CFG['HOLD'];
+                      const pLabel = r.priority === 1 ? 'URGENT' : r.priority === 2 ? 'SOON' : 'MONITOR';
+                      const pColor = r.priority === 1 ? '#ef4444' : r.priority === 2 ? '#eab308' : '#64748b';
+                      return (
+                        <tr key={r.symbol} style={{ borderBottom: '1px solid var(--border)', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.015)' }}>
+                          <td style={{ padding: '9px 10px' }}>
+                            <span style={{ fontSize: 10, fontWeight: 700, color: pColor, background: `${pColor}22`, padding: '2px 7px', borderRadius: 8 }}>{pLabel}</span>
+                          </td>
+                          <td style={{ padding: '9px 10px' }}>
+                            <div style={{ fontWeight: 700 }}>{r.symbol}</div>
+                            <div style={{ fontSize: 10, color: 'var(--text-muted)', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.name}</div>
+                          </td>
+                          <td style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 12 }}>{r.sector}</td>
+                          <td style={{ padding: '9px 10px', fontWeight: 600 }}>
+                            {r.cmp ? `₹${Number(r.cmp).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'}
+                          </td>
+                          <td style={{ padding: '9px 10px' }}>
+                            <span style={{ color: r.fundamental_score >= 65 ? '#22c55e' : r.fundamental_score >= 45 ? '#eab308' : '#ef4444', fontWeight: 600 }}>
+                              {r.fundamental_score != null ? Math.round(r.fundamental_score) : '—'}
+                            </span>
+                          </td>
+                          <td style={{ padding: '9px 10px' }}>
+                            <span style={{ fontSize: 11, fontWeight: 700, color: r.risk_level === 'HIGH' ? '#ef4444' : r.risk_level === 'MEDIUM' ? '#eab308' : '#22c55e' }}>
+                              {r.risk_level}
+                            </span>
+                          </td>
+                          <td style={{ padding: '9px 10px' }}>
+                            <span style={{ fontSize: 12, fontWeight: 600, color: r.signal === 'BUY' ? '#22c55e' : r.signal === 'SELL' ? '#ef4444' : '#eab308' }}>
+                              {r.signal}
+                            </span>
+                          </td>
+                          <td style={{ padding: '9px 10px', whiteSpace: 'nowrap' }}>
+                            <span style={{ padding: '4px 10px', borderRadius: 14, background: acfg.bg, color: acfg.color, fontSize: 12, fontWeight: 700 }}>
+                              {acfg.icon} {r.action}
+                            </span>
+                            {r.weight_change !== 0 && (
+                              <div style={{ fontSize: 10, color: r.weight_change > 0 ? '#4ade80' : '#f87171', marginTop: 2 }}>
+                                {r.weight_change > 0 ? '+' : ''}{r.weight_change}% weight
+                              </div>
+                            )}
+                          </td>
+                          <td style={{ padding: '9px 10px', fontSize: 11, color: 'var(--text-secondary)', maxWidth: 220 }}>
+                            <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.rationale}</div>
+                            {r.intrinsic_value && r.cmp && (
+                              <div style={{ fontSize: 10, color: '#60a5fa', marginTop: 2 }}>
+                                IV: ₹{Number(r.intrinsic_value).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                                {r.dcf_upside != null && ` · DCF upside: ${r.dcf_upside.toFixed(1)}%`}
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
+
+          {!rebalLoading && !rebalLoaded && (
+            <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-muted)', fontSize: 13 }}>
+              <div style={{ fontSize: 36, marginBottom: 10 }}>⚖</div>
+              Click "Rebalance AI" to get AI-powered rebalance recommendations<br />
+              <span style={{ fontSize: 11 }}>Requires portfolio scan to be run first. Uses recommendation, risk, signals, intrinsic value & defense flags.</span>
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ── DEEP ANALYSIS TAB ── */}
+      {subTab === 'deep' && (
+        <>
+          {error && <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', color: '#fca5a5', marginBottom: 14, fontSize: 13 }}>{error}</div>}
+          {loading && (
+            <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-muted)', fontSize: 13 }}>
+              <div style={{ fontSize: 32, marginBottom: 8 }}>🤖</div>
+              Running full AI analysis on all holdings...<br />
+              <span style={{ fontSize: 11 }}>Skills 1-13: Fundamentals, Technicals, Valuation, Defense, Alpha</span>
+            </div>
+          )}
+
+      {/* Summary bar */}
+      {!loading && loaded && data.length > 0 && (
+        <>
+          <div style={{ display: 'flex', gap: 10, marginBottom: 16, flexWrap: 'wrap' }}>
+            {[
+              { label: 'Accumulate / Buy', val: buyCount, color: '#22c55e' },
+              { label: 'Watch / Hold', val: watchCount, color: '#eab308' },
+              { label: 'Wait / Sell', val: exitCount, color: '#ef4444' },
+              { label: 'Avg Composite Score', val: avgCS, color: '#60a5fa' },
+            ].map(c => (
+              <div key={c.label} style={{
+                background: 'var(--bg-secondary)', borderRadius: 10, padding: '10px 16px',
+                border: '1px solid var(--border)', flex: '1 1 120px',
+              }}>
+                <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{c.label}</div>
+                <div style={{ fontSize: 24, fontWeight: 800, color: c.color }}>{c.val}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Filter tabs */}
+          <div style={{ display: 'flex', gap: 8, marginBottom: 14 }}>
+            {FILTER_OPTS.map(o => (
+              <button key={o.key} onClick={() => setFilter(o.key)} style={{
+                padding: '5px 14px', borderRadius: 20, border: '1px solid var(--border)',
+                background: filter === o.key ? 'var(--accent-blue)' : 'transparent',
+                color: filter === o.key ? '#fff' : 'var(--text-secondary)',
+                cursor: 'pointer', fontSize: 12, fontWeight: 600,
+              }}>{o.label}</button>
+            ))}
+          </div>
+
+          <div style={{ overflowX: 'auto' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: 'var(--bg-secondary)' }}>
+                  {th('Stock', 'symbol')}
+                  {th('Composite', 'compositeScore')}
+                  {th('Fundamental', 'fundamentalScore')}
+                  {th('Technical', 'technicalScore')}
+                  <th style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)', textAlign: 'left' }}>Direction</th>
+                  <th style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)', textAlign: 'left', whiteSpace: 'nowrap' }}>30D Target</th>
+                  <th style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)', textAlign: 'left' }}>War Risk</th>
+                  {th('Verdict', 'verdict')}
+                  <th style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 11, fontWeight: 700, borderBottom: '1px solid var(--border)', textAlign: 'left' }}>AI Take</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((r, i) => {
+                  if (r.error) return (
+                    <tr key={r.symbol} style={{ borderBottom: '1px solid var(--border)' }}>
+                      <td style={{ padding: '8px 10px', fontWeight: 700 }}>{r.symbol}</td>
+                      <td colSpan={8} style={{ padding: '8px 10px', color: '#f87171', fontSize: 12 }}>{r.error}</td>
+                    </tr>
+                  );
+                  const isExpanded = expandedRow === r.symbol;
+                  const vColor = VERDICT_COLOR_AI[r.verdict] || '#94a3b8';
+                  const vIcon = VERDICT_ICON_AI[r.verdict] || '?';
+                  const dirCfg = DIR_CFG[(r.direction || '').toUpperCase()] || DIR_CFG['NEUTRAL'];
+                  const warColor = WAR_COLOR[r.warRisk] || '#64748b';
+                  const upside30 = r.target30d && r.cmp ? ((r.target30d - r.cmp) / r.cmp * 100).toFixed(1) : null;
+                  return (
+                    <>
+                      <tr
+                        key={r.symbol}
+                        onClick={() => setExpandedRow(isExpanded ? null : r.symbol)}
+                        style={{
+                          borderBottom: '1px solid var(--border)',
+                          cursor: 'pointer',
+                          background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.015)',
+                        }}
+                      >
+                        {/* Stock */}
+                        <td style={{ padding: '9px 10px' }}>
+                          <div style={{ fontWeight: 700 }}>{r.symbol}</div>
+                          <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{r.sector}</div>
+                          {r.cmp && <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>₹{Number(r.cmp).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</div>}
+                        </td>
+                        {/* Composite */}
+                        <td style={{ padding: '9px 10px' }}>
+                          <ScoreBar value={r.compositeScore} color='#60a5fa' />
+                        </td>
+                        {/* Fundamental */}
+                        <td style={{ padding: '9px 10px' }}>
+                          <ScoreBar value={r.fundamentalScore} color='#4ade80' />
+                        </td>
+                        {/* Technical */}
+                        <td style={{ padding: '9px 10px' }}>
+                          <ScoreBar value={r.technicalScore} color='#a78bfa' />
+                        </td>
+                        {/* Direction */}
+                        <td style={{ padding: '9px 10px' }}>
+                          <span style={{ color: dirCfg.color, fontWeight: 700, fontSize: 13 }}>{dirCfg.icon} {r.direction || '—'}</span>
+                          {r.rsi && <div style={{ fontSize: 10, color: 'var(--text-muted)' }}>RSI {r.rsi.toFixed(0)}</div>}
+                        </td>
+                        {/* 30D Target */}
+                        <td style={{ padding: '9px 10px' }}>
+                          {r.target30d ? (
+                            <>
+                              <div style={{ fontWeight: 600 }}>₹{Number(r.target30d).toLocaleString('en-IN', { maximumFractionDigits: 0 })}</div>
+                              {upside30 && <div style={{ fontSize: 11, color: parseFloat(upside30) >= 0 ? '#4ade80' : '#f87171', fontWeight: 600 }}>{upside30 > 0 ? '+' : ''}{upside30}%</div>}
+                            </>
+                          ) : <span style={{ color: 'var(--text-muted)' }}>—</span>}
+                        </td>
+                        {/* War Risk */}
+                        <td style={{ padding: '9px 10px' }}>
+                          <span style={{ fontSize: 12, fontWeight: 600, color: warColor }}>
+                            {r.isSafeHaven ? '🛡 SAFE' : r.warRisk || '—'}
+                          </span>
+                        </td>
+                        {/* Verdict */}
+                        <td style={{ padding: '9px 10px', whiteSpace: 'nowrap' }}>
+                          <span style={{ fontWeight: 700, color: vColor, fontSize: 13 }}>{vIcon} {r.verdict || '—'}</span>
+                        </td>
+                        {/* AI Take */}
+                        <td style={{ padding: '9px 10px', maxWidth: 200 }}>
+                          {r.llmConviction?.summary ? (
+                            <span style={{ fontSize: 11, color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                              {r.llmConviction.summary}
+                            </span>
+                          ) : <span style={{ color: 'var(--text-muted)', fontSize: 11 }}>—</span>}
+                        </td>
+                      </tr>
+                      {/* Expanded detail */}
+                      {isExpanded && (
+                        <tr key={`${r.symbol}-detail`} style={{ background: 'rgba(96,165,250,0.04)' }}>
+                          <td colSpan={9} style={{ padding: '14px 16px', borderBottom: '1px solid var(--border)' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12 }}>
+                              {/* Fundamentals */}
+                              <div style={{ background: 'var(--bg-secondary)', borderRadius: 8, padding: 12 }}>
+                                <div style={{ fontSize: 11, fontWeight: 700, color: '#4ade80', marginBottom: 8 }}>FUNDAMENTALS</div>
+                                {[['ROE', r.metrics?.roe != null ? `${(r.metrics.roe * 100).toFixed(1)}%` : '—'],
+                                  ['P/E', r.metrics?.pe?.toFixed(1)],
+                                  ['D/E', r.metrics?.de?.toFixed(0)],
+                                  ['Fund Score', r.fundamentalScore?.toFixed(0)],
+                                ].map(([k, v]) => (
+                                  <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '3px 0' }}>
+                                    <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                                    <span style={{ fontWeight: 600 }}>{v || '—'}</span>
+                                  </div>
+                                ))}
+                              </div>
+                              {/* Fair value */}
+                              {r.fairValue && (
+                                <div style={{ background: 'var(--bg-secondary)', borderRadius: 8, padding: 12 }}>
+                                  <div style={{ fontSize: 11, fontWeight: 700, color: '#60a5fa', marginBottom: 8 }}>INTRINSIC VALUE</div>
+                                  {[['CMP', r.fairValue.cmp ? `₹${Number(r.fairValue.cmp).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'],
+                                    ['Fair Value', r.fairValue.intrinsicValue ? `₹${Number(r.fairValue.intrinsicValue).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'],
+                                    ['Upside', r.fairValue.upside != null ? `${r.fairValue.upside.toFixed(1)}%` : '—'],
+                                    ['Zone', r.fairValue.mosZone || r.fairValue.verdict || '—'],
+                                  ].map(([k, v]) => (
+                                    <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, padding: '3px 0' }}>
+                                      <span style={{ color: 'var(--text-muted)' }}>{k}</span>
+                                      <span style={{ fontWeight: 600 }}>{v}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                              {/* Red flag */}
+                              {r.redFlag?.reasons && (
+                                <div style={{ background: 'rgba(239,68,68,0.07)', borderRadius: 8, padding: 12, border: '1px solid rgba(239,68,68,0.2)' }}>
+                                  <div style={{ fontSize: 11, fontWeight: 700, color: '#f87171', marginBottom: 6 }}>RED FLAGS</div>
+                                  <div style={{ fontSize: 11, color: '#fca5a5' }}>{r.redFlag.reasons}</div>
+                                </div>
+                              )}
+                              {/* LLM conviction full */}
+                              {r.llmConviction?.summary && (
+                                <div style={{ background: 'var(--bg-secondary)', borderRadius: 8, padding: 12, gridColumn: 'span 2' }}>
+                                  <div style={{ fontSize: 11, fontWeight: 700, color: '#a78bfa', marginBottom: 6 }}>AI CONVICTION</div>
+                                  <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{r.llmConviction.summary}</div>
+                                  {r.llmConviction.keyRisks && (
+                                    <div style={{ marginTop: 8, fontSize: 11, color: '#f87171' }}>
+                                      <b>Key risks:</b> {r.llmConviction.keyRisks}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
+          {!loading && !loaded && (
+            <div style={{ textAlign: 'center', padding: '48px 0', color: 'var(--text-muted)', fontSize: 13 }}>
+              <div style={{ fontSize: 40, marginBottom: 10 }}>🤖</div>
+              Click "Deep Analysis" to analyze all holdings using the full AI algorithm<br />
+              <span style={{ fontSize: 11 }}>Skills 1-13: Fundamentals, Technicals, Market Condition, India Themes, Defense Mode, Valuation</span>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── Portfolio Valuation Tab ──────────────────────────────────────────────────
+function PortfolioValuationTab({ portfolioName }) {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+
+  const load = () => {
+    setLoading(true);
+    setError(null);
+    api.getPortfolioValuation(portfolioName)
+      .then(d => { setData(Array.isArray(d) ? d : []); setLoaded(true); })
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  };
+
+  const VERDICT_COLOR = {
+    'UNDERVALUED': '#22c55e',
+    'FAIRLY VALUED': '#eab308',
+    'SLIGHTLY OVERVALUED': '#f97316',
+    'OVERVALUED': '#ef4444',
+    'SIGNIFICANTLY OVERVALUED': '#ef4444',
+  };
+
+  return (
+    <div className="card" style={{ padding: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
+        <div>
+          <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>⚖ Valuation Assessment</div>
+          <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+            3-method fair value for each holding: Relative P/E · DCF · Graham Number
+          </div>
+        </div>
+        <button
+          onClick={load}
+          disabled={loading}
+          style={{
+            marginLeft: 'auto', padding: '9px 20px', borderRadius: 8, border: 'none',
+            background: 'var(--accent-blue)', color: '#fff', fontWeight: 600,
+            cursor: loading ? 'wait' : 'pointer', fontSize: 13,
+          }}
+        >
+          {loading ? '⟳ Fetching...' : loaded ? '↻ Refresh' : 'Run Valuation'}
+        </button>
+      </div>
+
+      {error && (
+        <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: 8, padding: '10px 14px', color: '#fca5a5', marginBottom: 14, fontSize: 13 }}>
+          {error}
+        </div>
+      )}
+
+      {loading && (
+        <div style={{ textAlign: 'center', padding: '32px 0', color: 'var(--text-muted)', fontSize: 13 }}>
+          Fetching valuation data for each holding... (~30s)
+        </div>
+      )}
+
+      {!loading && loaded && data.length > 0 && (
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: 'var(--bg-secondary)' }}>
+                {['Stock', 'CMP', 'Fair Value', 'MoS %', 'P/E', 'Sector P/E', 'P/B', 'Verdict', 'Entry Below', 'Exit Above'].map(h => (
+                  <th key={h} style={{ padding: '9px 10px', color: 'var(--text-secondary)', fontSize: 11, fontWeight: 700, textAlign: 'left', borderBottom: '1px solid var(--border)', whiteSpace: 'nowrap' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((r, i) => {
+                if (r.error) return (
+                  <tr key={r.symbol} style={{ borderBottom: '1px solid var(--border)' }}>
+                    <td style={{ padding: '8px 10px', fontWeight: 700 }}>{r.symbol}</td>
+                    <td colSpan={9} style={{ padding: '8px 10px', color: '#f87171', fontSize: 12 }}>{r.error}</td>
+                  </tr>
+                );
+                const mos = r.margin_of_safety_pct;
+                const mosColor = mos == null ? '#64748b' : mos >= 20 ? '#22c55e' : mos >= 0 ? '#4ade80' : mos >= -20 ? '#eab308' : '#ef4444';
+                const verdictColor = VERDICT_COLOR[r.verdict] || '#94a3b8';
+                return (
+                  <tr key={r.symbol} style={{ borderBottom: '1px solid var(--border)', background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.015)' }}>
+                    <td style={{ padding: '8px 10px' }}>
+                      <div style={{ fontWeight: 700 }}>{r.symbol}</div>
+                      <div style={{ fontSize: 11, color: 'var(--text-secondary)', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.name}</div>
+                    </td>
+                    <td style={{ padding: '8px 10px', fontWeight: 600 }}>
+                      {r.cmp ? `₹${Number(r.cmp).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'}
+                    </td>
+                    <td style={{ padding: '8px 10px', color: '#60a5fa', fontWeight: 700 }}>
+                      {r.fair_value ? `₹${Number(r.fair_value).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'}
+                    </td>
+                    <td style={{ padding: '8px 10px', fontWeight: 700, color: mosColor }}>
+                      {mos != null ? `${mos > 0 ? '+' : ''}${mos}%` : '—'}
+                    </td>
+                    <td style={{ padding: '8px 10px' }}>{r.trailing_pe != null ? r.trailing_pe.toFixed(1) : '—'}</td>
+                    <td style={{ padding: '8px 10px', color: 'var(--text-secondary)' }}>{r.sector_median_pe ?? '—'}</td>
+                    <td style={{ padding: '8px 10px' }}>{r.price_to_book != null ? r.price_to_book.toFixed(1) : '—'}</td>
+                    <td style={{ padding: '8px 10px' }}>
+                      <span style={{ fontWeight: 700, color: verdictColor, fontSize: 12, whiteSpace: 'nowrap' }}>{r.verdict || '—'}</span>
+                    </td>
+                    <td style={{ padding: '8px 10px', color: '#22c55e', fontSize: 12 }}>
+                      {r.attractive_price ? `₹${Number(r.attractive_price).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'}
+                    </td>
+                    <td style={{ padding: '8px 10px', color: '#f87171', fontSize: 12 }}>
+                      {r.exit_on_valuation ? `₹${Number(r.exit_on_valuation).toLocaleString('en-IN', { maximumFractionDigits: 0 })}` : '—'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <div style={{ marginTop: 10, fontSize: 11, color: 'var(--text-muted)' }}>
+            MoS = Margin of Safety (positive = stock below fair value). Fair value = 60% DCF + 40% Graham Number.
+          </div>
+        </div>
+      )}
+
+      {!loading && !loaded && (
+        <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-muted)', fontSize: 13 }}>
+          Click "Run Valuation" to assess all holdings.
+        </div>
+      )}
+    </div>
+  );
+}
 
 function SectorMixTab({ data }) {
   if (!data || data.length === 0) {

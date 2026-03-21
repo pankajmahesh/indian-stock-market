@@ -176,6 +176,17 @@ TOP_N_DEEP_DIVE = 50
 TOP_N_FINAL = 20
 
 # ============================================================
+# ============================================================
+# AUTH — single-user login gate
+# Password is stored as a PBKDF2-SHA256 hash (never plaintext).
+# To change password: run scripts/gen_auth_hash.py and update AUTH_PW_HASH.
+# ============================================================
+AUTH_EMAIL    = os.environ.get("AUTH_EMAIL",    "pankaj.mahesh@gmail.com")
+AUTH_PW_HASH  = os.environ.get("AUTH_PW_HASH",  "ce96d12c5bc362ec896648af27b547917c545b5f9fc98322db7df853c14f34ba")
+AUTH_PW_SALT  = os.environ.get("AUTH_PW_SALT",  "screener_2024_salt")
+AUTH_SECRET   = os.environ.get("AUTH_SECRET",   "c4921a47a6b20aca541733033a7c74fd980ae0752241f8d086a5a4da4372e071")
+
+# ============================================================
 # NSE PROXY (real-time data via stock-market-india)
 # ============================================================
 NSE_PROXY_URL = "http://127.0.0.1:3100"
@@ -187,7 +198,8 @@ NSE_PROXY_TIMEOUT = 15
 # Generate your access token at: groww.in/user/profile/trading-apis
 # Token expires daily at 6:00 AM IST — refresh via Groww profile.
 GROWW_API_URL = "https://api.groww.in/v1"
-GROWW_API_TOKEN = os.environ.get("GROWW_API_TOKEN", "")
+GROWW_API_TOKEN = os.environ.get("GROWW_API_TOKEN", "eyJraWQiOiJaTUtjVXciLCJhbGciOiJFUzI1NiJ9.eyJleHAiOjI1NjIzOTcxMDIsImlhdCI6MTc3Mzk5NzEwMiwibmJmIjoxNzczOTk3MTAyLCJzdWIiOiJ7XCJ0b2tlblJlZklkXCI6XCJhOWZkMjA2OC04YmQzLTQzZTMtOWU4MS1jZGZiNDU4YmFhNTVcIixcInZlbmRvckludGVncmF0aW9uS2V5XCI6XCJlMzFmZjIzYjA4NmI0MDZjODg3NGIyZjZkODQ5NTMxM1wiLFwidXNlckFjY291bnRJZFwiOlwiOWM4MzViZGQtOWFiOS00YmYxLWJkOWYtNDZjYjQyNzA1OWQzXCIsXCJkZXZpY2VJZFwiOlwiMTYwN2Q0ZjQtZTA0OS01NGI3LTlhYzAtZTMwZmFlNjQyYTkxXCIsXCJzZXNzaW9uSWRcIjpcIjE1OWQ2MDI4LTZkZWQtNDZjMy1hYTZlLTVlNzdjNDQ1YmJhNlwiLFwiYWRkaXRpb25hbERhdGFcIjpcIno1NC9NZzltdjE2WXdmb0gvS0EwYkV0Yi9BQUwzZWtMQzVjMHV2UVM3dWhSTkczdTlLa2pWZDNoWjU1ZStNZERhWXBOVi9UOUxIRmtQejFFQisybTdRPT1cIixcInJvbGVcIjpcImF1dGgtdG90cFwiLFwic291cmNlSXBBZGRyZXNzXCI6XCIyNDA1OjIwMTo0MDE4OmExYmM6ZjAyMDplMzcxOjZhMjk6ODMyZCwxNjIuMTU5LjEyNi4xNTcsMzUuMjQxLjIzLjEyM1wiLFwidHdvRmFFeHBpcnlUc1wiOjI1NjIzOTcxMDIxNzMsXCJ2ZW5kb3JOYW1lXCI6XCJncm93d0FwaVwifSIsImlzcyI6ImFwZXgtYXV0aC1wcm9kLWFwcCJ9.MYF4jm8ZfhQpq_B0hVQgYMbolFatN8P0GlP3i9TKUZz_bFbAASHOI2Uxjs66EVgaE1ENHglpnekswLM36v3e3w")
+GROWW_API_SECRET = os.environ.get("GROWW_API_SECRET", "n&9HWQfxyrbCC3_NAoz@sMBpeTl^MQv-")
 GROWW_EXCHANGE = "NSE"
 GROWW_SEGMENT = "CASH"
 

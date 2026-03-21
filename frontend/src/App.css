@@ -1,50 +1,184 @@
-.app { min-height: 100vh; }
+.app {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Live Ticker Bar ────────────────────────────────────────────────────── */
+.live-ticker-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #0a0c14;
+  border-bottom: 1px solid var(--border);
+  padding: 0 clamp(10px, 2vw, 20px);
+  height: 36px;
+  position: sticky;
+  top: 53px;
+  z-index: 99;
+  overflow: hidden;
+  font-size: 12px;
+  width: 100%;
+}
+
+.ticker-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  padding-right: 12px;
+  flex-shrink: 0;
+}
+
+.ticker-status-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.ticker-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+.ticker-indices {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ticker-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  height: 36px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  cursor: default;
+}
+
+.ticker-name {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ticker-price {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-chg {
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-ws {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 12px;
+  flex-shrink: 0;
+}
+
+/* Dots */
+.ticker-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.dot-open   { background: var(--accent-green); box-shadow: 0 0 6px var(--accent-green); animation: pulse 2s infinite; }
+.dot-closed { background: var(--text-muted); }
+.dot-live   { background: var(--accent-cyan);  box-shadow: 0 0 6px var(--accent-cyan);  animation: pulse 2s infinite; }
+.dot-off    { background: var(--accent-red); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
 
 /* Header */
 .header {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
-  padding: 14px 32px;
+  padding: 12px clamp(16px, 2.5vw, 40px);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
 }
-.header h1 { font-size: 18px; font-weight: 700; }
+.header h1 {
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 .header h1 span { color: var(--accent-blue); }
 
-.nav-tabs { display: flex; gap: 4px; }
+.nav-tabs {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+  /* overflow must stay visible so dropdown menus are not clipped */
+  overflow: visible;
+}
+
 .nav-tab {
-  padding: 7px 14px;
+  padding: 6px 12px;
   border: none;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: clamp(11px, 1vw, 13px);
   font-weight: 500;
+  white-space: nowrap;
   transition: all 0.2s;
+  flex-shrink: 0;
 }
 .nav-tab:hover { background: var(--bg-hover); color: var(--text-primary); }
 .nav-tab.active { background: var(--accent-blue); color: white; }
 
 /* Main */
-.main-content { padding: 24px 32px; max-width: 1600px; margin: 0 auto; }
+.main-content {
+  padding: clamp(12px, 2vw, 28px) clamp(12px, 2.5vw, 36px);
+  width: 100%;
+  flex: 1;
+}
 
 /* Summary cards */
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 14px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: clamp(8px, 1.2vw, 16px);
+  margin-bottom: clamp(14px, 2vw, 24px);
 }
 .summary-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 18px;
+  padding: clamp(12px, 1.5vw, 20px);
 }
 .summary-card .label {
   font-size: 11px;
@@ -53,7 +187,7 @@
   letter-spacing: 0.05em;
   margin-bottom: 6px;
 }
-.summary-card .value { font-size: 26px; font-weight: 700; }
+.summary-card .value { font-size: clamp(20px, 2.2vw, 28px); font-weight: 700; }
 .summary-card .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
 
 /* Card */
@@ -61,13 +195,13 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: clamp(14px, 2vw, 28px);
+  margin-bottom: clamp(12px, 1.5vw, 24px);
 }
 .card h2 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
 
 /* Table */
-.table-container { overflow-x: auto; border-radius: 8px; }
+.table-container { overflow-x: auto; border-radius: 8px; width: 100%; }
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 thead th {
   background: var(--bg-secondary);
@@ -84,6 +218,11 @@ thead th:hover { color: var(--text-primary); }
 tbody td { padding: 10px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 tbody tr:hover { background: var(--bg-hover); }
 tbody tr.clickable { cursor: pointer; }
+
+@media (max-width: 768px) {
+  table { font-size: 11px; }
+  thead th, tbody td { padding: 7px 8px; }
+}
 
 /* Badges */
 .score-badge {
@@ -114,11 +253,10 @@ tbody tr.clickable { cursor: pointer; }
 /* Charts grid */
 .chart-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+  gap: clamp(12px, 1.5vw, 24px);
+  margin-bottom: clamp(12px, 1.5vw, 24px);
 }
-@media (max-width: 1024px) { .chart-grid { grid-template-columns: 1fr; } }
 
 /* Modal */
 .modal-overlay {
@@ -214,34 +352,35 @@ tbody tr.clickable { cursor: pointer; }
 .filter-bar input::placeholder { color: var(--text-muted); }
 
 /* Dropdown navigation */
-.nav-dropdown { position: relative; }
+.nav-dropdown { position: relative; flex-shrink: 0; }
+.nav-dropdown > .nav-tab { white-space: nowrap; }
 .dropdown-arrow { font-size: 10px; margin-left: 3px; }
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   left: 0;
-  margin-top: 4px;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 4px;
-  min-width: 170px;
-  z-index: 150;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  border-radius: 10px;
+  padding: 5px;
+  min-width: 180px;
+  z-index: 9999;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.55);
 }
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 8px 14px;
+  padding: 9px 14px;
   border: none;
   background: transparent;
   color: var(--text-secondary);
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
   text-align: left;
   transition: all 0.15s;
+  white-space: nowrap;
 }
 .dropdown-item:hover { background: var(--bg-hover); color: var(--text-primary); }
 .dropdown-item.active { background: var(--accent-blue); color: white; }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { api } from '../api';
+import RunPipelineButton from './RunPipelineButton';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import ScreenshotButton from './ScreenshotButton';
 
@@ -188,6 +189,7 @@ export default function SignalsView({ onSelectStock }) {
           )}
 
           <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <RunPipelineButton label="Regenerate Signals" onDone={fetchLive} />
             <ScreenshotButton targetRef={containerRef} filename="live-signals" />
           </div>
         </div>

@@ -1,7 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { api } from '../api';
 
-export default function PipelineControl() {
+const STEPS = ['Universe', 'Red Flags', 'Fundamentals', 'Technicals', 'Ranking', 'Deep Dive', 'Final Output'];
+
+function parseCurrentStep(statusText) {
+  if (!statusText) return 0;
+  const m = statusText.match(/step\s*(\d)/i);
+  return m ? parseInt(m[1]) : 0;
+}
+
+export default function PipelineControl({ onPipelineComplete }) {
   const [status, setStatus] = useState(null);
   const [logs, setLogs] = useState([]);
   const [showLogs, setShowLogs] = useState(false);
@@ -45,6 +53,7 @@ export default function PipelineControl() {
         if (!s.running && pollRef.current) {
           clearInterval(pollRef.current);
           pollRef.current = null;
+          if (s.status === 'completed') onPipelineComplete?.();
         }
       })
       .catch(() => {});
@@ -138,6 +147,8 @@ export default function PipelineControl() {
 
   const running = status?.running;
   const statusText = status?.status || 'idle';
+  const completed = statusText === 'completed';
+  const currentStep = running ? parseCurrentStep(statusText) : completed ? 7 : 0;
 
   return (
     <div className="card">
@@ -252,6 +263,31 @@ export default function PipelineControl() {
           {statusText}
         </span>
       </div>
+
+      {/* Step progress */}
+      {(running || completed) && (
+        <div style={{ display: 'flex', gap: 4, alignItems: 'center', marginBottom: 16, flexWrap: 'wrap' }}>
+          {STEPS.map((label, i) => {
+            const stepNum = i + 1;
+            const done = currentStep > stepNum || (completed && currentStep >= stepNum);
+            const active = running && currentStep === stepNum;
+            return (
+              <div key={stepNum} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 5,
+                  padding: '4px 10px', borderRadius: 6, fontSize: 11, fontWeight: 600,
+                  background: done || active ? (done ? '#0f2a1a' : '#1a1a0f') : 'var(--bg-secondary)',
+                  border: `1px solid ${done ? 'var(--accent-green)' : active ? 'var(--accent-yellow)' : 'var(--border)'}`,
+                  color: done ? 'var(--accent-green)' : active ? 'var(--accent-yellow)' : 'var(--text-muted)',
+                }}>
+                  {done ? '✓' : stepNum} {label}
+                </div>
+                {stepNum < 7 && <span style={{ color: 'var(--border)', fontSize: 10 }}>›</span>}
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Schedule panel */}
       {showSchedule && (

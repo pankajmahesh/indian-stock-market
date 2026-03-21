@@ -8,12 +8,15 @@ Usage:
   python3 api_server.py --port 8080  # Custom port
 """
 import argparse
+import hashlib
+import hmac
 import json
 import math
 import os
 import subprocess
 import sys
 import threading
+from datetime import datetime as _dt
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -21,11 +24,13 @@ import numpy as np
 import pandas as pd
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_socketio import SocketIO
 
 import config
 
 app = Flask(__name__)
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading", logger=False, engineio_logger=False)
 
 # Pipeline state tracking
 _pipeline_state = {
@@ -81,12 +86,194 @@ def load_output_csv(filename):
 
 
 # ============================================================
+# AUTH HELPERS
+# ============================================================
+
+def _hash_password(password: str) -> str:
+    return hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8"),
+        config.AUTH_PW_SALT.encode("utf-8"),
+        100000,
+    ).hex()
+
+
+def _make_token(email: str) -> str:
+    """Create a non-expiring HMAC token tied to the email."""
+    sig = hmac.new(
+        config.AUTH_SECRET.encode("utf-8"),
+        email.lower().encode("utf-8"),
+        hashlib.sha256,
+    ).hexdigest()
+    return sig
+
+
+def _verify_token(token: str):
+    """Returns email string if token is valid, else None."""
+    if not token:
+        return None
+    store = _load_users_store()
+    for email in store.get("users", {}):
+        if hmac.compare_digest(token, _make_token(email)):
+            return email
+    return None
+
+
+def _current_user():
+    """Return the authenticated user dict for the current request."""
+    auth = request.headers.get("Authorization", "")
+    token = auth.removeprefix("Bearer ").strip()
+    email = _verify_token(token)
+    if email:
+        return _get_user(email)
+    return None
+
+
+# ── Multi-user store (data/users.json) ───────────────────────────────────
+
+_USERS_FILE = None   # set after config loaded
+
+def _users_file():
+    global _USERS_FILE
+    if _USERS_FILE is None:
+        _USERS_FILE = os.path.join(config.DATA_DIR, "users.json")
+    return _USERS_FILE
+
+def _load_users_store():
+    path = _users_file()
+    if os.path.exists(path):
+        try:
+            with open(path) as f:
+                return json.load(f)
+        except Exception:
+            pass
+    return {"users": {}}
+
+def _save_users_store(data):
+    os.makedirs(config.DATA_DIR, exist_ok=True)
+    with open(_users_file(), "w") as f:
+        json.dump(data, f, indent=2)
+
+def _get_user(email: str):
+    return _load_users_store()["users"].get(email.lower())
+
+def _seed_admin():
+    """Ensure the admin account exists in users.json."""
+    store = _load_users_store()
+    admin = config.AUTH_EMAIL.lower()
+    if admin not in store.setdefault("users", {}):
+        store["users"][admin] = {
+            "email":      admin,
+            "pw_hash":    config.AUTH_PW_HASH,
+            "is_admin":   True,
+            "created_at": "2026-03-21",
+            "name":       "Pankaj Maheshwari",
+        }
+        _save_users_store(store)
+
+_seed_admin()   # runs once at import time
+
+
+# Public routes that don't need a token
+_PUBLIC_PATHS = {"/api/health", "/api/auth/login", "/api/auth/register"}
+
+def _is_public_path(path: str) -> bool:
+    if path in _PUBLIC_PATHS:
+        return True
+    # socket.io uses its own auth-free connection (no sensitive data served over WS)
+    if path.startswith("/socket.io/"):
+        return True
+    return False
+
+
+@app.before_request
+def _require_auth():
+    if request.method == "OPTIONS":
+        return  # CORS preflight
+    if _is_public_path(request.path):
+        return  # allow unauthenticated
+    auth_header = request.headers.get("Authorization", "")
+    token = auth_header.removeprefix("Bearer ").strip()
+    if not _verify_token(token):
+        return jsonify({"error": "Unauthorized"}), 401
+
+
+# ============================================================
 # API ENDPOINTS
 # ============================================================
 
 @app.route("/api/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok", "project": "Indian Stock Screener"})
+
+
+@app.route("/api/auth/login", methods=["POST"])
+def auth_login():
+    data  = request.get_json(silent=True) or {}
+    email = (data.get("email") or "").strip().lower()
+    pw    = data.get("password") or ""
+
+    user = _get_user(email)
+    if not user or _hash_password(pw) != user.get("pw_hash", ""):
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    token = _make_token(email)
+    return jsonify({"token": token, "email": email, "name": user.get("name", ""), "is_admin": user.get("is_admin", False)})
+
+
+@app.route("/api/auth/register", methods=["POST"])
+def auth_register():
+    data  = request.get_json(silent=True) or {}
+    email = (data.get("email") or "").strip().lower()
+    pw    = data.get("password") or ""
+    name  = (data.get("name") or "").strip()
+
+    if not email or "@" not in email:
+        return jsonify({"error": "Valid email required"}), 400
+    if len(pw) < 6:
+        return jsonify({"error": "Password must be at least 6 characters"}), 400
+
+    store = _load_users_store()
+    if email in store.setdefault("users", {}):
+        return jsonify({"error": "An account with this email already exists"}), 409
+
+    store["users"][email] = {
+        "email":      email,
+        "pw_hash":    _hash_password(pw),
+        "is_admin":   False,
+        "created_at": _dt.now().strftime("%Y-%m-%d"),
+        "name":       name or email.split("@")[0],
+    }
+    _save_users_store(store)
+
+    token = _make_token(email)
+    return jsonify({"token": token, "email": email, "name": store["users"][email]["name"], "is_admin": False}), 201
+
+
+@app.route("/api/auth/verify", methods=["GET"])
+def auth_verify():
+    user = _current_user()
+    return jsonify({"valid": True, "email": user["email"], "name": user.get("name", ""), "is_admin": user.get("is_admin", False)})
+
+
+@app.route("/api/auth/change-password", methods=["POST"])
+def auth_change_password():
+    data       = request.get_json(silent=True) or {}
+    old_pw     = data.get("old_password") or ""
+    new_pw     = data.get("new_password") or ""
+    user       = _current_user()
+
+    if not user:
+        return jsonify({"error": "Unauthorized"}), 401
+    if _hash_password(old_pw) != user.get("pw_hash", ""):
+        return jsonify({"error": "Current password is incorrect"}), 400
+    if len(new_pw) < 6:
+        return jsonify({"error": "New password must be at least 6 characters"}), 400
+
+    store = _load_users_store()
+    store["users"][user["email"]]["pw_hash"] = _hash_password(new_pw)
+    _save_users_store(store)
+    return jsonify({"ok": True, "message": "Password updated successfully"})
 
 
 @app.route("/api/summary", methods=["GET"])
@@ -204,49 +391,51 @@ def top20():
 
 @app.route("/api/top20/live-prices", methods=["GET"])
 def top20_live_prices():
-    """Fetch live CMP + change_pct for top20 symbols via yfinance batch download.
-    Compatible with yfinance ≥0.2 (MultiIndex columns: Price × Ticker).
+    """Fetch live CMP + change_pct for top20 symbols.
+    Uses Groww batch LTP (primary) then yfinance .info per symbol (fallback).
     """
     data = load_output_csv("final_top20.csv")
     if not data:
         return jsonify({}), 404
     try:
-        import yfinance as yf
-        import math as _math
         symbols = [str(r.get("symbol", "")).strip() for r in data if r.get("symbol")]
-        symbols_ns = [s if s.endswith(".NS") else s + ".NS" for s in symbols]
-
-        df = yf.download(symbols_ns, period="2d", interval="1d",
-                         progress=False, threads=True, auto_adjust=True)
-
         result = {}
-        for sym, sym_ns in zip(symbols, symbols_ns):
-            try:
-                # yfinance ≥0.2: MultiIndex (Price, Ticker) — access as df["Close"][sym_ns]
-                # yfinance <0.2 (single ticker): df["Close"] is a Series directly
-                if isinstance(df.columns, pd.MultiIndex):
-                    if len(symbols_ns) == 1:
-                        closes = df["Close"].dropna()
-                    else:
-                        closes = df["Close"][sym_ns].dropna()
-                else:
-                    closes = df["Close"].dropna()
 
-                closes = closes.dropna()
-                if closes.empty:
-                    continue
-                cmp_val = float(closes.iloc[-1])
-                if _math.isnan(cmp_val):
-                    continue
-                if len(closes) >= 2:
-                    prev = float(closes.iloc[-2])
-                    change_pct = round((cmp_val - prev) / prev * 100, 2) if prev else None
-                else:
-                    prev = None
-                    change_pct = None
-                result[sym] = {"cmp": round(cmp_val, 2), "change_pct": change_pct}
-            except Exception:
-                pass
+        # Try Groww batch LTP first
+        try:
+            from modules.groww_client import GrowwClient
+            gc = GrowwClient()
+            if gc.token:
+                clean_syms = [s.replace(".NS", "") for s in symbols]
+                ltps = gc.get_ltp(clean_syms) or {}
+                ohlcs = gc.get_ohlc(clean_syms) or {}
+                for sym in symbols:
+                    clean = sym.replace(".NS", "")
+                    ltp = ltps.get(clean)
+                    if ltp:
+                        ohlc = ohlcs.get(clean) or {}
+                        prev = ohlc.get("close") or ohlc.get("prev_close")
+                        change_pct = round((float(ltp) - float(prev)) / float(prev) * 100, 2) if prev else None
+                        result[sym] = {"cmp": round(float(ltp), 2), "change_pct": change_pct}
+        except Exception:
+            pass
+
+        # Fallback: yfinance .info per symbol for misses
+        missing = [s for s in symbols if s not in result]
+        if missing:
+            import yfinance as yf
+            for sym in missing:
+                try:
+                    sym_ns = sym if sym.endswith(".NS") else sym + ".NS"
+                    info = yf.Ticker(sym_ns).info or {}
+                    price = info.get("regularMarketPrice") or info.get("currentPrice")
+                    prev  = info.get("regularMarketPreviousClose") or info.get("previousClose")
+                    if price:
+                        change_pct = round((float(price) - float(prev)) / float(prev) * 100, 2) if prev else None
+                        result[sym] = {"cmp": round(float(price), 2), "change_pct": change_pct}
+                except Exception:
+                    pass
+
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -782,6 +971,9 @@ def _pf_csv_name(name):
     """CSV filename for a named portfolio."""
     if name == "main":
         return "portfolio_analysis.csv"
+    # User-specific portfolio scans use the user_ prefix
+    if name.startswith("user_"):
+        return f"portfolio_{name}.csv"
     return f"portfolio_analysis_{name}.csv"
 
 
@@ -824,7 +1016,19 @@ def _run_portfolio_scan(name, symbols, skip_cache=False):
 
 @app.route("/api/portfolios", methods=["GET"])
 def portfolios_list():
-    """List all configured portfolios."""
+    """List portfolios available to the current user."""
+    user = _current_user()
+    if user and not user.get("is_admin"):
+        email = user["email"]
+        symbols = _load_user_portfolio(email)
+        csv_path = os.path.join(config.DATA_DIR, _get_user_pf_csv_name(email))
+        return jsonify({
+            "my": {
+                "label": "My Portfolio",
+                "count": len(symbols),
+                "has_data": os.path.exists(csv_path),
+            }
+        })
     result = {}
     for name, pf in config.PORTFOLIOS.items():
         csv_path = os.path.join(config.DATA_DIR, _pf_csv_name(name))
@@ -839,7 +1043,17 @@ def portfolios_list():
 @app.route("/api/portfolio", methods=["GET"])
 def portfolio():
     """Get portfolio analysis results. ?name=main (default) or ?name=sharekhan"""
+    user = _current_user()
     name = request.args.get("name", "main")
+    if user and not user.get("is_admin"):
+        email = user["email"]
+        symbols = _load_user_portfolio(email)
+        if not symbols:
+            return jsonify({"error": "Your portfolio is empty. Upload a CSV to get started."}), 404
+        data = load_csv(_get_user_pf_csv_name(email))
+        if data is None:
+            return jsonify({"error": "No analysis found. Click 'Scan Portfolio' first."}), 404
+        return jsonify(data)
     data = load_csv(_pf_csv_name(name))
     if data is None:
         label = config.PORTFOLIOS.get(name, {}).get("label", name)
@@ -850,7 +1064,25 @@ def portfolio():
 @app.route("/api/portfolio/scan", methods=["POST"])
 def portfolio_scan():
     """Start a portfolio scan. Body: { name, symbols, skip_cache }"""
+    user = _current_user()
     body = request.get_json(silent=True) or {}
+    skip_cache = body.get("skip_cache", False)
+
+    if user and not user.get("is_admin"):
+        email = user["email"]
+        symbols = _load_user_portfolio(email)
+        if not symbols:
+            return jsonify({"error": "Your portfolio is empty. Upload a CSV first."}), 400
+        scan_name = f"user_{_safe_email(email)}"
+        state = _get_pf_state(scan_name)
+        if state["running"]:
+            return jsonify({"error": "Portfolio scan already running"}), 409
+        thread = threading.Thread(
+            target=_run_portfolio_scan, args=(scan_name, symbols, skip_cache), daemon=True
+        )
+        thread.start()
+        return jsonify({"message": "Portfolio scan started", "count": len(symbols)})
+
     name = body.get("name", "main")
     state = _get_pf_state(name)
 
@@ -860,7 +1092,6 @@ def portfolio_scan():
     # Get symbols from body or config
     pf_config = config.PORTFOLIOS.get(name, {})
     symbols = body.get("symbols", pf_config.get("stocks", config.MY_PORTFOLIO))
-    skip_cache = body.get("skip_cache", False)
 
     thread = threading.Thread(
         target=_run_portfolio_scan, args=(name, symbols, skip_cache), daemon=True
@@ -873,8 +1104,13 @@ def portfolio_scan():
 @app.route("/api/portfolio/alerts", methods=["GET"])
 def portfolio_alerts():
     """Get actionable alerts for a portfolio. ?name=main"""
+    user = _current_user()
     name = request.args.get("name", "main")
-    data = load_csv(_pf_csv_name(name))
+    if user and not user.get("is_admin"):
+        email = user["email"]
+        data = load_csv(_get_user_pf_csv_name(email))
+    else:
+        data = load_csv(_pf_csv_name(name))
     if data is None:
         return jsonify([])
 
@@ -968,7 +1204,10 @@ def portfolio_alerts():
 @app.route("/api/portfolio/status", methods=["GET"])
 def portfolio_status():
     """Get portfolio scan status. ?name=main"""
+    user = _current_user()
     name = request.args.get("name", "main")
+    if user and not user.get("is_admin"):
+        name = f"user_{_safe_email(user['email'])}"
     state = _get_pf_state(name)
     return jsonify({
         "running": state["running"],
@@ -1933,6 +2172,48 @@ def predict_single(symbol):
         return jsonify({"error": str(e)}), 500
 
 
+# --------------- User portfolio storage (non-admin per-user isolation) -------
+USER_PORTFOLIOS_DIR = os.path.join(config.DATA_DIR, "user_portfolios")
+os.makedirs(USER_PORTFOLIOS_DIR, exist_ok=True)
+
+
+def _safe_email(email: str) -> str:
+    """Convert email to safe filename prefix."""
+    return email.lower().replace("@", "_at_").replace(".", "_")
+
+
+def _get_user_portfolio_path(email: str) -> str:
+    return os.path.join(USER_PORTFOLIOS_DIR, f"{_safe_email(email)}.json")
+
+
+def _get_user_pf_csv_name(email: str) -> str:
+    return f"portfolio_user_{_safe_email(email)}.csv"
+
+
+def _user_pf_scan_name(email: str) -> str:
+    """Scan state key and CSV name prefix for a user portfolio."""
+    return f"user_{_safe_email(email)}"
+
+
+def _load_user_portfolio(email: str) -> list:
+    path = _get_user_portfolio_path(email)
+    if os.path.exists(path):
+        try:
+            with open(path) as f:
+                data = json.load(f)
+                return data.get("symbols", [])
+        except Exception:
+            pass
+    return []
+
+
+def _save_user_portfolio(email: str, symbols: list):
+    path = _get_user_portfolio_path(email)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f:
+        json.dump({"symbols": symbols, "email": email}, f, indent=2)
+
+
 # --------------- Portfolio CSV import ---------------
 PORTFOLIO_OVERRIDES_DIR = os.path.join(config.DATA_DIR, "portfolio_overrides")
 os.makedirs(PORTFOLIO_OVERRIDES_DIR, exist_ok=True)
@@ -2136,6 +2417,19 @@ def portfolio_import_csv():
         if candidate in cols_lower:
             qty_col = cols_lower[candidate]
             break
+
+    user = _current_user()
+    if user and not user.get("is_admin"):
+        # Save to user-specific portfolio
+        _save_user_portfolio(user["email"], symbols)
+        return jsonify({
+            "portfolio": "my",
+            "label": "My Portfolio",
+            "symbols": symbols,
+            "count": len(symbols),
+            "source_file": file.filename,
+            "column_used": symbol_col,
+        })
 
     label = config.PORTFOLIOS.get(portfolio_name, {}).get("label", portfolio_name.title())
     _save_portfolio_override(portfolio_name, symbols, label)
@@ -2342,12 +2636,20 @@ def portfolio_mf_holdings():
 @app.route("/api/portfolio/add-stock", methods=["POST"])
 def portfolio_add_stock():
     """Add a stock to a portfolio."""
+    user = _current_user()
     body = request.get_json(force=True) or {}
-    name = body.get("name", "main")
     sym = (body.get("symbol") or "").strip().upper()
     if not sym:
         return jsonify({"error": "Symbol is required"}), 400
 
+    if user and not user.get("is_admin"):
+        stocks = _load_user_portfolio(user["email"])
+        if sym not in stocks:
+            stocks.append(sym)
+            _save_user_portfolio(user["email"], stocks)
+        return jsonify({"symbols": stocks, "count": len(stocks)})
+
+    name = body.get("name", "main")
     pf = config.PORTFOLIOS.get(name)
     if not pf:
         return jsonify({"error": f"Portfolio '{name}' not found"}), 404
@@ -2363,12 +2665,18 @@ def portfolio_add_stock():
 @app.route("/api/portfolio/remove-stock", methods=["POST"])
 def portfolio_remove_stock():
     """Remove a stock from a portfolio."""
+    user = _current_user()
     body = request.get_json(force=True) or {}
-    name = body.get("name", "main")
     sym = (body.get("symbol") or "").strip().upper()
     if not sym:
         return jsonify({"error": "Symbol is required"}), 400
 
+    if user and not user.get("is_admin"):
+        stocks = [s for s in _load_user_portfolio(user["email"]) if s != sym]
+        _save_user_portfolio(user["email"], stocks)
+        return jsonify({"symbols": stocks, "count": len(stocks)})
+
+    name = body.get("name", "main")
     pf = config.PORTFOLIOS.get(name)
     if not pf:
         return jsonify({"error": f"Portfolio '{name}' not found"}), 404
@@ -2394,6 +2702,111 @@ def _save_watchlist(symbols):
     os.makedirs(os.path.dirname(WATCHLIST_FILE), exist_ok=True)
     with open(WATCHLIST_FILE, "w") as f:
         json.dump(symbols, f, indent=2)
+
+
+@app.route("/api/stocks/search", methods=["GET"])
+def stocks_search():
+    """Search for NSE stocks by symbol or name. ?q=RELIANCE"""
+    q = (request.args.get("q") or "").strip().upper()
+    if len(q) < 1:
+        return jsonify([])
+    try:
+        # Try to get from cached universe first (fast)
+        universe_path = os.path.join(config.DATA_DIR, "screened_universe.csv")
+        if os.path.exists(universe_path):
+            import pandas as pd
+            df = pd.read_csv(universe_path)
+            name_col = df["name"] if "name" in df.columns else df["symbol"]
+            mask = (
+                df["symbol"].str.upper().str.contains(q, na=False) |
+                name_col.str.upper().str.contains(q, na=False)
+            )
+            results = []
+            for _, row in df[mask].head(20).iterrows():
+                sym = str(row.get("symbol", "")).replace(".NS", "").upper()
+                name = str(row.get("name", sym))
+                results.append({"symbol": sym, "name": name})
+            if results:
+                return jsonify(results)
+    except Exception:
+        pass
+    # Fallback: search using yfinance
+    try:
+        import yfinance as yf
+        ticker = yf.Ticker(f"{q}.NS")
+        info = ticker.fast_info
+        name = getattr(info, "name", q) or q
+        return jsonify([{"symbol": q, "name": name}])
+    except Exception:
+        return jsonify([{"symbol": q, "name": q}])
+
+
+@app.route("/api/portfolio/delete", methods=["POST"])
+def portfolio_delete():
+    """Delete a user's entire portfolio (symbols + scan CSV). Non-admin only."""
+    user = _current_user()
+    if not user:
+        return jsonify({"error": "Unauthorized"}), 401
+    if user.get("is_admin"):
+        return jsonify({"error": "Admin portfolios cannot be deleted via this endpoint"}), 403
+    email = user["email"]
+    # Remove user portfolio JSON
+    path = _get_user_portfolio_path(email)
+    if os.path.exists(path):
+        os.remove(path)
+    # Remove scan CSV
+    csv_path = os.path.join(config.DATA_DIR, _get_user_pf_csv_name(email))
+    if os.path.exists(csv_path):
+        os.remove(csv_path)
+    return jsonify({"ok": True})
+
+
+@app.route("/api/portfolio/accounts", methods=["GET"])
+def portfolio_accounts():
+    """Get user's connected broker accounts list."""
+    user = _current_user()
+    if not user:
+        return jsonify([])
+    path = _get_user_portfolio_path(user["email"])
+    if os.path.exists(path):
+        try:
+            with open(path) as f:
+                data = json.load(f)
+                return jsonify(data.get("accounts", []))
+        except Exception:
+            pass
+    return jsonify([])
+
+
+@app.route("/api/portfolio/accounts", methods=["POST"])
+def portfolio_accounts_save():
+    """Save user's connected broker accounts list. Body: { accounts: [...] }"""
+    user = _current_user()
+    if not user:
+        return jsonify({"error": "Unauthorized"}), 401
+    body = request.get_json(silent=True) or {}
+    accounts = body.get("accounts", [])
+    path = _get_user_portfolio_path(user["email"])
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    data = {}
+    if os.path.exists(path):
+        try:
+            with open(path) as f:
+                data = json.load(f)
+        except Exception:
+            pass
+    data["accounts"] = accounts
+    # Flatten all symbols from all accounts into the main symbols list
+    all_symbols = []
+    for acc in accounts:
+        for holding in acc.get("holdings", []):
+            sym = holding.get("symbol", "").upper().strip()
+            if sym and sym not in all_symbols:
+                all_symbols.append(sym)
+    data["symbols"] = all_symbols
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
+    return jsonify({"ok": True, "accounts": accounts, "symbols": all_symbols})
 
 
 @app.route("/api/watchlist", methods=["GET"])
@@ -3057,6 +3470,51 @@ def gift_nifty():
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 503
+
+
+# --------------- Live Engine state ---------------
+_live_engine_mod = None
+
+def _get_live_engine():
+    global _live_engine_mod
+    if _live_engine_mod is None:
+        try:
+            import importlib
+            _live_engine_mod = importlib.import_module("modules.live_engine")
+        except Exception as exc:
+            print(f"[live_engine] import failed: {exc}")
+    return _live_engine_mod
+
+
+@app.route("/api/live/state", methods=["GET"])
+def live_state():
+    """Return current live engine snapshot (fallback for non-WS clients)."""
+    empty = {
+        "indices": {}, "live_top20": [], "signal_feed": [],
+        "market_status": "unknown", "last_price_ts": None,
+        "last_signal_ts": None, "last_score_ts": None,
+        "stocks_tracked": 0, "groww_ok": False,
+    }
+    try:
+        mod = _get_live_engine()
+        if mod is None:
+            return jsonify(empty)
+        return jsonify(mod.get_state())
+    except Exception as exc:
+        print(f"[live/state] error: {exc}")
+        return jsonify(empty)
+
+
+@app.route("/api/live/signal-feed", methods=["GET"])
+def live_signal_feed():
+    """Return recent signal-change events."""
+    try:
+        mod = _get_live_engine()
+        if mod is None:
+            return jsonify([])
+        return jsonify(mod.get_state().get("signal_feed", []))
+    except Exception:
+        return jsonify([])
 
 
 # --------------- Market Pulse endpoint ---------------
@@ -5540,6 +5998,338 @@ def ai_insights(symbol):
     return jsonify(result)
 
 
+@app.route("/api/ai-insights/portfolio-batch", methods=["GET"])
+def ai_insights_portfolio():
+    """
+    Run AI algo (Skills 1-13) on all stocks in a named portfolio.
+    ?name=main|sharekhan
+    Returns a compact summary per stock: verdict, scores, fair value, signals.
+    Uses live fetch (?live=1 implied) for any stock not in pipeline CSVs.
+    """
+    name = request.args.get("name", "main")
+    pf_config = config.PORTFOLIOS.get(name)
+    if not pf_config:
+        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
+
+    symbols = pf_config.get("stocks", [])
+
+    # Pre-load CSVs once (avoid repeated disk reads in loop)
+    composite = load_csv("composite_ranked.csv") or []
+    intrinsic  = load_csv("intrinsic20_all.csv") or []
+    pred_csvs  = []
+    for csv_name in ("midcap150_predictions.csv", "largemidcap250_predictions.csv",
+                     "smallcap250_predictions.csv"):
+        d = load_csv(csv_name)
+        if d:
+            pred_csvs.append(d)
+
+    def _get_row(sym):
+        """Return (composite_row, pred_row) for a symbol."""
+        cr = _find_in_csv(composite, sym)
+        pr = None
+        for pc in pred_csvs:
+            pr = _find_in_csv(pc, sym)
+            if pr:
+                break
+        return cr, pr
+
+    results = []
+    for raw_sym in symbols:
+        sym = raw_sym.replace(".NS", "").upper()
+        try:
+            row, pred_row = _get_row(sym)
+
+            # Fall back to live yfinance fetch if not in pipeline
+            if not row:
+                row = _build_live_row(sym)
+                if not row:
+                    results.append({"symbol": sym, "error": "Data not available"})
+                    continue
+                if not pred_row and row.get("_pred"):
+                    pred_row = row["_pred"]
+
+            # Scores
+            cs = _safe_float(row.get("composite_score"), 0)
+            fs = _safe_float(row.get("fundamental_score"), 0)
+            ts = _safe_float(row.get("technical_score"), 0)
+            flag = (row.get("red_flag_status") or "").upper()
+
+            health  = _compute_financial_health(row)
+            verdict = _compute_ai_verdict(health["overall"], cs, fs, ts, flag)
+
+            # Fair value
+            iv = _find_in_csv(intrinsic, sym)
+            fair_value = None
+            if iv:
+                fair_value = {
+                    "intrinsicValue": _safe_float(iv.get("intrinsicValue")),
+                    "cmp":            _safe_float(iv.get("cmp")),
+                    "upside":         _safe_float(iv.get("upside")),
+                    "mosZone":        iv.get("mosZone", ""),
+                    "verdict":        iv.get("verdict", ""),
+                }
+
+            # Technicals summary
+            cmp_val = None
+            rsi_val = None
+            direction = ""
+            supertrend_signal = ""
+            target_30d = None
+            if pred_row:
+                cmp_val = _safe_float(pred_row.get("cmp")) or _safe_float(pred_row.get("last_price"))
+                rsi_val = _safe_float(pred_row.get("rsi"))
+                direction = pred_row.get("direction", "")
+                supertrend_signal = pred_row.get("supertrend_signal", "")
+                target_30d = _safe_float(pred_row.get("target_30d"))
+            if not cmp_val and row.get("_pred"):
+                p = row["_pred"]
+                cmp_val = _safe_float(p.get("cmp")) or _safe_float(p.get("last_price"))
+                rsi_val = rsi_val or _safe_float(p.get("rsi"))
+                direction = direction or p.get("direction", "")
+                supertrend_signal = supertrend_signal or p.get("supertrend_signal", "")
+                target_30d = target_30d or _safe_float(p.get("target_30d"))
+
+            # LLM conviction (lightweight version — no web search)
+            metrics_for_llm = {
+                "roe": _safe_float(row.get("roe")),
+                "pe": _safe_float(row.get("pe_ratio")),
+                "de": _safe_float(row.get("debt_to_equity")),
+                "profitability": _safe_float(row.get("fund_profitability")),
+                "growth": _safe_float(row.get("fund_growth")),
+                "valuation": _safe_float(row.get("fund_valuation")),
+            }
+            llm = _llm_conviction(
+                symbol=sym, name=row.get("name", ""),
+                sector=row.get("sector", ""),
+                fs=fs, ts=ts, cs=cs,
+                health=health.get("overall", 0) if isinstance(health, dict) else health,
+                technicals={"rsi": rsi_val, "direction": direction, "supertrend_signal": supertrend_signal},
+                metrics=metrics_for_llm,
+            )
+
+            # Defense mode flags (quick inline — no yfinance beta fetch for speed)
+            sector = row.get("sector", "Unknown")
+            from modules.defense_alpha_screener import (
+                WAR_RISK_SECTORS, SAFE_HAVEN_SECTORS, DEFENSIVE_SECTORS
+            )
+            is_safe_haven = sector in SAFE_HAVEN_SECTORS
+            war_level = WAR_RISK_SECTORS.get(sector, "LOW")
+
+            results.append({
+                "symbol": sym,
+                "name": row.get("name", sym),
+                "sector": sector,
+                "cmp": cmp_val or _safe_float(row.get("last_price")),
+                "compositeScore": cs,
+                "fundamentalScore": fs,
+                "technicalScore": ts,
+                "verdict": verdict,
+                "healthScore": health.get("overall") if isinstance(health, dict) else health,
+                "llmConviction": llm,
+                "fairValue": fair_value,
+                "rsi": rsi_val,
+                "direction": direction,
+                "supertrendSignal": supertrend_signal,
+                "target30d": target_30d,
+                "warRisk": war_level,
+                "isSafeHaven": is_safe_haven,
+                "redFlag": {
+                    "status": row.get("red_flag_status", ""),
+                    "reasons": row.get("red_flag_reasons", ""),
+                },
+                "metrics": {
+                    "roe": _safe_float(row.get("roe")),
+                    "pe": _safe_float(row.get("pe_ratio")),
+                    "de": _safe_float(row.get("debt_to_equity")),
+                },
+            })
+        except Exception as e:
+            results.append({"symbol": sym, "error": str(e)})
+
+    return jsonify(_deep_sanitize(results))
+
+
+@app.route("/api/ai-insights/rebalance", methods=["GET"])
+def ai_insights_rebalance():
+    """
+    AI rebalance recommendations for a portfolio using existing scan data.
+    ?name=main|sharekhan
+    Uses portfolio_analysis CSV + AI scoring + Defense Mode flags.
+    Returns: per-stock action, weight change, rationale + portfolio summary.
+    """
+    name = request.args.get("name", "main")
+    pf_config = config.PORTFOLIOS.get(name)
+    if not pf_config:
+        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
+
+    # Load existing portfolio scan data
+    csv_name = "portfolio_analysis.csv" if name == "main" else f"portfolio_analysis_{name}.csv"
+    data = load_csv(csv_name)
+    if not data:
+        return jsonify({"error": "Run 'Scan Portfolio' first to generate analysis data."}), 404
+
+    try:
+        from modules.defense_alpha_screener import WAR_RISK_SECTORS, SAFE_HAVEN_SECTORS
+    except Exception:
+        WAR_RISK_SECTORS = {}
+        SAFE_HAVEN_SECTORS = set()
+
+    # Load composite for AI scores
+    composite = load_csv("composite_ranked.csv") or []
+    intrinsic = load_csv("intrinsic20_all.csv") or []
+
+    results = []
+    for row in data:
+        sym = (row.get("symbol") or "").replace(".NS", "").upper()
+        sector = row.get("sector") or "Unknown"
+
+        # Scores
+        fs = _safe_float(row.get("fundamental_score"), 50)
+        recommendation = row.get("recommendation", "HOLD")
+        risk_level = row.get("risk_level", "MEDIUM")
+        risk_score = _safe_float(row.get("risk_score"), 50)
+        rsi = _safe_float(row.get("rsi"))
+        trend = row.get("trend", "NEUTRAL")
+        signal = row.get("signal", "HOLD")
+        dcf_upside = _safe_float(row.get("dcf_upside_pct"))
+        analyst_upside = _safe_float(row.get("analyst_upside_pct"))
+        pct_from_52w_high = _safe_float(row.get("pct_from_52w_high"))
+        intrinsic_value = _safe_float(row.get("intrinsic_value"))
+        cmp = _safe_float(row.get("cmp"))
+
+        # AI composite score from pipeline
+        cr = _find_in_csv(composite, sym)
+        cs = _safe_float(cr.get("composite_score"), 0) if cr else 0
+        ts = _safe_float(cr.get("technical_score"), 0) if cr else 0
+
+        # Defense flags
+        is_safe_haven = sector in SAFE_HAVEN_SECTORS
+        war_risk = WAR_RISK_SECTORS.get(sector, "LOW")
+
+        # ── AI Rebalance Decision ─────────────────────────────────────────
+        action = "HOLD"
+        weight_change = 0       # +/- % change suggested
+        priority = 3            # 1=urgent, 2=soon, 3=monitor
+        reasons = []
+
+        # Strong exit signals
+        if recommendation == "SELL" or (recommendation == "REDUCE" and risk_level == "HIGH"):
+            action = "SELL / EXIT"
+            weight_change = -100
+            priority = 1
+            reasons.append(f"Recommendation: {recommendation}, Risk: {risk_level} ({risk_score:.0f}/100)")
+
+        elif recommendation == "REDUCE" or (risk_level == "HIGH" and trend in ("BEARISH", "WEAK")):
+            action = "REDUCE"
+            weight_change = -30
+            priority = 2
+            reasons.append(f"{recommendation} — risk score {risk_score:.0f}, trend {trend}")
+
+        elif war_risk == "high" and risk_level != "LOW":
+            action = "REDUCE (WAR RISK)"
+            weight_change = -25
+            priority = 2
+            reasons.append(f"Sector '{sector}' has elevated geopolitical/war risk")
+
+        # Strong buy signals
+        elif recommendation in ("STRONG BUY", "ACCUMULATE") and risk_level != "HIGH":
+            action = "ADD / ACCUMULATE"
+            weight_change = +20
+            priority = 2
+            reasons.append(f"Recommendation: {recommendation}, low risk")
+            if dcf_upside and dcf_upside > 20:
+                reasons.append(f"DCF upside {dcf_upside:.1f}%")
+            if is_safe_haven:
+                reasons.append("Safe-haven sector")
+
+        elif signal == "BUY" and fs >= 65 and risk_level in ("LOW", "MEDIUM"):
+            action = "ADD (BUY SIGNAL)"
+            weight_change = +15
+            priority = 2
+            reasons.append(f"BUY signal + fundamental score {fs:.0f}")
+
+        # Overvalued — trim
+        elif intrinsic_value and cmp and cmp > intrinsic_value * 1.30:
+            action = "TRIM (OVERVALUED)"
+            weight_change = -15
+            priority = 3
+            over_pct = (cmp - intrinsic_value) / intrinsic_value * 100
+            reasons.append(f"CMP {over_pct:.0f}% above intrinsic value ₹{intrinsic_value:.0f}")
+
+        # Fundamental weakness
+        elif fs < 40 and recommendation not in ("STRONG BUY", "ACCUMULATE"):
+            action = "WATCH (WEAK FUNDAMENTALS)"
+            weight_change = 0
+            priority = 3
+            reasons.append(f"Fundamental score weak ({fs:.0f}/100)")
+
+        # IV data from intrinsic20
+        iv = _find_in_csv(intrinsic, sym)
+        if iv:
+            mos_zone = iv.get("mosZone", "")
+            iv_upside = _safe_float(iv.get("upside"))
+            if mos_zone in ("Strong Buy", "Buy") and action == "HOLD":
+                action = "ADD (INTRINSIC UNDERVALUED)"
+                weight_change = +15
+                priority = 2
+                reasons.append(f"Intrinsic value zone: {mos_zone}, upside {iv_upside:.1f}%")
+            elif mos_zone in ("Sell", "Strong Sell") and action == "HOLD":
+                action = "TRIM (INTRINSIC OVERVALUED)"
+                weight_change = -15
+                priority = 3
+                reasons.append(f"Intrinsic value zone: {mos_zone}")
+
+        results.append({
+            "symbol": sym,
+            "name": row.get("name", sym),
+            "sector": sector,
+            "cmp": cmp,
+            "recommendation": recommendation,
+            "risk_level": risk_level,
+            "risk_score": risk_score,
+            "signal": signal,
+            "trend": trend,
+            "rsi": rsi,
+            "fundamental_score": fs,
+            "composite_score": cs,
+            "technical_score": ts,
+            "dcf_upside": dcf_upside,
+            "analyst_upside": analyst_upside,
+            "intrinsic_value": intrinsic_value,
+            "pct_from_52w_high": pct_from_52w_high,
+            "war_risk": war_risk,
+            "is_safe_haven": is_safe_haven,
+            "action": action,
+            "weight_change": weight_change,
+            "priority": priority,
+            "rationale": "; ".join(reasons) if reasons else row.get("rationale", "No specific action required"),
+            "original_rationale": row.get("rationale", ""),
+        })
+
+    # Sort: urgent first, then by priority, then by weight change (sells first)
+    results.sort(key=lambda r: (r["priority"], -abs(r["weight_change"])))
+
+    # Portfolio summary
+    sell_count = sum(1 for r in results if "SELL" in r["action"] or "REDUCE" in r["action"] or "TRIM" in r["action"])
+    add_count = sum(1 for r in results if "ADD" in r["action"] or "ACCUMULATE" in r["action"])
+    hold_count = len(results) - sell_count - add_count
+    high_risk = sum(1 for r in results if r["risk_level"] == "HIGH")
+    war_exposed = sum(1 for r in results if r["war_risk"] == "high")
+
+    return jsonify(_deep_sanitize({
+        "portfolio": name,
+        "total": len(results),
+        "summary": {
+            "sell_reduce": sell_count,
+            "add_accumulate": add_count,
+            "hold": hold_count,
+            "high_risk_count": high_risk,
+            "war_exposed_count": war_exposed,
+        },
+        "stocks": results,
+    }))
+
+
 @app.route("/api/ai-index-stocks", methods=["GET"])
 def ai_index_stocks():
     """
@@ -7208,11 +7998,36 @@ def stock_chart(symbol):
     try:
         import yfinance as yf
         import math
+        import time as _time
 
         ticker = yf.Ticker(sym_ns)
-        hist = ticker.history(period=period, interval="1d", auto_adjust=True)
-        if hist.empty:
-            return jsonify({"error": f"No chart data for {sym}"}), 404
+        hist = None
+        for attempt in range(3):
+            try:
+                hist = ticker.history(period=period, interval="1d", auto_adjust=True)
+                if hist is not None and not hist.empty:
+                    break
+                _time.sleep(1.5)
+            except Exception as _e:
+                err_str = str(_e).lower()
+                if "rate" in err_str or "429" in err_str or "too many" in err_str:
+                    _time.sleep(3 * (attempt + 1))
+                else:
+                    raise
+
+        if hist is None or hist.empty:
+            # yfinance rate-limited — try Groww historical candles as fallback
+            try:
+                from modules.groww_client import GrowwClient
+                gc = GrowwClient()
+                period_days = {"1mo": 35, "3mo": 95, "6mo": 185, "1y": 370}.get(period, 95)
+                candle_data = gc.get_historical_candles(sym, interval_minutes=1440, days=period_days)
+                hist = gc.candles_to_dataframe(candle_data)
+            except Exception:
+                hist = None
+
+        if hist is None or (hasattr(hist, "empty") and hist.empty):
+            return jsonify({"error": f"No chart data for {sym}. yfinance is rate-limited — try again in a moment."}), 404
 
         hist = hist.dropna(subset=["Close"])
 
@@ -7268,6 +8083,254 @@ def stock_chart(symbol):
             }
         })
     except Exception as e:
+        err_str = str(e).lower()
+        if "rate" in err_str or "429" in err_str or "too many" in err_str:
+            return jsonify({"error": "yfinance rate-limited. Wait 30 seconds and try again."}), 429
+        return jsonify({"error": str(e)}), 500
+
+
+# --------------- Dip Opportunity Scanner ---------------
+
+@app.route("/api/dip-opportunities", methods=["GET"])
+def dip_opportunities():
+    """
+    Dip Opportunity Scanner — identifies quality stocks in oversold/weak territory
+    during market declines. Combines:
+      - Market regime (MarketConditionAnalyzer: Nifty DMA, VIX, ROC)
+      - Fundamental quality filter (fund_score >= 50 from signals.csv / composite_ranked.csv)
+      - RSI oversold filter (rsi <= 50; high-quality >= 70 score stocks included up to rsi=55)
+
+    Query params:
+      ?min_fund=55       — minimum fundamental score (default 50)
+      ?max_rsi=50        — maximum RSI to include (default 50)
+    """
+    import datetime
+
+    try:
+        min_fund = _safe_float(request.args.get("min_fund", 50), 50)
+        max_rsi  = _safe_float(request.args.get("max_rsi",  50), 50)
+
+        # 1. Market condition
+        from modules.market_condition_analyzer import MarketConditionAnalyzer
+        mc = MarketConditionAnalyzer().analyze()
+
+        # 2. Load data sources
+        signals_data   = load_csv("signals.csv")
+        composite_data = load_csv("composite_ranked.csv")
+
+        # Symbol → composite row lookup (for wider universe)
+        comp_by_sym = {}
+        if composite_data:
+            for row in composite_data:
+                sym = str(row.get("symbol", "")).strip()
+                if sym:
+                    comp_by_sym[sym] = row
+
+        opportunities = []
+        signals_syms  = set()
+
+        # 3. Screener picks (signals.csv) — have RSI + entry/stop/target
+        if signals_data:
+            for row in signals_data:
+                sym = str(row.get("symbol", "")).strip()
+                if not sym:
+                    continue
+                signals_syms.add(sym)
+
+                fund_score = _safe_float(row.get("fundamental_score"), 0)
+                rsi        = _safe_float(row.get("rsi_value"), 50)
+
+                if fund_score < min_fund:
+                    continue
+                # Relax RSI cap for very high quality stocks
+                rsi_cap = max_rsi if fund_score < 70 else max_rsi + 5
+                if rsi > rsi_cap:
+                    continue
+
+                dip_score = round(fund_score * 0.65 + (100 - rsi) * 0.35, 1)
+
+                cmp_raw    = row.get("cmp")
+                change_raw = row.get("change_pct")
+
+                opportunities.append({
+                    "symbol":            sym,
+                    "name":              row.get("name", ""),
+                    "sector":            row.get("sector", ""),
+                    "l_category":        row.get("l_category", ""),
+                    "cmp":               _sanitize_value(cmp_raw),
+                    "change_pct":        _sanitize_value(change_raw),
+                    "fundamental_score": round(fund_score, 1),
+                    "technical_score":   round(_safe_float(row.get("technical_score"), 0), 1),
+                    "composite_score":   round(_safe_float(row.get("composite_score"), 0), 1),
+                    "final_score":       round(_safe_float(row.get("final_score"), 0), 1),
+                    "rsi_value":         round(rsi, 1),
+                    "signal":            row.get("signal", "HOLD"),
+                    "signal_strength":   _sanitize_value(row.get("signal_strength")),
+                    "entry_zone":        row.get("entry_zone", ""),
+                    "stop_loss":         row.get("stop_loss", ""),
+                    "target":            row.get("target", ""),
+                    "pe_ratio":          _sanitize_value(row.get("pe_ratio")),
+                    "roe":               _sanitize_value(row.get("roe")),
+                    "market_cap_cr":     _sanitize_value(row.get("market_cap_cr")),
+                    "bull_thesis":       row.get("bull_thesis", ""),
+                    "dip_score":         dip_score,
+                    "source":            "screener",
+                })
+
+        # 4. Composite universe (broader — no RSI data, include top quality)
+        if composite_data:
+            for sym, row in comp_by_sym.items():
+                if sym in signals_syms:
+                    continue
+                fund_score = _safe_float(row.get("fundamental_score"), 0)
+                if fund_score < max(min_fund, 60):   # Stricter bar without RSI data
+                    continue
+                dip_score = round(fund_score * 0.65 + 50 * 0.35, 1)  # rsi=50 proxy
+
+                opportunities.append({
+                    "symbol":            sym,
+                    "name":              row.get("name", ""),
+                    "sector":            row.get("sector", ""),
+                    "l_category":        row.get("l_category", ""),
+                    "cmp":               _sanitize_value(row.get("last_price")),
+                    "change_pct":        None,
+                    "fundamental_score": round(fund_score, 1),
+                    "technical_score":   round(_safe_float(row.get("technical_score"), 0), 1),
+                    "composite_score":   round(_safe_float(row.get("composite_score"), 0), 1),
+                    "final_score":       round(_safe_float(row.get("composite_score"), 0), 1),
+                    "rsi_value":         None,
+                    "signal":            "N/A",
+                    "signal_strength":   0,
+                    "entry_zone":        "",
+                    "stop_loss":         "",
+                    "target":            "",
+                    "pe_ratio":          _sanitize_value(row.get("pe_ratio")),
+                    "roe":               _sanitize_value(row.get("roe")),
+                    "market_cap_cr":     None,
+                    "bull_thesis":       "",
+                    "dip_score":         dip_score,
+                    "source":            "composite",
+                })
+
+        # 5. Sort by dip_score descending
+        opportunities.sort(key=lambda x: x["dip_score"], reverse=True)
+        opportunities = opportunities[:60]
+
+        # 6. Summary stats
+        buy_count      = sum(1 for o in opportunities if o.get("signal") == "BUY")
+        oversold_count = sum(1 for o in opportunities if (o.get("rsi_value") or 99) < 35)
+        sector_dist    = {}
+        for o in opportunities:
+            sec = o.get("sector") or "Unknown"
+            sector_dist[sec] = sector_dist.get(sec, 0) + 1
+
+        return jsonify({
+            "market_condition": {
+                k: (_sanitize_value(v) if not isinstance(v, (dict, list)) else v)
+                for k, v in mc.items()
+            },
+            "opportunities": opportunities,
+            "stats": {
+                "total":          len(opportunities),
+                "buy_signals":    buy_count,
+                "oversold_count": oversold_count,
+                "sector_count":   len(sector_dist),
+            },
+            "sector_distribution": sector_dist,
+            "generated_at": datetime.datetime.now().isoformat(),
+        })
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ============================================================
+# DEFENSE MODE & ALPHA DISCOVERY (Skill 12)
+# ============================================================
+
+_defense_state = {"running": False, "status": "idle"}
+
+
+@app.route("/api/defense-mode", methods=["GET"])
+def defense_mode_scan():
+    """
+    Run defense mode + alpha discovery screen.
+    ?portfolio=main|sharekhan  — screen a named portfolio
+    ?symbols=TCS,RELIANCE       — screen specific symbols
+    Returns per-stock: beta_risk, war_risk, panic_opportunity, alpha_score, verdict
+    """
+    try:
+        from modules.defense_alpha_screener import DefenseAlphaScreener
+
+        portfolio = request.args.get("portfolio")
+        symbols_param = request.args.get("symbols", "")
+
+        if portfolio:
+            pf_config = config.PORTFOLIOS.get(portfolio)
+            if not pf_config:
+                return jsonify({"error": f"Unknown portfolio: {portfolio}"}), 404
+            symbols = pf_config.get("stocks", [])
+        elif symbols_param:
+            symbols = [s.strip().upper() for s in symbols_param.split(",") if s.strip()]
+        else:
+            # Default: top composite-ranked stocks (up to 50)
+            comp = load_csv("composite_ranked.csv") or []
+            symbols = [r["symbol"] for r in comp[:50] if r.get("symbol")]
+
+        if not symbols:
+            return jsonify({"error": "No symbols to screen"}), 400
+
+        # Load fundamental scores for enrichment
+        import pandas as pd
+        fund_df = pd.DataFrame()
+        fund_path = os.path.join(config.DATA_DIR, "fundamental_scores.csv")
+        if os.path.exists(fund_path):
+            fund_df = pd.read_csv(fund_path)
+
+        screener = DefenseAlphaScreener()
+        results = screener.screen(symbols, fund_df)
+        return jsonify(_deep_sanitize(results))
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ============================================================
+# VALUATION ASSESSMENT (Skill 13)
+# ============================================================
+
+@app.route("/api/valuation/portfolio", methods=["GET"])
+def valuation_portfolio():
+    """
+    Valuation assessment for all stocks in a named portfolio.
+    ?name=main|sharekhan
+    Returns list of valuation results, sorted by margin_of_safety desc.
+    Must be defined BEFORE /api/valuation/<symbol> so Flask matches it first.
+    """
+    name = request.args.get("name", "main")
+    pf_config = config.PORTFOLIOS.get(name)
+    if not pf_config:
+        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
+    try:
+        from modules.valuation_assessor import ValuationAssessor
+        assessor = ValuationAssessor()
+        results = assessor.assess_portfolio(name)
+        # Sort: most undervalued first
+        results.sort(key=lambda r: -(r.get("margin_of_safety_pct") or -999))
+        return jsonify(_deep_sanitize(results))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/valuation/<symbol>", methods=["GET"])
+def valuation_single(symbol):
+    """Full 3-method valuation for a single stock."""
+    try:
+        from modules.valuation_assessor import ValuationAssessor
+        assessor = ValuationAssessor()
+        result = assessor.assess(symbol.strip().upper())
+        return jsonify(_deep_sanitize(result))
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
@@ -7278,7 +8341,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print(f"\n  Stock Screener API: http://{args.host}:{args.port}")
-    print(f"  Endpoints: /api/summary, /api/top20, /api/signals, /api/stock/<symbol>")
-    print(f"  Data dir: {config.DATA_DIR}\n")
+    print(f"  WebSocket:          ws://{args.host}:{args.port}/socket.io")
+    print(f"  Endpoints: /api/summary, /api/top20, /api/signals, /api/live/state")
+    print(f"  Data dir:  {config.DATA_DIR}\n")
 
-    app.run(host=args.host, port=args.port, debug=True)
+    # Start live engine background threads
+    try:
+        from modules.live_engine import init as init_live_engine
+        init_live_engine(socketio)
+        print("  Live Engine started — real-time prices & signals active\n")
+    except Exception as e:
+        print(f"  Live Engine failed to start: {e}\n")
+
+    socketio.run(app, host=args.host, port=args.port, debug=False, allow_unsafe_werkzeug=True)

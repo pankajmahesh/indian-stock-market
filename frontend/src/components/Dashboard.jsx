@@ -16,9 +16,11 @@ export default function Dashboard({ onSelectStock }) {
   const [dailyReport, setDailyReport] = useState(null);
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    Promise.all([
+  function loadData(showSpinner = false) {
+    if (showSpinner) setRefreshing(true);
+    return Promise.all([
       api.getSummary().catch(() => null),
       api.getTop20().catch(() => []),
       api.getMarketPulse().catch(() => []),
@@ -32,10 +34,24 @@ export default function Dashboard({ onSelectStock }) {
         setDailyReport(dr && !dr.error ? dr : null);
         setAlerts(Array.isArray(al) ? al : []);
       })
-      .finally(() => setLoading(false));
+      .finally(() => { setLoading(false); setRefreshing(false); });
+  }
+
+  useEffect(() => { loadData(); }, []);
+
+  // Auto-refresh market pulse every 60s
+  useEffect(() => {
+    const id = setInterval(() => {
+      api.getMarketPulse().then(mp => {
+        if (Array.isArray(mp)) setMarketPulse(mp);
+      }).catch(() => {});
+    }, 60000);
+    return () => clearInterval(id);
   }, []);
 
   if (loading) return <div className="loading"><div className="spinner" /> Loading dashboard...</div>;
+
+  function handleRefresh() { loadData(true); }
 
   const fmt = (v) => v != null ? Number(v).toLocaleString('en-IN', { maximumFractionDigits: 1 }) : '—';
   const fmtPct = (v) => v != null ? `${v > 0 ? '+' : ''}${Number(v).toFixed(2)}%` : '—';
@@ -48,7 +64,18 @@ export default function Dashboard({ onSelectStock }) {
 
   return (
     <>
-      <PipelineControl />
+      <PipelineControl onPipelineComplete={() => loadData(true)} />
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 8 }}>
+        <button
+          onClick={handleRefresh}
+          disabled={refreshing}
+          className="nav-tab"
+          style={{ fontSize: 12, opacity: refreshing ? 0.6 : 1 }}
+        >
+          {refreshing ? '↻ Refreshing...' : '↻ Refresh'}
+        </button>
+      </div>
 
       {/* Market Pulse */}
       {marketPulse.length > 0 && (

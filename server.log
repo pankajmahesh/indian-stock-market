@@ -1,0 +1,749 @@
+/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+
+  Stock Screener API: http://127.0.0.1:5001
+  WebSocket:          ws://127.0.0.1:5001/socket.io
+  Endpoints: /api/summary, /api/top20, /api/signals, /api/live/state
+  Data dir:  /Users/pankajmaheshwari/Desktop/Code/indian-stock-screener/data
+
+[14:34:36] INFO     Live Engine: loaded 100 stocks
+[14:34:36] INFO     Live Engine initialised — tracking 100 stocks
+Werkzeug appears to be used in a production deployment. Consider switching to a production web server instead.
+  Live Engine started — real-time prices & signals active
+
+ * Serving Flask app 'api_server'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5001
+Press CTRL+C to quit
+127.0.0.1 - - [21/Mar/2026 14:34:37] "GET /socket.io/?EIO=4&transport=polling&t=3qh46slf HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:34:37] "POST /socket.io/?EIO=4&transport=polling&t=3qh4hr0p&sid=SnJKApAqgwsfWipdAAAA HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:34:37] "GET /socket.io/?EIO=4&transport=polling&t=3qh4iafl&sid=SnJKApAqgwsfWipdAAAA HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+[14:34:42] WARNING  Groww API HTTP error on /live-data/ltp: 403 Client Error: Forbidden for url: https://api.groww.in/v1/live-data/ltp?segment=CASH&exchange_symbols=NSE_RELIANCE
+[14:34:42] WARNING  Live Engine: Groww unavailable
+[14:34:43] INFO     Live Engine: NSE Direct connected (free)
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /socket.io/?EIO=4&transport=websocket&sid=SnJKApAqgwsfWipdAAAA HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 334, in execute
+    write(data)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 300, in write
+    self.end_headers()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/server.py", line 536, in end_headers
+    self.flush_headers()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/server.py", line 540, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /socket.io/?EIO=4&transport=polling&t=3r8rvvsf HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "POST /socket.io/?EIO=4&transport=polling&t=3r8spq6h&sid=zUfaQON92cJSPtwIAAAC HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /socket.io/?EIO=4&transport=polling&t=3r8sq2n1&sid=zUfaQON92cJSPtwIAAAC HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/auth/verify HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/auth/verify HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/live/state HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/portfolio?name=my HTTP/1.1" 404 -
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/portfolio/accounts HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/portfolio?name=my HTTP/1.1" 404 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:13] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:16] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:17] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:18] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:19] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:20] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:20] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:25] "POST /api/portfolio/delete HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:47] "GET /api/portfolio/accounts HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:47] "GET /api/portfolio/accounts HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn("Workbook contains no default style, apply openpyxl's default")
+127.0.0.1 - - [21/Mar/2026 14:35:54] "POST /api/portfolio/import-csv HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:35:57] "POST /api/portfolio/accounts HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:36:01] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:36:01] "GET /api/portfolio?name=my HTTP/1.1" 404 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:36:01] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:36:01] "GET /api/portfolio?name=my HTTP/1.1" 404 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:36:04] "POST /api/portfolio/scan HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+[14:36:04] INFO     ============================================================
+[14:36:04] INFO     PORTFOLIO ANALYSIS
+[14:36:04] INFO     Analyzing 55 holdings
+[14:36:04] INFO     ============================================================
+[14:36:04] WARNING  Skipped 12 non-equity entries: ['CAMS SERVICES', 'EDELWEISS MF BHARAT BOND ETF APRIL 2033', 'FUTURE RETAIL', 'HDFC GOLD ETF FOF REGULAR GROWTH', 'HDFC MF NIFTY 200 MOMENTUM  30 ETF']...
+[14:36:04] INFO     Stocks: 42, ETFs: 1
+[14:36:04] INFO     All 43 ticker info served from cache
+[14:36:04] INFO     All 43 price histories served from cache
+[14:36:04] INFO     All 42 financials served from cache
+[14:36:05] INFO     Portfolio analysis saved to /Users/pankajmaheshwari/Desktop/Code/indian-stock-screener/data/portfolio_user_test_at_gmail_com.csv
+[14:36:05] INFO     Recommendations: {'HOLD': 22, 'ACCUMULATE': 9, 'REDUCE': 6, 'STRONG BUY': 5, 'SELL': 1}
+[14:36:06] INFO     Live Engine: loaded 100 stocks
+127.0.0.1 - - [21/Mar/2026 14:36:07] "GET /api/portfolio/status?name=my HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:36:07] "GET /api/portfolio?name=my HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:36:07] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:39:08] "POST /api/portfolio/delete HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+[14:41:06] INFO     Live Engine: loaded 100 stocks
+[14:46:06] INFO     Live Engine: loaded 100 stocks
+[14:51:07] INFO     Live Engine: loaded 100 stocks
+[14:56:07] INFO     Live Engine: loaded 100 stocks
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /socket.io/?EIO=4&transport=websocket&sid=zUfaQON92cJSPtwIAAAC HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 334, in execute
+    write(data)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 300, in write
+    self.end_headers()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/server.py", line 536, in end_headers
+    self.flush_headers()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/server.py", line 540, in flush_headers
+    self.wfile.write(b"".join(self._headers_buffer))
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socketserver.py", line 826, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /socket.io/?EIO=4&transport=polling&t=4lrbh6ei HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "POST /socket.io/?EIO=4&transport=polling&t=4lrbtslv&sid=9hqT-zQLDvx6IWWpAAAE HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /socket.io/?EIO=4&transport=polling&t=4lrbtzsz&sid=9hqT-zQLDvx6IWWpAAAE HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /api/auth/verify HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /api/auth/verify HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /api/portfolio/accounts HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:58:57] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:02] "GET /api/portfolio?name=my HTTP/1.1" 404 -
+127.0.0.1 - - [21/Mar/2026 14:59:02] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:02] "GET /api/portfolio?name=my HTTP/1.1" 404 -
+127.0.0.1 - - [21/Mar/2026 14:59:02] "GET /api/portfolio/alerts?name=my HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:03] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:04] "POST /api/portfolio/scan HTTP/1.1" 400 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:38] "GET /api/live/signal-feed HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:59:38] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:38] "GET /api/live/signal-feed HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:59:38] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:44] "POST /api/auth/login HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:44] "GET /api/live/state HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:59:44] "GET /api/live/signal-feed HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:44] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:44] "GET /api/live/signal-feed HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:44] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:44] "GET /api/live/state HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:46] "GET /api/portfolio?name=main HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:59:46] "GET /api/portfolio/alerts?name=main HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:46] "GET /api/portfolio?name=main HTTP/1.1" 200 -
+127.0.0.1 - - [21/Mar/2026 14:59:46] "GET /api/portfolio/alerts?name=main HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:51] "GET /api/ai-mf-picks HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects
+127.0.0.1 - - [21/Mar/2026 14:59:51] "GET /api/ai-mf-picks HTTP/1.1" 200 -
+Error on request:
+Traceback (most recent call last):
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 370, in run_wsgi
+    execute(self.server.app)
+  File "/Users/pankajmaheshwari/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 347, in execute
+    selector.register(self.connection, selectors.EVENT_READ)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
+    self._selector.control([kev], 0, 0)
+TypeError: changelist must be an iterable of select.kevent objects

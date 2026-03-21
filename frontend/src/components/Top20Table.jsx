@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { api } from '../api';
 import ScreenshotButton from './ScreenshotButton';
+import RunPipelineButton from './RunPipelineButton';
 
 function ScoreBadge({ value }) {
   if (value == null) return <span className="score-badge score-low">N/A</span>;
@@ -165,6 +166,7 @@ export default function Top20Table({ onSelectStock }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8, flexWrap: 'wrap', gap: 8 }}>
         <h2 style={{ margin: 0 }}>Top 20 Stock Picks — Detailed View</h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <RunPipelineButton label="Run Pipeline" onDone={() => api.getTop20().then(d => setData(Array.isArray(d) ? d : []))} />
           {lastRefresh && (
             <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>
               CMP updated {lastRefresh.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}

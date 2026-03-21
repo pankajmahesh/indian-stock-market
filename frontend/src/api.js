@@ -1,7 +1,29 @@
 const BASE = '/api';
 
-async function fetchJSON(endpoint, options) {
-  const res = await fetch(`${BASE}${endpoint}`, options);
+const AUTH_KEY = 'screener_auth_token';
+
+export function getAuthToken() {
+  return localStorage.getItem(AUTH_KEY);
+}
+
+export function setAuthToken(token) {
+  if (token) localStorage.setItem(AUTH_KEY, token);
+  else        localStorage.removeItem(AUTH_KEY);
+}
+
+async function fetchJSON(endpoint, options = {}) {
+  const token = getAuthToken();
+  const headers = {
+    ...(options.headers || {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+  const res = await fetch(`${BASE}${endpoint}`, { ...options, headers });
+  if (res.status === 401) {
+    // Token rejected — clear it so the login screen appears
+    setAuthToken(null);
+    window.dispatchEvent(new Event('auth:logout'));
+    throw new Error('Session expired. Please log in again.');
+  }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
     const err = new Error(body.error || `API error: ${res.status}`);
@@ -12,6 +34,34 @@ async function fetchJSON(endpoint, options) {
 }
 
 export const api = {
+  // Auth
+  login: (email, password) =>
+    fetch(`${BASE}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    }).then(async r => {
+      const body = await r.json();
+      if (!r.ok) throw new Error(body.error || 'Login failed');
+      return body;
+    }),
+  register: (email, password, name) =>
+    fetch(`${BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, name }),
+    }).then(async r => {
+      const body = await r.json();
+      if (!r.ok) throw new Error(body.error || 'Registration failed');
+      return body;
+    }),
+  verifyToken: () => fetchJSON('/auth/verify'),
+  changePassword: (old_password, new_password) =>
+    fetchJSON('/auth/change-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ old_password, new_password }),
+    }),
   getStockList: () => fetchJSON('/stock-list'),
   getSummary: () => fetchJSON('/summary'),
   getTop20: () => fetchJSON('/top20'),
@@ -29,6 +79,11 @@ export const api = {
   getLivePrice: (symbol) => fetchJSON(`/live-price/${encodeURIComponent(symbol)}`),
   getMarketMovers: () => fetchJSON('/nse/market-movers'),
   getMarketStatus: () => fetchJSON('/nse/market-status'),
+  getDipOpportunities: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return fetchJSON(`/dip-opportunities${qs ? '?' + qs : ''}`);
+  },
+  getMarketCondition: () => fetchJSON('/market-condition'),
   getComposite: () => fetchJSON('/composite'),
   getSectors: () => fetchJSON('/sectors'),
   getStock: (symbol) => fetchJSON(`/stock/${encodeURIComponent(symbol)}`),
@@ -69,8 +124,16 @@ export const api = {
     const formData = new FormData();
     formData.append('file', file);
     if (portfolioName) formData.append('name', portfolioName);
-    const res = await fetch(`${BASE}/portfolio/import-csv`, { method: 'POST', body: formData });
-    if (!res.ok) throw new Error(`API error: ${res.status}`);
+    const token = getAuthToken();
+    const res = await fetch(`${BASE}/portfolio/import-csv`, {
+      method: 'POST',
+      body: formData,
+      headers: token ? { Authorization: `Bearer ${token}` } : {},
+    });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error || `API error: ${res.status}`);
+    }
     return res.json();
   },
   importCams: async (file, { pan, dob, password, portfolio } = {}) => {
@@ -213,6 +276,10 @@ export const api = {
   // Market pulse
   getMarketPulse: () => fetchJSON('/market-pulse'),
 
+  // Live engine (WebSocket REST fallback)
+  getLiveState:      () => fetchJSON('/live/state'),
+  getLiveSignalFeed: () => fetchJSON('/live/signal-feed'),
+
   // AI MF Dashboard — exclusive fund picks
   getAIMfPicks: () => fetchJSON('/ai-mf-picks'),
   refreshAIMfPicks: () => fetchJSON('/ai-mf-picks/refresh', { method: 'POST' }),
@@ -232,4 +299,33 @@ export const api = {
   // Cross-stock ML model training
   trainMLModels: () => fetchJSON('/ml/train', { method: 'POST' }),
   getMLTrainStatus: () => fetchJSON('/ml/train/status'),
+
+  // AI Portfolio Analysis (Skills 1-13 on all holdings)
+  getPortfolioAIInsights: (name = 'main') => fetchJSON(`/ai-insights/portfolio-batch?name=${name}`),
+  getPortfolioRebalance: (name = 'main') => fetchJSON(`/ai-insights/rebalance?name=${name}`),
+
+  // Defense Mode & Alpha Discovery (Skill 12)
+  getDefenseMode: (params = {}) => {
+    const qs = new URLSearchParams(params).toString();
+    return fetchJSON(`/defense-mode${qs ? '?' + qs : ''}`);
+  },
+
+  // Valuation Assessment (Skill 13)
+  getValuation: (symbol) => fetchJSON(`/valuation/${encodeURIComponent(symbol)}`),
+  getPortfolioValuation: (name = 'main') => fetchJSON(`/valuation/portfolio?name=${name}`),
+
+  // Stock search/autocomplete
+  searchStocks: (q) => fetchJSON(`/stocks/search?q=${encodeURIComponent(q)}`),
+
+  // Delete user portfolio (non-admin)
+  deletePortfolio: () => fetchJSON('/portfolio/delete', { method: 'POST' }),
+
+  // User portfolio accounts
+  getPortfolioAccounts: () => fetchJSON('/portfolio/accounts'),
+  savePortfolioAccounts: (accounts) =>
+    fetchJSON('/portfolio/accounts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ accounts }),
+    }),
 };

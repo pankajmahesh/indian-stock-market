@@ -61,12 +61,12 @@ class GrowwClient:
 
     # ── availability ─────────────────────────────────────────────
     def is_available(self):
-        """Check if Groww API is configured and reachable."""
+        """Check if Groww API is configured and reachable with a valid token."""
         if not self.token:
             return False
-        # Quick check with a single LTP call
+        # Quick check — must return a non-empty dict with an actual price
         result = self.get_ltp(["RELIANCE"])
-        return result is not None
+        return bool(result and result.get("RELIANCE"))
 
     # ── quotes ───────────────────────────────────────────────────
     def get_quote(self, symbol):

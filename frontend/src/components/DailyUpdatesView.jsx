@@ -3,6 +3,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
   ReferenceLine,
 } from 'recharts';
+import RunPipelineButton from './RunPipelineButton';
 import { api } from '../api';
 import StockModal from './StockModal';
 
@@ -1233,6 +1234,7 @@ export default function DailyUpdatesView() {
             </span>
           )}
         </div>
+        <RunPipelineButton label="Run Full Pipeline" variant="bar" onDone={loadAll} />
         <button onClick={startGenerate} disabled={generating}
           style={{
             padding: '7px 16px', borderRadius: 7, border: 'none',

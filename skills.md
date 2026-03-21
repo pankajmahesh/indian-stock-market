@@ -20,6 +20,8 @@ INPUT: Stock ticker / sector / watchlist
   ├─► [7] Sector Trend Analysis
   ├─► [8] Sentiment Analysis (social + analyst + institutional)
   ├─► [9] Undervaluation Screen
+  ├─► [10] Defense Mode & Alpha Discovery (Geopolitical / Panic / Beta filter)
+  ├─► [11] Valuation Level Assessment (Fair / Over / Under vs peers + history)
   │
   └─► OUTPUT: Accumulate / Wait / Watch + Entry/Exit + Multi-year View
 ```
@@ -442,6 +444,241 @@ Date: [DD-MM-YYYY] | Sector: [Sector]
 
 ---
 
+## SKILL 12 — DEFENSE MODE & ALPHA DISCOVERY ALGORITHM
+
+**Purpose:** Navigate uncertain / geopolitical / panic market conditions while hunting for asymmetric 2–3 year alpha opportunities.
+
+> **Trigger:** Activate this skill when: VIX > 18, Nifty down > 8% from recent high, geopolitical escalation, war/sanctions news, or user explicitly invokes "defense mode".
+
+### RULE 1 — AWAY FROM HIGH BETA (Capital Protection)
+
+**Core Principle:** In uncertain markets, high-beta stocks fall faster and harder. Protect capital first.
+
+```
+Beta Filter:
+  - Avoid stocks with Beta > 1.2 during market stress
+  - Prefer Beta < 0.8 (defensives: pharma, FMCG, utilities, IT services)
+  - Check 1Y rolling beta vs Nifty 50
+
+Sectors to AVOID in high-volatility regime:
+  - PSU metals, small-cap industrials, mid-cap real estate
+  - Leveraged financials (NBFCs with high D/E)
+  - Export-driven small caps with thin margins
+
+Sectors to PREFER:
+  - Healthcare / Diagnostics (domestic demand, inelastic)
+  - FMCG (staples, price-maker brands)
+  - IT large-caps (USD revenue, strong balance sheets)
+  - Utilities (regulated, predictable cash flows)
+
+Signal: If Nifty drops > 2% in a session AND VIX > 20 → auto-flag all portfolio
+        positions with Beta > 1.0 for review
+```
+
+### RULE 2 — OPPORTUNITY IN PANIC (Asymmetric Accumulation)
+
+**Core Principle:** Panic creates mispricing. Quality companies sold indiscriminately = entry opportunity.
+
+```
+Panic Scanner Trigger Conditions (ALL must be true):
+  ✅ India VIX > 20 (fear elevated)
+  ✅ Nifty 50 down > 8% from 52-week high
+  ✅ Stock RSI (14D) < 35 (oversold)
+  ✅ Fundamental score ≥ 7/10 (quality filter — not a value trap)
+  ✅ No stock-specific negative trigger (not company-driven fall)
+
+If triggered → PANIC OPPORTUNITY ALERT
+  - Calculate stock's median P/E over 3 years
+  - If current P/E < (3Y median P/E × 0.75) → "Deep Value Zone"
+  - Deploy Tranche 1 (20%) immediately
+  - Deploy Tranche 2 (30%) if stock falls another 5–7%
+  - Deploy Tranche 3 (50%) after VIX begins cooling (< 18)
+
+Watchlist Priority in Panic:
+  1. Market leaders with dominant moat (Bajaj Finance, Titan, HDFC Bank type)
+  2. Asset-light businesses with high ROCE (>20%)
+  3. Companies where fall is macro-driven, NOT earnings-driven
+```
+
+### RULE 3 — PRESERVE CASH: EXIT WAR-IMPACTED STOCKS
+
+**Core Principle:** Geopolitical shocks have non-linear impact on specific sectors. Exit before market fully prices in the risk.
+
+```
+War/Geopolitical Risk Screening Checklist:
+
+HIGH RISK — Consider EXIT or reduce to minimal position:
+  ☑ Oil importers with thin margins (paint, chemicals, airlines, tyre cos)
+    → Trigger: Crude Brent > $95/barrel
+  ☑ Companies with >20% revenue from conflict-zone geographies
+    → (Europe/Russia exposure, Middle East, Southeast Asia supply chains)
+  ☑ Import-heavy manufacturers (electronics, capital goods with China dependency)
+    → Trigger: INR/USD > 86 AND supply chain disruption news
+  ☑ Metals/commodity traders with global pricing exposure (non-domestic)
+  ☑ Logistics/shipping exposed companies (freight rate volatility)
+
+MODERATE RISK — Watch closely:
+  ☑ IT companies with US/EU discretionary tech spending exposure
+  ☑ Auto ancillaries with export > 30% of revenue
+  ☑ Consumer durables with imported components > 40%
+
+LOW RISK / SAFE HAVEN in war scenarios:
+  ✅ Defence manufacturers (HAL, BEL, BEML, Bharat Forge defence segment)
+  ✅ Domestic pharma (essential medicines, CDMO)
+  ✅ Domestic agriculture / agri-input companies
+  ✅ Telecom and digital infrastructure
+  ✅ Gold ETFs / sovereign gold bonds (flight-to-safety)
+
+Cash Target during active geopolitical crisis:
+  - Raise cash to 25–35% of portfolio
+  - Hold in liquid funds or overnight funds (not equity)
+```
+
+### RULE 4 — FIND ALPHA: 2–3 YEAR COMPOUNDER SCREEN
+
+**Core Principle:** While others panic, identify the next 2–3 year compounders that the market hasn't yet re-rated.
+
+```
+Alpha Hunt Filter Criteria:
+  Quantitative (ALL required):
+    ✅ Revenue CAGR (3Y) > 18%
+    ✅ PAT CAGR (3Y) > 20%
+    ✅ ROE > 18% consistently (last 3 years)
+    ✅ FCF positive for ≥ 2 of last 3 years
+    ✅ D/E < 0.5 (avoid leveraged bets)
+    ✅ Current P/E < (sector median P/E × 1.1) — not wildly expensive
+    ✅ Market Cap: ₹500Cr – ₹15,000Cr (mid-cap sweet spot for multi-bagger potential)
+
+  Qualitative (≥ 3 of 5 required):
+    ☑ Identifiable moat: brand / IP / switching cost / distribution / scale
+    ☑ Promoter holding > 50% and NOT pledged
+    ☑ Addressable market (TAM) growing at >15% CAGR
+    ☑ Management with proven capital allocation (no vanity acquisitions)
+    ☑ Aligned with India 2030 structural theme (infrastructure, digital, health, defence)
+
+  Bonus Alpha Signals:
+    → Institutional discovery phase (FII/DII just started buying; < 15% institutional holding)
+    → Low analyst coverage (< 5 sell-side analysts covering)
+    → Post-correction re-entry (stock down 30–40% from high without earnings deterioration)
+    → New product / geography launch that market hasn't priced
+
+Alpha Output Format:
+  ALPHA CANDIDATE: [Stock]
+  Why now:         [Specific catalyst / mispricing reason]
+  Moat:            [Type and durability]
+  2Y Target:       ₹___ (upside: __%)
+  3Y Target:       ₹___ (upside: __%)
+  Key Risk:        [Single biggest risk to the thesis]
+  Position Size:   [% of portfolio — max 8% for any single alpha bet]
+```
+
+### DEFENSE MODE PORTFOLIO FRAMEWORK
+
+```
+PHASE              CASH %    DEFENSIVE %    ALPHA BETS %    GROWTH %
+─────────────────────────────────────────────────────────────────────
+Normal Market       10%         20%             10%            60%
+Correction          20%         30%             15%            35%
+Bear / War Mode     35%         40%             15%            10%
+Deep Panic Bottom    5%         20%             50%            25%  ← deploy aggressively
+Recovery Phase      10%         25%             25%            40%
+```
+
+---
+
+## SKILL 13 — VALUATION LEVEL ASSESSMENT
+
+**Purpose:** Determine whether a stock is fairly valued, overvalued, or undervalued relative to its own history and sector peers — and by how much.
+
+### Valuation Methods (Run All 3, Take Weighted Average)
+
+#### Method A — Relative Valuation (vs Peers + Own History)
+```
+1. Current P/E vs:
+   a) Sector median P/E
+   b) Stock's own 5Y median P/E
+   c) Nifty 50 P/E (premium/discount to index)
+
+2. Current EV/EBITDA vs:
+   a) Sector median
+   b) Own 5Y median
+
+3. Current P/B vs:
+   a) Sector median
+   b) Own 5Y median
+
+Scoring:
+  Below own 5Y median AND below sector median → UNDERVALUED
+  Within 10% of medians → FAIRLY VALUED
+  Above 1.3× own 5Y median OR 1.3× sector median → OVERVALUED
+```
+
+#### Method B — DCF / Earnings-Based Fair Value
+```
+Inputs:
+  - TTM EPS (or forward EPS if guidance available)
+  - EPS growth rate: use lower of (3Y CAGR, analyst consensus)
+  - Terminal growth: 5% for large-cap, 7% for mid-cap
+  - Discount rate: 12% (India cost of equity)
+
+Simplified DCF:
+  Fair Value = EPS × (1 + g)^5 / (r - g_terminal) × P/E_exit
+  where P/E_exit = sector median forward P/E
+
+Output:
+  Fair Value: ₹___
+  CMP: ₹___
+  Premium / Discount: ___% vs Fair Value
+```
+
+#### Method C — Graham Number (Conservative Floor)
+```
+Graham Number = √(22.5 × EPS × Book Value Per Share)
+Interpretation:
+  CMP < Graham Number → Deep value / undervalued
+  CMP 1–1.5× Graham → Fair value range
+  CMP > 2× Graham → Speculative / expensive
+```
+
+### Valuation Output
+```
+══════════════════════════════════════
+VALUATION ASSESSMENT: [Stock] | ₹[CMP]
+══════════════════════════════════════
+
+Method A — Relative:
+  P/E:  [Current] vs Sector [Median] vs Own 5Y [Median] → [Status]
+  P/B:  [Current] vs Sector [Median] vs Own 5Y [Median] → [Status]
+  EV/EBITDA: [Current] vs [Benchmark] → [Status]
+
+Method B — DCF Fair Value:   ₹___  (___% premium/discount)
+Method C — Graham Number:    ₹___  (___% premium/discount)
+
+Weighted Fair Value:         ₹___
+  (Method A: 40% | Method B: 40% | Method C: 20%)
+
+VALUATION VERDICT:
+  [ UNDERVALUED ✅ | FAIRLY VALUED ⚖️ | OVERVALUED ❌ ]
+  Margin of Safety: ___%
+
+Context:
+  - At what price does it become attractive?  ₹___
+  - At what price would you exit on valuation? ₹___
+  - Is the premium (if any) justified by growth? [Yes/No — reason]
+══════════════════════════════════════
+```
+
+### Valuation Red Flags
+```
+⚠️  P/E > 50 without corresponding 30%+ earnings growth → Bubble risk
+⚠️  P/B > 10 without ROE > 25% → Unjustified premium
+⚠️  EV/EBITDA > 30 for non-tech companies → Very expensive
+⚠️  Stock at 52W high + P/E 40% above own 5Y median → Avoid new entry
+⚠️  Revenue declining but P/E expanding → "Multiple expansion trap"
+```
+
+---
+
 ## CITATION RULES
 
 > All factual claims, news references, macro data, and analyst targets **must** include:
@@ -458,4 +695,4 @@ Date: [DD-MM-YYYY] | Sector: [Sector]
 
 ---
 
-*Last updated: March 2026 | Version 1.0*
+*Last updated: March 2026 | Version 1.2*

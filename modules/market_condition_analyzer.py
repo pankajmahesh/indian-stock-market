@@ -138,6 +138,18 @@ class MarketConditionAnalyzer:
             latest = float(closes.iloc[-1])
             prev   = float(closes.iloc[-2]) if len(closes) >= 2 else latest
 
+            # Override with live intraday price if available
+            try:
+                nifty_info = yf.Ticker(self.NIFTY_TICKER).info or {}
+                live_price = nifty_info.get("regularMarketPrice") or nifty_info.get("currentPrice")
+                live_prev  = nifty_info.get("regularMarketPreviousClose") or nifty_info.get("previousClose")
+                if live_price:
+                    latest = float(live_price)
+                if live_prev:
+                    prev = float(live_prev)
+            except Exception:
+                pass
+
             nifty_change_pct = round((latest - prev) / prev * 100, 2)
 
             # ── 1. Price vs 200 DMA (±25 pts) ─────────────────────────────
