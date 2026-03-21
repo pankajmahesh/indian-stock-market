@@ -747,3 +747,10 @@ Traceback (most recent call last):
   File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/selectors.py", line 523, in register
     self._selector.control([kev], 0, 0)
 TypeError: changelist must be an iterable of select.kevent objects
+[15:01:07] INFO     Live Engine: loaded 100 stocks
+[15:06:07] INFO     Live Engine: loaded 100 stocks
+[15:11:07] INFO     Live Engine: loaded 100 stocks
+[15:16:07] INFO     Live Engine: loaded 100 stocks
+[15:21:07] INFO     Live Engine: loaded 100 stocks
+[15:26:07] INFO     Live Engine: loaded 100 stocks
+[15:31:07] INFO     Live Engine: loaded 100 stocks

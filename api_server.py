@@ -2923,15 +2923,13 @@ def mf_categories():
     if _MF_CATEGORIES_CACHE is not None:
         return jsonify(_MF_CATEGORIES_CACHE)
 
-    import csv, os as _os
-    csv_path = _os.path.join(_os.path.dirname(__file__), "SchemeData1703260645SS.csv")
-    if not _os.path.exists(csv_path):
-        return jsonify({"error": "MF scheme data not found"}), 404
+    import csv
+    from scheme_data import open_csv as _open_scheme_csv
 
     counts = {}
     amcs = set()
     try:
-        with open(csv_path, encoding="utf-8", errors="ignore") as f:
+        with _open_scheme_csv() as f:
             reader = csv.DictReader(f)
             for row in reader:
                 cat = (row.get("Scheme Category") or "").strip()
@@ -3024,15 +3022,13 @@ def mf_top10():
         if _time.time() - ts < CACHE_TTL:
             return jsonify(cached)
 
-    csv_path = _os.path.join(_os.path.dirname(__file__), "SchemeData1703260645SS.csv")
-    if not _os.path.exists(csv_path):
-        return jsonify({"error": "MF scheme data not found"}), 404
+    from scheme_data import open_csv as _open_scheme_csv
 
     # Filter equity direct growth plans
     dg_pat = re.compile(r'direct.*growth|growth.*direct', re.IGNORECASE)
     schemes = []
     try:
-        with open(csv_path, encoding="utf-8", errors="ignore") as f:
+        with _open_scheme_csv() as f:
             reader = csv.DictReader(f)
             for row in reader:
                 cat = (row.get("Scheme Category") or "").strip()
