@@ -1,11 +1,11 @@
 /**
  * UserMenu — Settings gear icon in the header.
- * Dropdown: My Profile, Change Password, Logout.
+ * Dropdown: My Profile, Change Password, Admin Console, Logout.
  */
 import { useState, useRef, useEffect } from 'react';
 import { api, setAuthToken } from '../api';
 
-export default function UserMenu({ onLogout }) {
+export default function UserMenu({ onLogout, onAdminConsole }) {
   const [open,      setOpen]      = useState(false);
   const [modal,     setModal]     = useState(null);   // null | 'profile' | 'password'
   const [user,      setUser]      = useState(() => {
@@ -98,6 +98,7 @@ export default function UserMenu({ onLogout }) {
             {[
               { label: '👤  My Profile',       action: () => { setModal('profile'); setOpen(false); } },
               { label: '🔑  Change Password',  action: () => { setModal('password'); setOpen(false); } },
+              ...(user.is_admin ? [{ label: '🛠  Admin Console', action: () => { onAdminConsole?.(); setOpen(false); } }] : []),
               { label: '—', divider: true },
               { label: '🚪  Sign Out',         action: logout, danger: true },
             ].map((item, i) =>

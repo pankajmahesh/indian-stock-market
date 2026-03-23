@@ -187,6 +187,18 @@ AUTH_PW_SALT  = os.environ.get("AUTH_PW_SALT",  "screener_2024_salt")
 AUTH_SECRET   = os.environ.get("AUTH_SECRET",   "c4921a47a6b20aca541733033a7c74fd980ae0752241f8d086a5a4da4372e071")
 
 # ============================================================
+# EMAIL NOTIFICATIONS
+# Leave SMTP_HOST empty to disable email delivery silently.
+# ============================================================
+SMTP_HOST = os.environ.get("SMTP_HOST", "").strip()
+SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
+SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "").strip()
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
+SMTP_USE_TLS = os.environ.get("SMTP_USE_TLS", "true").strip().lower() in {"1", "true", "yes", "on"}
+SMTP_FROM_EMAIL = os.environ.get("SMTP_FROM_EMAIL", SMTP_USERNAME or AUTH_EMAIL).strip()
+ADMIN_NOTIFY_EMAIL = os.environ.get("ADMIN_NOTIFY_EMAIL", AUTH_EMAIL).strip()
+
+# ============================================================
 # NSE PROXY (real-time data via stock-market-india)
 # ============================================================
 NSE_PROXY_URL = "http://127.0.0.1:3100"

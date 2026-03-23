@@ -6,20 +6,6 @@
       "is_admin": true,
       "created_at": "2026-03-21",
       "name": "Pankaj Maheshwari"
-    },
-    "test@example.com": {
-      "email": "test@example.com",
-      "pw_hash": "8bed175bee6a401e64ef9f9b1f53054393479c02c84cd5b0f4f0ecc0720c1871",
-      "is_admin": false,
-      "created_at": "2026-03-21",
-      "name": "Test User"
-    },
-    "test@gmail.com": {
-      "email": "test@gmail.com",
-      "pw_hash": "e4ac119dca93b47cd42a7a0cbd3d06d375c022c53da60ba01d35b8a36e261378",
-      "is_admin": false,
-      "created_at": "2026-03-21",
-      "name": "test"
     }
   }
 }

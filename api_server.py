@@ -11,12 +11,17 @@ import argparse
 import hashlib
 import hmac
 import json
+import logging
 import math
 import os
+import re
+import smtplib
 import subprocess
 import sys
 import threading
+import time
 from datetime import datetime as _dt
+from email.message import EmailMessage
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -65,6 +70,21 @@ def _safe_float(v, default=0):
         return default if (math.isnan(f) or math.isinf(f)) else f
     except (TypeError, ValueError):
         return default
+
+
+class _LogCapture(logging.Handler):
+    """Routes log records into a state dict's log_lines list for live status streaming."""
+    MAX_LINES = 200
+
+    def __init__(self, log_lines: list):
+        super().__init__()
+        self.log_lines = log_lines
+        self.setFormatter(logging.Formatter("%(message)s"))
+
+    def emit(self, record):
+        self.log_lines.append(self.format(record))
+        if len(self.log_lines) > self.MAX_LINES:
+            del self.log_lines[:-self.MAX_LINES]
 
 
 def load_csv(filename, subdir=None):
@@ -129,6 +149,15 @@ def _current_user():
     return None
 
 
+def _require_admin_user():
+    user = _current_user()
+    if not user:
+        return None, (jsonify({"error": "Unauthorized"}), 401)
+    if not user.get("is_admin"):
+        return None, (jsonify({"error": "Admin access required"}), 403)
+    return user, None
+
+
 # ── Multi-user store (data/users.json) ───────────────────────────────────
 
 _USERS_FILE = None   # set after config loaded
@@ -156,6 +185,52 @@ def _save_users_store(data):
 
 def _get_user(email: str):
     return _load_users_store()["users"].get(email.lower())
+
+
+def _public_user_record(user: dict) -> dict:
+    return {
+        "email": user.get("email", ""),
+        "name": user.get("name", ""),
+        "is_admin": bool(user.get("is_admin", False)),
+        "created_at": user.get("created_at", ""),
+    }
+
+
+def _send_email(subject: str, body: str, to_email: str) -> bool:
+    if not config.SMTP_HOST or not to_email:
+        return False
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = config.SMTP_FROM_EMAIL
+    msg["To"] = to_email
+    msg.set_content(body)
+    try:
+        with smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT, timeout=15) as smtp:
+            smtp.ehlo()
+            if config.SMTP_USE_TLS:
+                smtp.starttls()
+                smtp.ehlo()
+            if config.SMTP_USERNAME:
+                smtp.login(config.SMTP_USERNAME, config.SMTP_PASSWORD)
+            smtp.send_message(msg)
+        return True
+    except Exception as e:
+        logging.warning("Email send failed: %s", e)
+        return False
+
+
+def _notify_admin_new_registration(user: dict):
+    body = (
+        "A new user registered in Indian Stock Screener.\n\n"
+        f"Name: {user.get('name', '')}\n"
+        f"Email: {user.get('email', '')}\n"
+        f"Created: {user.get('created_at', '')}\n"
+    )
+    _send_email(
+        subject="New user registration - Indian Stock Screener",
+        body=body,
+        to_email=config.ADMIN_NOTIFY_EMAIL,
+    )
 
 def _seed_admin():
     """Ensure the admin account exists in users.json."""
@@ -218,7 +293,13 @@ def auth_login():
         return jsonify({"error": "Invalid email or password"}), 401
 
     token = _make_token(email)
-    return jsonify({"token": token, "email": email, "name": user.get("name", ""), "is_admin": user.get("is_admin", False)})
+    return jsonify({
+        "token": token,
+        "email": email,
+        "name": user.get("name", ""),
+        "is_admin": user.get("is_admin", False),
+        "created_at": user.get("created_at", ""),
+    })
 
 
 @app.route("/api/auth/register", methods=["POST"])
@@ -245,15 +326,28 @@ def auth_register():
         "name":       name or email.split("@")[0],
     }
     _save_users_store(store)
+    _notify_admin_new_registration(store["users"][email])
 
     token = _make_token(email)
-    return jsonify({"token": token, "email": email, "name": store["users"][email]["name"], "is_admin": False}), 201
+    return jsonify({
+        "token": token,
+        "email": email,
+        "name": store["users"][email]["name"],
+        "is_admin": False,
+        "created_at": store["users"][email]["created_at"],
+    }), 201
 
 
 @app.route("/api/auth/verify", methods=["GET"])
 def auth_verify():
     user = _current_user()
-    return jsonify({"valid": True, "email": user["email"], "name": user.get("name", ""), "is_admin": user.get("is_admin", False)})
+    return jsonify({
+        "valid": True,
+        "email": user["email"],
+        "name": user.get("name", ""),
+        "is_admin": user.get("is_admin", False),
+        "created_at": user.get("created_at", ""),
+    })
 
 
 @app.route("/api/auth/change-password", methods=["POST"])
@@ -274,6 +368,42 @@ def auth_change_password():
     store["users"][user["email"]]["pw_hash"] = _hash_password(new_pw)
     _save_users_store(store)
     return jsonify({"ok": True, "message": "Password updated successfully"})
+
+
+@app.route("/api/admin/users", methods=["GET"])
+def admin_list_users():
+    _, err = _require_admin_user()
+    if err:
+        return err
+    store = _load_users_store()
+    users = [_public_user_record(u) for _, u in sorted(store.get("users", {}).items())]
+    return jsonify(users)
+
+
+@app.route("/api/admin/users/<path:user_email>", methods=["DELETE"])
+def admin_delete_user(user_email):
+    admin_user, err = _require_admin_user()
+    if err:
+        return err
+
+    email = (user_email or "").strip().lower()
+    if not email or "@" not in email:
+        return jsonify({"error": "Valid email required"}), 400
+    if email == admin_user["email"].lower():
+        return jsonify({"error": "You cannot delete your own admin account"}), 400
+
+    store = _load_users_store()
+    users = store.setdefault("users", {})
+    target = users.get(email)
+    if not target:
+        return jsonify({"error": "User not found"}), 404
+    if target.get("is_admin"):
+        return jsonify({"error": "Admin users cannot be deleted from this endpoint"}), 400
+
+    users.pop(email, None)
+    _save_users_store(store)
+    _delete_user_artifacts(email)
+    return jsonify({"ok": True, "deleted_email": email})
 
 
 @app.route("/api/summary", methods=["GET"])
@@ -984,34 +1114,20 @@ def _run_portfolio_scan(name, symbols, skip_cache=False):
     state["status"] = "scanning"
     state["log_lines"] = [f"Starting {name} portfolio scan ({len(symbols)} stocks)..."]
 
+    handler = _LogCapture(state["log_lines"])
+    logging.getLogger().addHandler(handler)
     try:
         from modules.portfolio_analyzer import PortfolioAnalyzer
-        import logging
-
-        class LogCapture(logging.Handler):
-            def emit(self, record):
-                msg = self.format(record)
-                state["log_lines"].append(msg)
-                if len(state["log_lines"]) > 200:
-                    state["log_lines"] = state["log_lines"][-200:]
-
-        handler = LogCapture()
-        handler.setFormatter(logging.Formatter("%(message)s"))
-        logging.getLogger().addHandler(handler)
-
         analyzer = PortfolioAnalyzer(skip_cache=skip_cache)
         csv_name = _pf_csv_name(name)
-        df = analyzer.analyze(symbols, output_filename=csv_name)
-
+        analyzer.analyze(symbols, output_filename=csv_name)
         state["status"] = "completed"
     except Exception as e:
         state["status"] = f"error: {str(e)}"
         state["log_lines"].append(f"ERROR: {str(e)}")
     finally:
         state["running"] = False
-        for h in logging.getLogger().handlers[:]:
-            if isinstance(h, LogCapture):
-                logging.getLogger().removeHandler(h)
+        logging.getLogger().removeHandler(handler)
 
 
 @app.route("/api/portfolios", methods=["GET"])
@@ -1217,87 +1333,31 @@ def portfolio_status():
 
 
 # ============================================================
-# PORTFOLIO INSIGHTS (Growth Trend & Valuation Trend)
+# PORTFOLIO INSIGHTS (Growth Trend, Valuation, Calendar, Hedge, Report)
 # ============================================================
 
-@app.route("/api/portfolio/growth-trend", methods=["GET"])
-def portfolio_growth_trend():
-    """Growth trend analysis for a portfolio. ?name=main"""
-    name = request.args.get("name", "main")
-    pf_config = config.PORTFOLIOS.get(name)
-    if not pf_config:
-        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
-    try:
-        from modules.portfolio_insights import PortfolioInsights
-        insights = PortfolioInsights()
-        result = insights.growth_trend(pf_config["stocks"])
-        return jsonify(_deep_sanitize(result))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+def _portfolio_insight_route(path, endpoint_name, doc, module_path, cls_name, method_name):
+    """Register a GET /api/portfolio/<path> endpoint backed by a module class method."""
+    @app.route(f"/api/portfolio/{path}", methods=["GET"], endpoint=endpoint_name)
+    def _view():
+        name = request.args.get("name", "main")
+        pf_config = config.PORTFOLIOS.get(name)
+        if not pf_config:
+            return jsonify({"error": f"Unknown portfolio: {name}"}), 404
+        try:
+            mod = __import__(module_path, fromlist=[cls_name])
+            result = getattr(getattr(mod, cls_name)(), method_name)(pf_config["stocks"])
+            return jsonify(_deep_sanitize(result))
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+    _view.__doc__ = doc
 
 
-@app.route("/api/portfolio/valuation-trend", methods=["GET"])
-def portfolio_valuation_trend():
-    """Valuation trend (long-term PE) for a portfolio. ?name=main"""
-    name = request.args.get("name", "main")
-    pf_config = config.PORTFOLIOS.get(name)
-    if not pf_config:
-        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
-    try:
-        from modules.portfolio_insights import PortfolioInsights
-        insights = PortfolioInsights()
-        result = insights.valuation_trend(pf_config["stocks"])
-        return jsonify(_deep_sanitize(result))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route("/api/portfolio/calendar", methods=["GET"])
-def portfolio_calendar():
-    """Portfolio calendar — dividend/split events. ?name=main"""
-    name = request.args.get("name", "main")
-    pf_config = config.PORTFOLIOS.get(name)
-    if not pf_config:
-        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
-    try:
-        from modules.portfolio_calendar import PortfolioCalendar
-        cal = PortfolioCalendar()
-        result = cal.get_events(pf_config["stocks"])
-        return jsonify(_deep_sanitize(result))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route("/api/portfolio/hedge", methods=["GET"])
-def portfolio_hedge():
-    """Portfolio hedge analysis — beta & protection levels. ?name=main"""
-    name = request.args.get("name", "main")
-    pf_config = config.PORTFOLIOS.get(name)
-    if not pf_config:
-        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
-    try:
-        from modules.portfolio_hedge import PortfolioHedge
-        hedge = PortfolioHedge()
-        result = hedge.analyze(pf_config["stocks"])
-        return jsonify(_deep_sanitize(result))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route("/api/portfolio/report", methods=["GET"])
-def portfolio_report():
-    """Full portfolio report — performance, diversification, risk. ?name=main"""
-    name = request.args.get("name", "main")
-    pf_config = config.PORTFOLIOS.get(name)
-    if not pf_config:
-        return jsonify({"error": f"Unknown portfolio: {name}"}), 404
-    try:
-        from modules.portfolio_report import PortfolioReport
-        report = PortfolioReport()
-        result = report.generate(pf_config["stocks"])
-        return jsonify(_deep_sanitize(result))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+_portfolio_insight_route("growth-trend",    "portfolio_growth_trend",    "Growth trend analysis. ?name=main",                    "modules.portfolio_insights", "PortfolioInsights", "growth_trend")
+_portfolio_insight_route("valuation-trend", "portfolio_valuation_trend", "Valuation trend (long-term PE). ?name=main",            "modules.portfolio_insights", "PortfolioInsights", "valuation_trend")
+_portfolio_insight_route("calendar",        "portfolio_calendar",        "Portfolio calendar — dividend/split events. ?name=main", "modules.portfolio_calendar", "PortfolioCalendar", "get_events")
+_portfolio_insight_route("hedge",           "portfolio_hedge",           "Hedge analysis — beta & protection levels. ?name=main",  "modules.portfolio_hedge",    "PortfolioHedge",   "analyze")
+_portfolio_insight_route("report",          "portfolio_report",          "Full portfolio report. ?name=main",                     "modules.portfolio_report",   "PortfolioReport",  "generate")
 
 
 # ============================================================
@@ -1339,44 +1399,25 @@ def risk_single(symbol):
 # VOLUME BREAKOUT SCANNER
 # ============================================================
 
-_volume_state = {
-    "running": False, "status": "idle", "log_lines": [],
-}
-
-
 def _run_volume_scan():
     """Run volume breakout scan in a background thread."""
-    _volume_state["running"] = True
-    _volume_state["status"] = "scanning"
-    _volume_state["log_lines"] = ["Starting volume breakout scan..."]
+    state = _get_index_state("volume")
+    state["running"] = True
+    state["status"] = "scanning"
+    state["log_lines"] = ["Starting volume breakout scan..."]
 
+    handler = _LogCapture(state["log_lines"])
+    logging.getLogger().addHandler(handler)
     try:
         from modules.volume_breakout import VolumeBreakoutScanner
-        import logging
-
-        class LogCapture(logging.Handler):
-            def emit(self, record):
-                msg = self.format(record)
-                _volume_state["log_lines"].append(msg)
-                if len(_volume_state["log_lines"]) > 200:
-                    _volume_state["log_lines"] = _volume_state["log_lines"][-200:]
-
-        handler = LogCapture()
-        handler.setFormatter(logging.Formatter("%(message)s"))
-        logging.getLogger().addHandler(handler)
-
-        scanner = VolumeBreakoutScanner()
-        scanner.scan()
-
-        _volume_state["status"] = "completed"
+        VolumeBreakoutScanner().scan()
+        state["status"] = "completed"
     except Exception as e:
-        _volume_state["status"] = f"error: {str(e)}"
-        _volume_state["log_lines"].append(f"ERROR: {str(e)}")
+        state["status"] = f"error: {str(e)}"
+        state["log_lines"].append(f"ERROR: {str(e)}")
     finally:
-        _volume_state["running"] = False
-        for h in logging.getLogger().handlers[:]:
-            if isinstance(h, LogCapture):
-                logging.getLogger().removeHandler(h)
+        state["running"] = False
+        logging.getLogger().removeHandler(handler)
 
 
 @app.route("/api/volume-breakouts", methods=["GET"])
@@ -1391,23 +1432,17 @@ def volume_breakouts():
 @app.route("/api/volume-breakouts/scan", methods=["POST"])
 def volume_breakouts_scan():
     """Start volume breakout scanning."""
-    if _volume_state["running"]:
+    if _get_index_state("volume")["running"]:
         return jsonify({"error": "Volume scan already running"}), 409
-
-    thread = threading.Thread(target=_run_volume_scan, daemon=True)
-    thread.start()
-
+    threading.Thread(target=_run_volume_scan, daemon=True).start()
     return jsonify({"message": "Volume breakout scan started"})
 
 
 @app.route("/api/volume-breakouts/status", methods=["GET"])
 def volume_breakouts_status():
     """Get volume scan status."""
-    return jsonify({
-        "running": _volume_state["running"],
-        "status": _volume_state["status"],
-        "log_lines": _volume_state["log_lines"][-30:],
-    })
+    state = _get_index_state("volume")
+    return jsonify({"running": state["running"], "status": state["status"], "log_lines": state["log_lines"][-30:]})
 
 
 # ============================================================
@@ -1533,44 +1568,25 @@ def breakouts_52w():
 # MULTIBAGGER SCREENER + REBALANCE
 # ============================================================
 
-_multibagger_state = {
-    "running": False, "status": "idle", "log_lines": [],
-}
-
-
 def _run_multibagger_scan(skip_cache=False):
     """Run multibagger screening in a background thread."""
-    _multibagger_state["running"] = True
-    _multibagger_state["status"] = "screening"
-    _multibagger_state["log_lines"] = ["Starting multibagger screening..."]
+    state = _get_index_state("multibagger")
+    state["running"] = True
+    state["status"] = "screening"
+    state["log_lines"] = ["Starting multibagger screening..."]
 
+    handler = _LogCapture(state["log_lines"])
+    logging.getLogger().addHandler(handler)
     try:
         from modules.multibagger_screener import MultibaggerScreener
-        import logging
-
-        class LogCapture(logging.Handler):
-            def emit(self, record):
-                msg = self.format(record)
-                _multibagger_state["log_lines"].append(msg)
-                if len(_multibagger_state["log_lines"]) > 200:
-                    _multibagger_state["log_lines"] = _multibagger_state["log_lines"][-200:]
-
-        handler = LogCapture()
-        handler.setFormatter(logging.Formatter("%(message)s"))
-        logging.getLogger().addHandler(handler)
-
-        screener = MultibaggerScreener(skip_cache=skip_cache)
-        screener.screen()
-
-        _multibagger_state["status"] = "completed"
+        MultibaggerScreener(skip_cache=skip_cache).screen()
+        state["status"] = "completed"
     except Exception as e:
-        _multibagger_state["status"] = f"error: {str(e)}"
-        _multibagger_state["log_lines"].append(f"ERROR: {str(e)}")
+        state["status"] = f"error: {str(e)}"
+        state["log_lines"].append(f"ERROR: {str(e)}")
     finally:
-        _multibagger_state["running"] = False
-        for h in logging.getLogger().handlers[:]:
-            if isinstance(h, LogCapture):
-                logging.getLogger().removeHandler(h)
+        state["running"] = False
+        logging.getLogger().removeHandler(handler)
 
 
 @app.route("/api/multibagger", methods=["GET"])
@@ -1585,28 +1601,18 @@ def multibagger():
 @app.route("/api/multibagger/scan", methods=["POST"])
 def multibagger_scan():
     """Start multibagger screening."""
-    if _multibagger_state["running"]:
+    if _get_index_state("multibagger")["running"]:
         return jsonify({"error": "Multibagger scan already running"}), 409
-
     body = request.get_json(silent=True) or {}
-    skip_cache = body.get("skip_cache", False)
-
-    thread = threading.Thread(
-        target=_run_multibagger_scan, args=(skip_cache,), daemon=True
-    )
-    thread.start()
-
+    threading.Thread(target=_run_multibagger_scan, args=(body.get("skip_cache", False),), daemon=True).start()
     return jsonify({"message": "Multibagger screening started"})
 
 
 @app.route("/api/multibagger/status", methods=["GET"])
 def multibagger_status():
     """Get multibagger scan status."""
-    return jsonify({
-        "running": _multibagger_state["running"],
-        "status": _multibagger_state["status"],
-        "log_lines": _multibagger_state["log_lines"][-30:],
-    })
+    state = _get_index_state("multibagger")
+    return jsonify({"running": state["running"], "status": state["status"], "log_lines": state["log_lines"][-30:]})
 
 
 @app.route("/api/market-condition", methods=["GET"])
@@ -1679,20 +1685,10 @@ def _run_index_scan(index_key):
     state["status"] = "scanning"
     state["log_lines"] = [f"Starting {label} scan with price predictions..."]
 
+    handler = _LogCapture(state["log_lines"])
+    logging.getLogger().addHandler(handler)
     try:
         from modules.price_predictor import PricePredictor
-        import logging
-
-        class LogCapture(logging.Handler):
-            def emit(self_, record):
-                msg = self_.format(record)
-                state["log_lines"].append(msg)
-                if len(state["log_lines"]) > 200:
-                    state["log_lines"] = state["log_lines"][-200:]
-
-        handler = LogCapture()
-        handler.setFormatter(logging.Formatter("%(message)s"))
-        logging.getLogger().addHandler(handler)
 
         # Get symbols from config
         stocks = config.PORTFOLIOS.get(pf_key, {}).get("stocks", [])
@@ -1871,9 +1867,7 @@ def _run_index_scan(index_key):
         state["log_lines"].append(f"ERROR: {str(e)}")
     finally:
         state["running"] = False
-        for h in logging.getLogger().handlers[:]:
-            if isinstance(h, LogCapture):
-                logging.getLogger().removeHandler(h)
+        logging.getLogger().removeHandler(handler)
 
 
 def _index_live_refresh(csv_name):
@@ -1930,133 +1924,52 @@ def _index_live_refresh(csv_name):
     }
 
 
-# --- Midcap 150 endpoints ---
+# --- Index prediction endpoints (midcap150 / largemidcap250 / smallcap250) ---
+# Each index shares the same 4-route pattern; registered via a loop.
 
-@app.route("/api/midcap150", methods=["GET"])
-def midcap150():
-    data = load_csv("midcap150_predictions.csv")
-    if data is None:
-        return jsonify({"error": "No Midcap 150 data. Click 'Scan' first."}), 404
-    return jsonify(data)
+def _register_index_routes(key, csv_name, label):
+    """Register GET/scan/live/status routes for a named index."""
 
+    @app.route(f"/api/{key}", methods=["GET"], endpoint=key)
+    def _get():
+        data = load_csv(csv_name)
+        if data is None:
+            return jsonify({"error": f"No {label} data. Click 'Scan' first."}), 404
+        return jsonify(data)
 
-@app.route("/api/midcap150/scan", methods=["POST"])
-def midcap150_scan():
-    state = _get_index_state("midcap150")
-    if state["running"]:
-        return jsonify({"error": "Scan already running"}), 409
-    thread = threading.Thread(target=_run_index_scan, args=("midcap150",), daemon=True)
-    thread.start()
-    return jsonify({"message": "Midcap 150 scan started"})
+    @app.route(f"/api/{key}/scan", methods=["POST"], endpoint=f"{key}_scan")
+    def _scan():
+        if _get_index_state(key)["running"]:
+            return jsonify({"error": "Scan already running"}), 409
+        threading.Thread(target=_run_index_scan, args=(key,), daemon=True).start()
+        return jsonify({"message": f"{label} scan started"})
 
+    @app.route(f"/api/{key}/live", methods=["GET"], endpoint=f"{key}_live")
+    def _live():
+        result = _index_live_refresh(csv_name)
+        if result is None:
+            return jsonify({"error": "No data. Run scan first."}), 404
+        return jsonify(result)
 
-@app.route("/api/midcap150/live", methods=["GET"])
-def midcap150_live():
-    result = _index_live_refresh("midcap150_predictions.csv")
-    if result is None:
-        return jsonify({"error": "No data. Run scan first."}), 404
-    return jsonify(result)
-
-
-@app.route("/api/midcap150/status", methods=["GET"])
-def midcap150_status():
-    state = _get_index_state("midcap150")
-    return jsonify({
-        "running": state["running"],
-        "status": state["status"],
-        "log_lines": state["log_lines"][-30:],
-    })
+    @app.route(f"/api/{key}/status", methods=["GET"], endpoint=f"{key}_status")
+    def _status():
+        state = _get_index_state(key)
+        return jsonify({"running": state["running"], "status": state["status"], "log_lines": state["log_lines"][-30:]})
 
 
-# --- LargeMidcap 250 endpoints ---
-
-@app.route("/api/largemidcap250", methods=["GET"])
-def largemidcap250():
-    data = load_csv("largemidcap250_predictions.csv")
-    if data is None:
-        return jsonify({"error": "No LargeMidcap 250 data. Click 'Scan' first."}), 404
-    return jsonify(data)
-
-
-@app.route("/api/largemidcap250/scan", methods=["POST"])
-def largemidcap250_scan():
-    state = _get_index_state("largemidcap250")
-    if state["running"]:
-        return jsonify({"error": "Scan already running"}), 409
-    thread = threading.Thread(target=_run_index_scan, args=("largemidcap250",), daemon=True)
-    thread.start()
-    return jsonify({"message": "LargeMidcap 250 scan started"})
-
-
-@app.route("/api/largemidcap250/live", methods=["GET"])
-def largemidcap250_live():
-    result = _index_live_refresh("largemidcap250_predictions.csv")
-    if result is None:
-        return jsonify({"error": "No data. Run scan first."}), 404
-    return jsonify(result)
-
-
-@app.route("/api/largemidcap250/status", methods=["GET"])
-def largemidcap250_status():
-    state = _get_index_state("largemidcap250")
-    return jsonify({
-        "running": state["running"],
-        "status": state["status"],
-        "log_lines": state["log_lines"][-30:],
-    })
-
-
-# --- Smallcap 250 endpoints ---
-
-@app.route("/api/smallcap250", methods=["GET"])
-def smallcap250():
-    data = load_csv("smallcap250_predictions.csv")
-    if data is None:
-        return jsonify({"error": "No Smallcap 250 data. Click 'Scan' first."}), 404
-    return jsonify(data)
-
-
-@app.route("/api/smallcap250/scan", methods=["POST"])
-def smallcap250_scan():
-    state = _get_index_state("smallcap250")
-    if state["running"]:
-        return jsonify({"error": "Scan already running"}), 409
-    thread = threading.Thread(target=_run_index_scan, args=("smallcap250",), daemon=True)
-    thread.start()
-    return jsonify({"message": "Smallcap 250 scan started"})
-
-
-@app.route("/api/smallcap250/live", methods=["GET"])
-def smallcap250_live():
-    result = _index_live_refresh("smallcap250_predictions.csv")
-    if result is None:
-        return jsonify({"error": "No data. Run scan first."}), 404
-    return jsonify(result)
-
-
-@app.route("/api/smallcap250/status", methods=["GET"])
-def smallcap250_status():
-    state = _get_index_state("smallcap250")
-    return jsonify({
-        "running": state["running"],
-        "status": state["status"],
-        "log_lines": state["log_lines"][-30:],
-    })
+for _key, (_, _csv, _label) in INDEX_REGISTRY.items():
+    _register_index_routes(_key, _csv, _label)
 
 
 # ========================================================================
 # Daily Report endpoints
 # ========================================================================
 
-_daily_state = {"running": False, "status": "idle", "log_lines": []}
-
-
 @app.route("/api/daily", methods=["GET"])
 def daily_report_get():
     """Return the latest daily report."""
     from modules.daily_report import DailyReportGenerator
-    gen = DailyReportGenerator()
-    report = gen.get_latest_report()
+    report = DailyReportGenerator().get_latest_report()
     if report is None:
         return jsonify({"error": "No daily report yet. Click 'Generate' to create one."}), 404
     return jsonify(report)
@@ -2065,42 +1978,36 @@ def daily_report_get():
 @app.route("/api/daily/generate", methods=["POST"])
 def daily_report_generate():
     """Generate a fresh daily report."""
-    if _daily_state["running"]:
+    state = _get_index_state("daily")
+    if state["running"]:
         return jsonify({"error": "Report generation already running"}), 409
 
     def run_gen():
-        _daily_state["running"] = True
-        _daily_state["status"] = "generating"
-        _daily_state["log_lines"] = ["Starting daily report generation..."]
+        state["running"] = True
+        state["status"] = "generating"
+        state["log_lines"] = ["Starting daily report generation..."]
         try:
             from modules.daily_report import DailyReportGenerator
-            gen = DailyReportGenerator()
-
             def cb(msg):
-                _daily_state["log_lines"].append(msg)
-                if len(_daily_state["log_lines"]) > 100:
-                    _daily_state["log_lines"] = _daily_state["log_lines"][-100:]
-
-            gen.generate(callback=cb)
-            _daily_state["status"] = "completed"
+                state["log_lines"].append(msg)
+                if len(state["log_lines"]) > 100:
+                    del state["log_lines"][:-100]
+            DailyReportGenerator().generate(callback=cb)
+            state["status"] = "completed"
         except Exception as e:
-            _daily_state["status"] = f"error: {str(e)}"
-            _daily_state["log_lines"].append(f"ERROR: {str(e)}")
+            state["status"] = f"error: {str(e)}"
+            state["log_lines"].append(f"ERROR: {str(e)}")
         finally:
-            _daily_state["running"] = False
+            state["running"] = False
 
-    thread = threading.Thread(target=run_gen, daemon=True)
-    thread.start()
+    threading.Thread(target=run_gen, daemon=True).start()
     return jsonify({"message": "Daily report generation started"})
 
 
 @app.route("/api/daily/status", methods=["GET"])
 def daily_report_status():
-    return jsonify({
-        "running": _daily_state["running"],
-        "status": _daily_state["status"],
-        "log_lines": _daily_state["log_lines"][-30:],
-    })
+    state = _get_index_state("daily")
+    return jsonify({"running": state["running"], "status": state["status"], "log_lines": state["log_lines"][-30:]})
 
 
 @app.route("/api/predict/<symbol>", methods=["GET"])
@@ -2212,6 +2119,17 @@ def _save_user_portfolio(email: str, symbols: list):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w") as f:
         json.dump({"symbols": symbols, "email": email}, f, indent=2)
+
+
+def _delete_user_artifacts(email: str):
+    path = _get_user_portfolio_path(email)
+    csv_path = os.path.join(config.DATA_DIR, _get_user_pf_csv_name(email))
+    for target in (path, csv_path):
+        try:
+            if os.path.exists(target):
+                os.remove(target)
+        except Exception as e:
+            logging.warning("Failed to delete user artifact %s: %s", target, e)
 
 
 # --------------- Portfolio CSV import ---------------
@@ -3357,31 +3275,264 @@ def ai_mf_picks_refresh():
 
 
 # --------------- Gift Nifty / Nifty Futures (pre-market indicator) ---------------
+_GIFT_NIFTY_CACHE = {"data": None, "ts": 0.0}
+_GIFT_NIFTY_SESSION = {"session": None, "ts": 0.0}
+_GIFT_NIFTY_LOCK = threading.Lock()
+_GIFT_NIFTY_TTL = 45  # seconds
+_GIFT_NIFTY_MAX_STALE = 15 * 60  # never keep serving stale numbers indefinitely
+
+
+def _gift_nifty_response(payload, status=200):
+    resp = jsonify(payload)
+    resp.status_code = status
+    resp.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0"
+    resp.headers["Pragma"] = "no-cache"
+    resp.headers["Expires"] = "0"
+    return resp
+
+
+def _get_cached_gift_nifty(now_ts=None, mark_stale=False):
+    now_ts = now_ts or time.time()
+    with _GIFT_NIFTY_LOCK:
+        data = _GIFT_NIFTY_CACHE["data"]
+        ts = _GIFT_NIFTY_CACHE["ts"]
+        if not data or not ts:
+            return None
+        age = max(0.0, now_ts - ts)
+        if age > _GIFT_NIFTY_MAX_STALE:
+            return None
+        payload = dict(data)
+        payload["cache_age_sec"] = int(age)
+        if mark_stale:
+            payload["stale"] = True
+        return payload
+
+
+def _get_nse_session_gn():
+    """Return a cached NSE session, refreshing cookies every 5 minutes."""
+    import requests as _req
+    import time as _t
+    with _GIFT_NIFTY_LOCK:
+        now = _t.time()
+        if _GIFT_NIFTY_SESSION["session"] is None or now - _GIFT_NIFTY_SESSION["ts"] > 300:
+            sess = _req.Session()
+            sess.headers.update({
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                              "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "*/*",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Referer": "https://www.nseindia.com/",
+            })
+            try:
+                sess.get("https://www.nseindia.com", timeout=8)
+            except Exception:
+                pass
+            _GIFT_NIFTY_SESSION["session"] = sess
+            _GIFT_NIFTY_SESSION["ts"] = now
+        return _GIFT_NIFTY_SESSION["session"]
+
+
+def _gift_nifty_pick(dct, *keys):
+    for key in keys:
+        if key in dct and dct.get(key) not in (None, "", "-", "--"):
+            return dct.get(key)
+    return None
+
+
+def _gift_nifty_to_number(v):
+    if v is None:
+        return None
+    if isinstance(v, str):
+        v = v.replace(",", "").strip()
+        if not v:
+            return None
+    return _sanitize_value(_safe_float(v, default=None))
+
+
+def _gift_nifty_parse_nseix_payload(payload):
+    """Best-effort parser for NSE IX's Gift Nifty market-rate payload."""
+    candidates = []
+    if isinstance(payload, dict):
+        candidates.append(payload)
+        for key in ("data", "result", "response", "rates", "quote", "marketData"):
+            val = payload.get(key)
+            if isinstance(val, dict):
+                candidates.append(val)
+            elif isinstance(val, list):
+                candidates.extend([x for x in val if isinstance(x, dict)])
+    elif isinstance(payload, list):
+        candidates.extend([x for x in payload if isinstance(x, dict)])
+
+    for item in candidates:
+        ltp = _gift_nifty_pick(
+            item, "last", "lastPrice", "ltp", "price", "value", "indexValue",
+            "CURRVALUE", "currValue", "currentValue", "OI_CLOSE_INDEX_VAL",
+        )
+        change = _gift_nifty_pick(
+            item, "change", "netChange", "difference", "pointsChange",
+            "CHANGE", "changeVal",
+        )
+        change_pct = _gift_nifty_pick(
+            item, "pChange", "percentChange", "changePercent", "perChange",
+            "PERCHANGE", "percentchange",
+        )
+        prev_close = _gift_nifty_pick(
+            item, "previousClose", "prevClose", "close", "priorClose",
+            "PREVCLOSE", "OI_OPEN_INDEX_VAL",
+        )
+        open_price = _gift_nifty_pick(item, "open", "openPrice", "OPEN")
+        high = _gift_nifty_pick(item, "high", "dayHigh", "HIGH")
+        low = _gift_nifty_pick(item, "low", "dayLow", "LOW")
+        expiry = _gift_nifty_pick(item, "expiry", "expiryDate", "contractExpiry", "EXPIRYDATE")
+        volume = _gift_nifty_pick(item, "volume", "totalTradedVolume", "tradedVolume", "VOLUME")
+        oi = _gift_nifty_pick(item, "openInterest", "oi", "OPENINTEREST", "OI")
+        oi_chg_pct = _gift_nifty_pick(item, "changeinOpenInterest", "oiChange", "oiChangePercent")
+        full_ts = _gift_nifty_pick(item, "FULLTIMESTAMP", "fullTimestamp", "TIMESTAMP", "timestamp")
+
+        if ltp is None:
+            continue
+
+        return {
+            "ltp": _gift_nifty_to_number(ltp),
+            "change": _gift_nifty_to_number(change),
+            "change_pct": _gift_nifty_to_number(change_pct),
+            "prev_close": _gift_nifty_to_number(prev_close),
+            "open": _gift_nifty_to_number(open_price),
+            "high": _gift_nifty_to_number(high),
+            "low": _gift_nifty_to_number(low),
+            "volume": _gift_nifty_to_number(volume),
+            "oi": _gift_nifty_to_number(oi),
+            "oi_change_pct": _gift_nifty_to_number(oi_chg_pct),
+            "expiry": expiry or "",
+            "fetched_exchange_time": full_ts or "",
+        }
+
+    return None
+
+
+def _fetch_derived_gift_nifty_5paisa():
+    """Fetch the moving derived Gift Nifty indicator shown on 5paisa."""
+    import requests as _req
+
+    html = _req.get(
+        "https://www.5paisa.com/share-market-today/gift-nifty",
+        timeout=10,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
+    ).text
+
+    price_m = re.search(
+        r'<div class="market--prc">.*?<span class="prc-bigtext">([^<]+)</span>\s*'
+        r'<span class="prc-smalltext">([^<]+)</span>.*?'
+        r'<label class="prc--percentage">\s*<span>([+-]?)</span>\s*<span>([^<]+)</span>\s*'
+        r'\(<span>([^<]+)</span>\).*?'
+        r'<div class="market--prc--date">\s*As on\s*([^<]+)</div>',
+        html,
+        re.S,
+    )
+    if not price_m:
+        return None
+
+    whole, frac, sign, chg_abs, chg_pct, as_of = price_m.groups()
+    ltp = _gift_nifty_to_number(f"{whole}{frac}")
+    change = _gift_nifty_to_number(f"{sign or ''}{chg_abs}")
+    change_pct = _gift_nifty_to_number((sign or "") + str(chg_pct).replace("%", ""))
+
+    return {
+        "ltp": ltp,
+        "change": change,
+        "change_pct": change_pct,
+        "as_of": " ".join(as_of.split()),
+        "source": "5paisa Gift Nifty (Derived CFD)",
+        "kind": "derived_cfd",
+    }
+
+
 @app.route("/api/gift-nifty", methods=["GET"])
 def gift_nifty():
     """
     Fetch Gift Nifty (NSE International Exchange, GIFT City) futures data.
     Sourced from NSE's derivatives API — nearest-expiry Nifty 50 futures contract.
-    Gift Nifty trades 6:30 AM – 11:30 PM IST and is the primary pre-market
-    indicator for where the Indian equity market will open.
+    Results cached for 45 seconds to avoid hammering NSE.
     """
-    import requests as req_lib
+    import time as _t
     from datetime import datetime as dt
 
-    def _fetch_nse_gift_nifty():
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Referer": "https://www.nseindia.com/",
-        }
-        session = req_lib.Session()
-        session.headers.update(headers)
-        # Warm up cookies
-        session.get("https://www.nseindia.com", timeout=8)
+    now_ts = _t.time()
+    force_refresh = request.args.get("force", "").lower() in {"1", "true", "yes"}
 
-        # Fetch all Nifty 50 futures contracts
+    cached = _get_cached_gift_nifty(now_ts=now_ts)
+    if cached and not force_refresh and now_ts - _GIFT_NIFTY_CACHE["ts"] < _GIFT_NIFTY_TTL:
+        return _gift_nifty_response(cached)
+
+    fetched_dt = dt.now()
+
+    def _finalize_quote(data, source):
+        ltp = data.get("ltp")
+        spot = data.get("nifty_spot")
+        premium = data.get("premium")
+        if premium is None and ltp is not None and spot is not None:
+            try:
+                premium = round(float(ltp) - float(spot), 2)
+            except Exception:
+                premium = None
+        return {
+            "ltp": data.get("ltp"),
+            "change": data.get("change"),
+            "change_pct": data.get("change_pct"),
+            "prev_close": data.get("prev_close"),
+            "open": data.get("open"),
+            "high": data.get("high"),
+            "low": data.get("low"),
+            "volume": data.get("volume"),
+            "oi": data.get("oi"),
+            "oi_change_pct": data.get("oi_change_pct"),
+            "expiry": data.get("expiry", ""),
+            "nifty_spot": data.get("nifty_spot"),
+            "premium": premium,
+            "stale": False,
+            "cache_age_sec": 0,
+            "fetched_at": fetched_dt.strftime("%H:%M:%S IST"),
+            "fetched_at_iso": fetched_dt.isoformat(timespec="seconds"),
+            "source": source,
+        }
+
+    def _fetch_nse_gift_nifty():
+        if force_refresh:
+            with _GIFT_NIFTY_LOCK:
+                _GIFT_NIFTY_SESSION["session"] = None
+                _GIFT_NIFTY_SESSION["ts"] = 0.0
+        session = _get_nse_session_gn()
+        derived_live = None
+        try:
+            derived_live = _fetch_derived_gift_nifty_5paisa()
+        except Exception:
+            derived_live = None
+
+        # Try the dedicated NSE IX Gift Nifty feed first.
+        try:
+            ix_r = session.get(
+                "https://www.nseix.com/api/nifty-market-rate",
+                timeout=8,
+                headers={
+                    "Accept": "application/json, text/plain, */*",
+                    "Referer": "https://www.nseix.com/",
+                    "Origin": "https://www.nseix.com",
+                },
+            )
+            ix_r.raise_for_status()
+            ix_quote = _gift_nifty_parse_nseix_payload(ix_r.json())
+            if ix_quote:
+                quote = _finalize_quote(ix_quote, "NSE IX Gift Nifty")
+                quote["derived_live"] = derived_live
+                return quote
+        except Exception:
+            pass
+
+        # Fallback: NSE India nearest-expiry Nifty futures.
         r = session.get(
             "https://www.nseindia.com/api/liveEquity-derivatives?index=nse50_fut",
             timeout=8,
@@ -3434,14 +3585,7 @@ def gift_nifty():
         except Exception:
             pass
 
-        premium = None
-        if ltp and spot:
-            try:
-                premium = round(float(ltp) - float(spot), 2)
-            except Exception:
-                pass
-
-        return {
+        quote = _finalize_quote({
             "ltp":          _sanitize_value(ltp),
             "change":       _sanitize_value(change),
             "change_pct":   _sanitize_value(change_pct),
@@ -3454,18 +3598,26 @@ def gift_nifty():
             "oi_change_pct":_sanitize_value(oi_chg_pct),
             "expiry":       expiry,
             "nifty_spot":   _sanitize_value(spot),
-            "premium":      premium,
-            "fetched_at":   dt.now().strftime("%H:%M:%S IST"),
-            "source":       "NSE Nifty 50 Futures (nearest expiry)",
-        }
+        }, "NSE Nifty 50 Futures (nearest expiry)")
+        quote["derived_live"] = derived_live
+        return quote
 
     try:
         result = _fetch_nse_gift_nifty()
         if result is None:
-            return jsonify({"error": "No Gift Nifty data available from NSE"}), 503
-        return jsonify(result)
+            stale = _get_cached_gift_nifty(now_ts=now_ts, mark_stale=True)
+            if stale:
+                return _gift_nifty_response(stale)
+            return _gift_nifty_response({"error": "No Gift Nifty data available from NSE"}, status=503)
+        with _GIFT_NIFTY_LOCK:
+            _GIFT_NIFTY_CACHE["data"] = result
+            _GIFT_NIFTY_CACHE["ts"] = now_ts
+        return _gift_nifty_response(result)
     except Exception as e:
-        return jsonify({"error": str(e)}), 503
+        stale = _get_cached_gift_nifty(now_ts=now_ts, mark_stale=True)
+        if stale:
+            return _gift_nifty_response(stale)
+        return _gift_nifty_response({"error": str(e)}, status=503)
 
 
 # --------------- Live Engine state ---------------

@@ -17,7 +17,11 @@ async function fetchJSON(endpoint, options = {}) {
     ...(options.headers || {}),
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
-  const res = await fetch(`${BASE}${endpoint}`, { ...options, headers });
+  const res = await fetch(`${BASE}${endpoint}`, {
+    cache: 'no-store',
+    ...options,
+    headers,
+  });
   if (res.status === 401) {
     // Token rejected — clear it so the login screen appears
     setAuthToken(null);
@@ -83,7 +87,6 @@ export const api = {
     const qs = new URLSearchParams(params).toString();
     return fetchJSON(`/dip-opportunities${qs ? '?' + qs : ''}`);
   },
-  getMarketCondition: () => fetchJSON('/market-condition'),
   getComposite: () => fetchJSON('/composite'),
   getSectors: () => fetchJSON('/sectors'),
   getStock: (symbol) => fetchJSON(`/stock/${encodeURIComponent(symbol)}`),
@@ -289,7 +292,8 @@ export const api = {
   getMfTop10: () => fetchJSON('/mf-top10'),
 
   // Gift Nifty / Nifty Futures pre-market indicator
-  getGiftNifty: () => fetchJSON('/gift-nifty'),
+  getGiftNifty: ({ force = false } = {}) =>
+    fetchJSON(`/gift-nifty${force ? `?force=1&t=${Date.now()}` : ''}`),
 
   // Daily report
   getDailyReport: () => fetchJSON('/daily'),
@@ -328,4 +332,8 @@ export const api = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ accounts }),
     }),
+
+  // Admin user management
+  getAdminUsers: () => fetchJSON('/admin/users'),
+  deleteAdminUser: (email) => fetchJSON(`/admin/users/${encodeURIComponent(email)}`, { method: 'DELETE' }),
 };

@@ -515,6 +515,8 @@ function MarketSignalsWidget({ volBreakouts, signals }) {
    5. GIFT NIFTY WIDGET
 ════════════════════════════════════════════════════════════════════ */
 function GiftNiftyWidget({ data: d, loading, onRefresh }) {
+  const live = d?.derived_live || null;
+  const primary = live || d || null;
   const now = new Date();
   const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
   const istMs = utcMs + 330 * 60000;
@@ -523,7 +525,7 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
   const isPreMarket = istHour < 9 || (istHour === 9 && istMin < 15);
   const label = isPreMarket ? 'PRE-MARKET' : 'POST-MARKET';
 
-  const chg = d?.change_pct != null ? Number(d.change_pct) : null;
+  const chg = primary?.change_pct != null ? Number(primary.change_pct) : null;
   const chgC = chg == null ? '#94a3b8' : chg > 0 ? '#22c55e' : chg < 0 ? '#ef4444' : '#94a3b8';
   const gapSignal = chg == null ? null
     : chg >= 1.5   ? { text: 'GAP UP ↑↑',  color: '#22c55e', bg: 'rgba(34,197,94,0.10)' }
@@ -531,6 +533,22 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
     : chg >= -0.5  ? { text: 'FLAT →',     color: '#eab308', bg: 'rgba(234,179,8,0.08)' }
     : chg >= -1.5  ? { text: 'GAP DOWN ↓', color: '#f97316', bg: 'rgba(249,115,22,0.08)' }
     :                { text: 'GAP DOWN ↓↓',color: '#ef4444', bg: 'rgba(239,68,68,0.10)' };
+  const sourceLabel = live
+    ? 'LIVE: DERIVED CFD'
+    : d?.source?.includes('NSE IX')
+      ? 'SOURCE: NSE IX'
+      : d?.source?.includes('NSE Nifty 50 Futures')
+        ? 'SOURCE: NSE INDIA FALLBACK'
+        : d?.source
+          ? `SOURCE: ${d.source.toUpperCase()}`
+          : null;
+  const sourceStyles = live
+    ? { color: '#38bdf8', bg: 'rgba(56,189,248,0.12)', border: '1px solid rgba(56,189,248,0.28)' }
+    : d?.source?.includes('NSE Nifty 50 Futures')
+      ? { color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', border: '1px solid rgba(245,158,11,0.28)' }
+      : d?.source?.includes('NSE IX')
+        ? { color: '#22c55e', bg: 'rgba(34,197,94,0.12)', border: '1px solid rgba(34,197,94,0.28)' }
+      : { color: '#94a3b8', bg: 'rgba(148,163,184,0.12)', border: '1px solid rgba(148,163,184,0.24)' };
 
   return (
     <Widget label={label} title="Gift Nifty Futures" borderColor={chgC} colSpan={1}
@@ -542,6 +560,11 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
             {gapSignal.text}
           </span>
         )}
+        {sourceLabel && (
+          <span style={{ fontSize: 10, fontWeight: 900, letterSpacing: 0.4, padding: '3px 8px', borderRadius: 999, background: sourceStyles.bg, color: sourceStyles.color, border: sourceStyles.border }}>
+            {sourceLabel}
+          </span>
+        )}
         <button onClick={onRefresh} disabled={loading} style={{ marginLeft: 'auto', padding: '3px 9px', borderRadius: 5, border: 'none', fontSize: 10, background: '#1e293b', color: '#94a3b8', cursor: loading ? 'wait' : 'pointer' }}>
           {loading ? '↻' : '↻ Refresh'}
         </button>
@@ -549,13 +572,22 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
 
       {loading && !d && <div style={{ fontSize: 11, color: '#475569' }}>Fetching Gift Nifty...</div>}
 
-      {d && (
+      {primary && (
         <>
+          {live && (
+            <div style={{ marginBottom: 8, padding: '7px 9px', borderRadius: 8, background: 'rgba(56,189,248,0.08)', border: '1px solid rgba(56,189,248,0.18)' }}>
+              <div style={{ fontSize: 9, color: '#7dd3fc', fontWeight: 800, letterSpacing: 0.4 }}>DERIVED LIVE INDICATOR</div>
+              <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>
+                {live.source}{live.as_of ? ` · ${live.as_of}` : ''}
+              </div>
+            </div>
+          )}
+
           <div style={{ display: 'flex', gap: 16, alignItems: 'baseline', marginBottom: 8 }}>
             <div>
-              <div style={{ fontSize: 9, color: '#64748b', marginBottom: 1 }}>LTP</div>
+              <div style={{ fontSize: 9, color: '#64748b', marginBottom: 1 }}>{live ? 'LIVE LTP' : 'LTP'}</div>
               <div style={{ fontSize: 26, fontWeight: 800, color: chgC, lineHeight: 1 }}>
-                {d.ltp != null ? Number(d.ltp).toLocaleString('en-IN') : '—'}
+                {primary.ltp != null ? Number(primary.ltp).toLocaleString('en-IN') : '—'}
               </div>
               {chg != null && (
                 <div style={{ fontSize: 12, fontWeight: 700, color: chgC }}>
@@ -563,7 +595,14 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
                 </div>
               )}
             </div>
-            {d.nifty_spot != null && (
+            {live && d?.ltp != null && (
+              <div>
+                <div style={{ fontSize: 9, color: '#64748b', marginBottom: 1 }}>OFFICIAL NSE IX</div>
+                <div style={{ fontSize: 15, fontWeight: 600 }}>{Number(d.ltp).toLocaleString('en-IN')}</div>
+                <div style={{ fontSize: 10, color: '#94a3b8' }}>{d?.fetched_exchange_time || d?.fetched_at || 'snapshot'}</div>
+              </div>
+            )}
+            {!live && d?.nifty_spot != null && (
               <div>
                 <div style={{ fontSize: 9, color: '#64748b', marginBottom: 1 }}>NIFTY SPOT</div>
                 <div style={{ fontSize: 15, fontWeight: 600 }}>{Number(d.nifty_spot).toLocaleString('en-IN')}</div>
@@ -577,9 +616,9 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
           </div>
 
           <div style={{ display: 'flex', gap: 12, marginBottom: 6 }}>
-            {d.high != null && <div><div style={{ fontSize: 9, color: '#64748b' }}>HIGH</div><div style={{ fontSize: 11, fontWeight: 600, color: '#22c55e' }}>{Number(d.high).toLocaleString('en-IN')}</div></div>}
-            {d.low != null && <div><div style={{ fontSize: 9, color: '#64748b' }}>LOW</div><div style={{ fontSize: 11, fontWeight: 600, color: '#ef4444' }}>{Number(d.low).toLocaleString('en-IN')}</div></div>}
-            {d.expiry && <div><div style={{ fontSize: 9, color: '#64748b' }}>EXPIRY</div><div style={{ fontSize: 11, fontWeight: 600 }}>{d.expiry}</div></div>}
+            {d?.high != null && <div><div style={{ fontSize: 9, color: '#64748b' }}>HIGH</div><div style={{ fontSize: 11, fontWeight: 600, color: '#22c55e' }}>{Number(d.high).toLocaleString('en-IN')}</div></div>}
+            {d?.low != null && <div><div style={{ fontSize: 9, color: '#64748b' }}>LOW</div><div style={{ fontSize: 11, fontWeight: 600, color: '#ef4444' }}>{Number(d.low).toLocaleString('en-IN')}</div></div>}
+            {d?.expiry && <div><div style={{ fontSize: 9, color: '#64748b' }}>EXPIRY</div><div style={{ fontSize: 11, fontWeight: 600 }}>{d.expiry}</div></div>}
           </div>
 
           {gapSignal && isPreMarket && (
@@ -592,8 +631,23 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
             </div>
           )}
 
+          {primary?.as_of && (
+            <div style={{ fontSize: 9, color: '#475569', marginTop: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span>Derived live {primary.as_of}</span>
+            </div>
+          )}
           {d?.fetched_at && (
-            <div style={{ fontSize: 9, color: '#475569', marginTop: 6 }}>Updated {d.fetched_at} · auto 30s</div>
+            <div style={{ fontSize: 9, color: '#475569', marginTop: 6, display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span>{live ? 'Official snapshot' : 'Updated'} {d.fetched_at} · auto 30s</span>
+              {d.stale && (
+                <span title="Live data unavailable — showing last known values" style={{ padding: '1px 5px', borderRadius: 3, background: 'rgba(234,179,8,0.15)', color: '#eab308', fontWeight: 700, fontSize: 9 }}>⚠ stale</span>
+              )}
+            </div>
+          )}
+          {d?.source && (
+            <div style={{ fontSize: 9, color: '#64748b', marginTop: 3 }}>
+              Source: {d.source}{d?.fetched_exchange_time ? ` · ${d.fetched_exchange_time}` : ''}
+            </div>
           )}
         </>
       )}
@@ -604,21 +658,32 @@ function GiftNiftyWidget({ data: d, loading, onRefresh }) {
 /* ═══════════════════════════════════════════════════════════════════
    6. GLOBAL CUES WIDGET
 ════════════════════════════════════════════════════════════════════ */
-function GlobalCuesWidget({ global: globalData, macro }) {
+function GlobalCuesWidget({ global: globalData, macro, snapshotAt }) {
   const macroRules = {
     'India VIX':    { bull: v => v != null && v < 16 },
     'USD/INR':      { bull: v => v != null && v < 85 },
     'Crude Oil':    { bull: v => v != null && v < 80 },
+    'Crude WTI':    { bull: v => v != null && v < 80, label: 'Crude Oil' },
+    'Crude Brent':  { bull: v => v != null && v < 85, label: 'Crude Brent' },
     'US 10Y Yield': { bull: v => v != null && v < 4.5 },
     'US Dollar':    { bull: v => v != null && v < 105 },
+    'DXY':          { bull: v => v != null && v < 105, label: 'US Dollar' },
+    'Gold':         { bull: undefined },
   };
-  const macroItems = Object.entries(macro || {}).map(([name, d]) => ({
-    name, close: d.close, change_pct: d.change_pct,
-    bullish: macroRules[name]?.bull(d.close),
-  }));
+  const macroItems = Object.entries(macro || {}).map(([name, d]) => {
+    const rule = macroRules[name] || {};
+    return {
+      name: rule.label || name,
+      close: d.close,
+      change_pct: d.change_pct,
+      bullish: typeof rule.bull === 'function' ? rule.bull(d.close) : undefined,
+    };
+  });
   const bullCount = macroItems.filter(m => m.bullish === true).length;
   const totalMacro = macroItems.filter(m => m.bullish !== undefined).length;
   const macroScore = totalMacro > 0 ? Math.round((bullCount / totalMacro) * 8) : null;
+  const hasGlobal = Array.isArray(globalData) && globalData.length > 0;
+  const hasMacro = macroItems.length > 0;
 
   return (
     <Widget label="Global Cues & Macro" title="" borderColor="#8b5cf6" colSpan={1}>
@@ -633,6 +698,9 @@ function GlobalCuesWidget({ global: globalData, macro }) {
             </span>
           </div>
         ))}
+        {!hasGlobal && (
+          <div style={{ fontSize: 11, color: '#475569' }}>No global index snapshot available.</div>
+        )}
       </div>
 
       {/* Macro */}
@@ -669,11 +737,19 @@ function GlobalCuesWidget({ global: globalData, macro }) {
             </div>
           </div>
         ))}
+        {!hasMacro && (
+          <div style={{ fontSize: 11, color: '#475569' }}>No macro snapshot available.</div>
+        )}
         {macroScore != null && (
           <div style={{ fontSize: 10, color: '#64748b', fontStyle: 'italic', marginTop: 6 }}>
             {macroScore >= 5 ? 'Macro bullish — consider increasing equity'
               : macroScore >= 3 ? 'Mixed macro — stay selective'
               : 'Macro bearish — raise cash'}
+          </div>
+        )}
+        {snapshotAt && (
+          <div style={{ fontSize: 9, color: '#475569', marginTop: 6 }}>
+            Snapshot: {snapshotAt}
           </div>
         )}
       </div>
@@ -1146,12 +1222,15 @@ export default function DailyUpdatesView() {
   };
 
   /* Gift Nifty fetch */
-  const fetchGiftNifty = () => {
+  const fetchGiftNifty = ({ force = false } = {}) => {
     if (!shouldShowFutures()) return;
     setGiftLoading(true);
-    api.getGiftNifty()
+    api.getGiftNifty({ force })
       .then(d => setGiftNifty(d))
-      .catch(() => {})
+      .catch(() => {
+        // Keep showing last known data on error (backend returns stale cache too)
+        setGiftNifty(prev => prev ? { ...prev, stale: true } : null);
+      })
       .finally(() => setGiftLoading(false));
   };
 
@@ -1297,12 +1376,12 @@ export default function DailyUpdatesView() {
 
           {/* 4. Gift Nifty — span 1, conditional */}
           {showFutures && (
-            <GiftNiftyWidget data={giftNifty} loading={giftLoading} onRefresh={fetchGiftNifty} />
+            <GiftNiftyWidget data={giftNifty} loading={giftLoading} onRefresh={() => fetchGiftNifty({ force: true })} />
           )}
 
           {/* 5. Global Cues — span 1 */}
           {dash && (
-            <GlobalCuesWidget global={dash.global_indices} macro={dash.macro} />
+            <GlobalCuesWidget global={dash.global_indices} macro={dash.macro} snapshotAt={report?.generated_at} />
           )}
 
           {/* 6. Risk Analyzer — span 1 */}

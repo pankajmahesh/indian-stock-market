@@ -44,7 +44,12 @@ export default function LoginPage({ onLogin }) {
         : await api.register(email.trim(), password, name.trim());
       setAuthToken(res.token);
       // Store user info for header display
-      localStorage.setItem('screener_user', JSON.stringify({ email: res.email, name: res.name, is_admin: res.is_admin }));
+      localStorage.setItem('screener_user', JSON.stringify({
+        email: res.email,
+        name: res.name,
+        is_admin: res.is_admin,
+        created_at: res.created_at || '',
+      }));
       onLogin(res.token);
     } catch (err) {
       setError(err.message || (tab === 'login' ? 'Login failed' : 'Registration failed'));
