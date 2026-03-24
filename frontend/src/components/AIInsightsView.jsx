@@ -134,6 +134,22 @@ const INDEX_TABS = [
   { id: 'smallcap250',     label: 'Smallcap 250' },
 ];
 
+function buildAIBrief(result) {
+  const conviction = result?.llmConviction || null;
+  const tips = Array.isArray(result?.proTips) ? result.proTips : [];
+  const bulls = tips.filter(t => t?.type === 'bull').map(t => t.text).filter(Boolean);
+  const bears = tips.filter(t => t?.type === 'bear').map(t => t.text).filter(Boolean);
+
+  return {
+    whyItRanked: conviction?.reason || bulls[0] || 'Composite ranking favors this stock on quality and setup.',
+    bullCase: bulls[0] || 'Fundamental and technical pillars are supportive relative to peers.',
+    bearCase: bears[0] || conviction?.risk || 'Watch for score deterioration or failed price follow-through.',
+    keyRisk: conviction?.risk || bears[1] || 'Execution and market conditions can weaken the setup.',
+    trigger: conviction?.catalyst || bulls[1] || 'Track the next technical confirmation or business catalyst.',
+    conviction: conviction?.conviction ?? null,
+  };
+}
+
 export default function AIInsightsView() {
   const [symbol, setSymbol]   = useState('');
   const [result, setResult]   = useState(null);
@@ -586,6 +602,7 @@ function OverviewTab({ result, mc }) {
   const vc = VERDICT_COLOR[verdict] || '#64748b';
   const fairValue = result.fairValue;
   const mos = fairValue?.upside;
+  const aiBrief = buildAIBrief(result);
 
   const skills = [
     {
@@ -695,6 +712,39 @@ function OverviewTab({ result, mc }) {
             </div>
           </div>
         )}
+      </div>
+
+      <div className="card" style={{ marginTop: 16, borderLeft: '4px solid #3b82f6' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: 12, flexWrap: 'wrap' }}>
+          <h3 style={{ margin: 0, fontSize: 14 }}>AI Stock Brief</h3>
+          {aiBrief.conviction != null && (
+            <span style={{
+              padding: '4px 10px',
+              borderRadius: 999,
+              fontSize: 11,
+              fontWeight: 700,
+              background: 'rgba(59,130,246,0.12)',
+              color: '#60a5fa',
+              border: '1px solid rgba(59,130,246,0.28)',
+            }}>
+              Conviction {aiBrief.conviction}/10
+            </span>
+          )}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
+          {[
+            ['Why It Ranked', aiBrief.whyItRanked, '#60a5fa'],
+            ['Bull Case', aiBrief.bullCase, '#22c55e'],
+            ['Bear Case', aiBrief.bearCase, '#f97316'],
+            ['Key Risk', aiBrief.keyRisk, '#ef4444'],
+            ['Near-Term Trigger', aiBrief.trigger, '#a78bfa'],
+          ].map(([label, text, color]) => (
+            <div key={label} style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-secondary)', borderLeft: `3px solid ${color}` }}>
+              <div style={{ fontSize: 10, color, fontWeight: 700, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+              <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{text}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Bandhan AMC Strategy Card */}
