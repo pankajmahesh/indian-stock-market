@@ -4,6 +4,23 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
 } from 'recharts';
 
+function buildAIBrief(ai) {
+  const conviction = ai?.llmConviction || null;
+  const tips = Array.isArray(ai?.proTips) ? ai.proTips : [];
+  const bulls = tips.filter(t => t?.type === 'bull').map(t => t.text).filter(Boolean);
+  const bears = tips.filter(t => t?.type === 'bear').map(t => t.text).filter(Boolean);
+
+  return {
+    whyItRanked: conviction?.reason || bulls[0] || 'Composite ranking favors this stock on quality and setup.',
+    bullCase: bulls[0] || 'Fundamental and technical pillars are supportive relative to peers.',
+    bearCase: bears[0] || conviction?.risk || 'Watch for score deterioration or failed price follow-through.',
+    keyRisk: conviction?.risk || bears[1] || 'Execution and market conditions can weaken the setup.',
+    trigger: conviction?.catalyst || bulls[1] || 'Track the next technical confirmation or business catalyst.',
+    conviction: conviction?.conviction ?? null,
+    verdict: ai?.verdict || null,
+  };
+}
+
 function ScoreBadge({ value, label }) {
   if (value == null) return null;
   const v = Number(value);
@@ -22,12 +39,21 @@ function SignalBadge({ signal }) {
 
 export default function StockModal({ symbol, onClose }) {
   const [data, setData] = useState(null);
+  const [aiData, setAiData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getStock(symbol)
-      .then(d => setData(d))
-      .catch(() => {})
+    setLoading(true);
+    setData(null);
+    setAiData(null);
+    Promise.allSettled([
+      api.getStock(symbol),
+      api.getAIInsights(symbol.replace('.NS', '')),
+    ])
+      .then(([stockRes, aiRes]) => {
+        if (stockRes.status === 'fulfilled') setData(stockRes.value);
+        if (aiRes.status === 'fulfilled') setAiData(aiRes.value);
+      })
       .finally(() => setLoading(false));
   }, [symbol]);
 
@@ -43,6 +69,7 @@ export default function StockModal({ symbol, onClose }) {
   const composite = data?.composite || {};
   const fundamental = data?.fundamental || {};
   const deepdive = data?.deep_dive || {};
+  const aiBrief = aiData ? buildAIBrief(aiData) : null;
 
   // Fundamental score breakdown chart
   const scoreChart = [
@@ -171,6 +198,38 @@ export default function StockModal({ symbol, onClose }) {
             )}
 
             {/* Thesis & Risk */}
+            {aiBrief && (
+              <div style={{ marginBottom: 20 }}>
+                <h2 style={{ fontSize: 14, marginBottom: 10 }}>AI Stock Brief</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10 }}>
+                  {[
+                    ['Why It Ranked', aiBrief.whyItRanked, '#60a5fa'],
+                    ['Bull Case', aiBrief.bullCase, '#22c55e'],
+                    ['Bear Case', aiBrief.bearCase, '#f97316'],
+                    ['Key Risk', aiBrief.keyRisk, '#ef4444'],
+                    ['Near-Term Trigger', aiBrief.trigger, '#a78bfa'],
+                  ].map(([label, text, color]) => (
+                    <div key={label} style={{ padding: '10px 14px', borderRadius: 10, background: 'var(--bg-secondary)', borderLeft: `3px solid ${color}` }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'center', marginBottom: 4 }}>
+                        <div style={{ fontSize: 10, color, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.3 }}>{label}</div>
+                        {label === 'Why It Ranked' && aiBrief.conviction != null && (
+                          <span style={{ fontSize: 10, fontWeight: 700, color: '#60a5fa' }}>
+                            {aiBrief.conviction}/10
+                          </span>
+                        )}
+                      </div>
+                      <div style={{ fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{text}</div>
+                    </div>
+                  ))}
+                </div>
+                {aiBrief.verdict && (
+                  <div style={{ marginTop: 10, fontSize: 11, color: 'var(--text-muted)' }}>
+                    AI verdict: <strong style={{ color: 'var(--text-primary)' }}>{aiBrief.verdict}</strong>
+                  </div>
+                )}
+              </div>
+            )}
+
             {final.bull_thesis && (
               <>
                 <h2 style={{ fontSize: 14, marginBottom: 8 }}>Bull Thesis</h2>
